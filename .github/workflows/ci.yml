@@ -1,0 +1,123 @@
+# .github/workflows/ci.yml — Continuous Integration for the DLNM compendium
+# =============================================================================
+
+name: CI — Reproducibility & Quality Gates
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 6 1 * *"  # Monthly reproducibility check
+
+jobs:
+  # ── Job 1: Lint and Style Check ──
+  lint:
+    runs-on: ubuntu-latest
+    container: rocker/geospatial:4.6.0
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install lintr
+        run: Rscript -e 'install.packages("lintr")'
+      - name: Lint R code
+        run: Rscript -e 'lintr::lint_dir("R/")'
+      - name: Check code style
+        run: Rscript -e 'stopifnot(styler::style_dir("R/", dry = "fail"))'
+
+  # ── Job 2: Unit Tests ──
+  test:
+    runs-on: ubuntu-latest
+    container: rocker/geospatial:4.6.0
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install test dependencies
+        run: |
+          install2.r testthat
+      - name: Run unit tests
+        run: Rscript -e 'testthat::test_dir("tests/testthat")'
+
+  # ── Job 3: Repository Size Check ──
+  size-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check no file exceeds 50 MB
+        run: |
+          LARGE=$(find . -type f -size +50M)
+          if [ -n "$LARGE" ]; then
+            echo "ERROR: Files larger than 50 MB found:"
+            echo "$LARGE"
+            exit 1
+          fi
+          echo "Repository size check passed"
+
+  # ── Job 4: Docker Build Test ──
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t dlnm-cerebrovascular-rj -f docker/Dockerfile .
+      - name: Test Docker image loads config
+        run: |
+          docker run --rm dlnm-cerebrovascular-rj \
+            Rscript -e "source('config/config.R'); stopifnot(exists('YEARS')); cat('Config OK:', PERIOD_LABEL)"
+
+  # ── Job 5: FAIR Compliance Check ──
+  fair-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required FAIR metadata files exist
+        run: |
+          REQUIRED=(
+            "README.md"
+            "CITATION.cff"
+            "LICENSE"
+            "docs/formulas/model_formulas.md"
+            "docs/methodology/analysis_overview.md"
+            "REPRODUCIBILITY_CHECKLIST.md"
+            ".gitignore"
+            "docker/Dockerfile"
+            "config/config.R"
+          )
+          MISSING=()
+          for f in "${REQUIRED[@]}"; do
+            if [ ! -f "$f" ]; then
+              MISSING+=("$f")
+            fi
+          done
+          if [ ${#MISSING[@]} -gt 0 ]; then
+            echo "ERROR: Missing FAIR metadata files:"
+            printf '%s\n' "${MISSING[@]}"
+            exit 1
+          fi
+          echo "FAIR metadata check passed: all ${#REQUIRED[@]} files present"
+
+  # ── Job 6: Reproducibility Smoke Test ──
+  reproducibility-smoke:
+    runs-on: ubuntu-latest
+    container: rocker/geospatial:4.6.0
+    needs: [lint, test, size-check]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install core dependencies
+        run: |
+          install2.r renv testthat
+      - name: Test config loads without error
+        run: Rscript -e "source('config/config.R'); stopifnot(exists('SEED')); stopifnot(SEED == 20260619)"
+      - name: Test all modules source without error
+        run: |
+          Rscript -e "
+          source('config/config.R')
+          source('R/utils.R')
+          source('R/download.R')
+          source('R/exposure_processing.R')
+          source('R/preprocessing.R')
+          source('R/dlnm_models.R')
+          source('R/bayesian_models.R')
+          source('R/visualization.R')
+          source('R/reporting.R')
+          cat('All modules loaded successfully\n')
+          "

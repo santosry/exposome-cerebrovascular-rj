@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite it using the metadata below."
+title: "Climate exposure and cerebrovascular outcomes in Rio de Janeiro: a reproducible DLNM-Bayesian framework using INMET, DATASUS and SIDRA"
+type: software
+authors:
+  - family-names: "Santos"
+    given-names: "Ryan de Paulo"
+    email: "ryan.paulo@gsuite.iff.edu.br"
+  - family-names: "Nunes"
+    given-names: "Camila Henriques"
+    email: "camila.n@gsuite.iff.edu.br"
+  - family-names: "Ribeiro"
+    given-names: "Karla Rangel"
+    email: "karla.ribeiro@gsuite.iff.edu.br"
+  - family-names: "Medina-Acosta"
+    given-names: "Enrique"
+    email: "quique@uenf.br"
+keywords:
+  - "DLNM"
+  - "environmental epidemiology"
+  - "Bayesian hierarchical modeling"
+  - "cerebrovascular diseases"
+  - "Rio de Janeiro"
+license: "MIT"
+date-released: "2026-06-16"
+preferred-citation:
+  type: article
+  title: "Climate exposure and cerebrovascular outcomes in Rio de Janeiro: a reproducible DLNM-Bayesian framework using INMET, DATASUS and SIDRA"
+  authors:
+    - family-names: "Santos"
+      given-names: "Ryan de Paulo"
+    - family-names: "Nunes"
+      given-names: "Camila Henriques"
+    - family-names: "Ribeiro"
+      given-names: "Karla Rangel"
+    - family-names: "Medina-Acosta"
+      given-names: "Enrique"
+  year: 2026

@@ -1,0 +1,22 @@
+flowchart TD
+  A[Public data sources] --> B[Download SIH-RD and SIM-DO]
+  A --> C[Download INMET climate]
+  A --> D[Build SIDRA/IBGE population offset]
+  B --> E[Prepare daily macroregional time series]
+  C --> E
+  D --> E
+  E --> F[Run DLNM models]
+  F --> G[Hierarchical Bayesian stabilization]
+  F --> H[RR curves, lag curves and 3D surfaces]
+  F --> I[Sensitivity analyses and diagnostics]
+  G --> J[Posterior RR, CrI95 and posterior probabilities]
+  H --> K[Publication figures]
+  I --> K
+  J --> L[Final tables]
+  K --> M[Manuscript and presentation]
+  L --> M
+  E --> N[Audit trail]
+  F --> N
+  G --> N
+  I --> N
+  N --> O[Benchmark and compliance reports]

@@ -1,0 +1,17 @@
+stage,source_data,transformation,target_data,tool,risk,risk_severity
+1_raw_download,DATASUS API,microdatasus::fetch_datasus(),data/raw/sih/*.rds + data/raw/sim/*.rds,R/microdatasus,"API availability; network timeout; SIM 2025 missing",High
+2_raw_download,INMET FTP,BrazilMet::download_brazil_met(),data/raw/inmet/*.rds,R/BrazilMet,"Station data gaps; encoding issues",Medium
+3_raw_download,SIDRA API,sidrar::get_sidra(),data/raw/populacao_sidra_municipio_rj_2010-2025.csv,R/sidrar,"Population projections for post-2022 years",Medium
+4_raw_download,IBGE API,jsonlite from servicodados.ibge.gov.br,data/raw/municipios_rj.csv,R/jsonlite,"API availability",Low
+5_cleaning,data/raw/sih/*.rds,clean_sih_file(): filter CID, extract dates, standardize IBGE codes,data/interim/sih_cerebrovascular_individual.rds,R/preprocessing.R,"CID code parsing; date format variability; encoding",Medium
+6_cleaning,data/raw/sim/*.rds,clean_sim_file(): filter CID, extract dates,data/interim/sim_cerebrovascular_individual.rds,R/preprocessing.R,"SIM-DO column name variability; age field encoding",Medium
+7_daily_aggregation,data/interim/sih + sim,process_outcomes(): aggregate to municipality-day, fill missing dates,data/processed/desfechos_diarios_municipio.rds,R/preprocessing.R,"SIM 2025 fallback to SIH hospital deaths",High
+8_climate_processing,data/raw/inmet/*.rds,standardize_inmet(): normalize columns, flag outliers, map stations to macroregions,data/interim/inmet_diario_estacoes.rds,R/exposure_processing.R,"Station-to-macroregion mapping errors; outlier detection",Medium
+9_climate_macro,data/interim/inmet_diario_estacoes.rds,process_inmet(): aggregate to macroregion-day means,data/processed/inmet_diario_macrorregiao.rds,R/exposure_processing.R,"Noroeste with only 1 station; missing climate gap-filling",High
+10_population,data/raw/populacao_sidra*.csv,download_population_sidra(): aggregate to macroregion-year,data/processed/populacao_offset_macrorregiao_ano.csv,R/preprocessing.R,"Intercensal population uncertainty",Medium
+11_analytic_dataset,data/processed/desfechos + inmet + populacao,make_analytic_dataset(): merge, add temporal variables, holidays,data/processed/dataset_dlnm_macrorregiao.rds,R/preprocessing.R,"Missing data propagation; holiday definition completeness",Medium
+12_dlnm_modeling,data/processed/dataset_dlnm_macrorregiao.rds,fit_one_dlnm(): crossbasis + glm.nb/quasipoisson, crosspred,data/processed/modelos_dlnm_macrorregiao.rds,R/dlnm_models.R,"Convergence failures; overdispersion > 3; MMT uncertainty",High
+13_rr_summaries,data/processed/modelos_dlnm*.rds,summarise_pred() + summarise_auc(),outputs/tables/tabela_rr_dlnm_macrorregiao.csv + tabela_auc_rr_dlnm_macrorregiao.csv,R/dlnm_models.R,"Cumulative RR interpretation; AUC validity",Medium
+14_bayesian,outputs/tables/tabela_rr_dlnm_macrorregiao.csv,run_bayesian_hierarchical_validation(): normal-normal hierarchical model,outputs/tables/ranking_modelos_rr_ic95_auc_residuos_bayes.csv,R/bayesian_models.R,"Grid-search convergence; prior sensitivity; shrinkage appropriateness",Medium
+15_sensitivity,data/processed/dataset_dlnm_macrorregiao.rds + outputs,tables/,run_lag_sensitivity() + run_pandemic_exclusion_sensitivity() + run_spline_df_sensitivity(),outputs/tables/sensibilidade_*.csv,R/dlnm_models.R,"DF grid combinatorial explosion; interpretation of stability",Low
+16_reporting,All outputs,render_bsb_outputs(): rmarkdown::render(),reports/manuscript/artigo_bsb2026_sbc.pdf,R/reporting.R,"Rmd path resolution; Pandoc availability",Low

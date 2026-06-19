@@ -1,0 +1,72 @@
+# docker-compose.yml — Multi-service orchestration for the DLNM compendium
+# =============================================================================
+# Usage:  docker-compose up dlnm-pipeline
+#         docker-compose run dlnm-interactive
+
+version: "3.9"
+
+services:
+  # Full pipeline execution
+  dlnm-pipeline:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: dlnm-cerebrovascular-rj:latest
+    container_name: dlnm-pipeline
+    environment:
+      - DLNM_CNPQ_ROOT=/home/rstudio/dlnm-compendium
+      - DLNM_FORCE_RAW_DOWNLOAD=false
+      - RUN_PIPELINE_ON_SOURCE=true
+    volumes:
+      # Mount output directories for persistence
+      - ./outputs:/home/rstudio/dlnm-compendium/outputs
+      - ./data:/home/rstudio/dlnm-compendium/data
+      - ./audit:/home/rstudio/dlnm-compendium/audit
+      - ./logs:/home/rstudio/dlnm-compendium/logs
+      - ./reports:/home/rstudio/dlnm-compendium/reports
+    command: Rscript run_pipeline.R
+    restart: "no"
+
+  # Interactive RStudio Server session for exploration
+  dlnm-interactive:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: dlnm-cerebrovascular-rj:latest
+    container_name: dlnm-interactive
+    ports:
+      - "8787:8787"
+    environment:
+      - PASSWORD=dlnm2026
+      - ROOT=TRUE
+      - DLNM_CNPQ_ROOT=/home/rstudio/dlnm-compendium
+    volumes:
+      - ./outputs:/home/rstudio/dlnm-compendium/outputs
+      - ./data:/home/rstudio/dlnm-compendium/data
+      - ./audit:/home/rstudio/dlnm-compendium/audit
+      - ./logs:/home/rstudio/dlnm-compendium/logs
+      - ./reports:/home/rstudio/dlnm-compendium/reports
+    command: /init
+
+  # Run only the benchmark validation
+  dlnm-benchmark:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: dlnm-cerebrovascular-rj:latest
+    container_name: dlnm-benchmark
+    environment:
+      - DLNM_CNPQ_ROOT=/home/rstudio/dlnm-compendium
+      - RUN_PIPELINE_ON_SOURCE=false
+    volumes:
+      - ./outputs:/home/rstudio/dlnm-compendium/outputs
+      - ./data:/home/rstudio/dlnm-compendium/data
+      - ./audit:/home/rstudio/dlnm-compendium/audit
+    command: >
+      Rscript -e "
+      source('config/config.R');
+      source('R/utils.R');
+      source('R/reporting.R');
+      run_benchmark_validation()
+      "
+    restart: "no"

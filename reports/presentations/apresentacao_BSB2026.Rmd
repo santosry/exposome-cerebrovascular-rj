@@ -1,0 +1,385 @@
+---
+title: 'Exposoma e Afecções Cerebrovasculares no Rio de Janeiro: DLNM com INMET, DATASUS e SIDRA'
+author: "Ryan Santos"
+institute: "IFF Campus Campos Guarus"
+date: ""
+output:
+  beamer_presentation:
+    theme: AnnArbor
+    colortheme: seahorse
+    fonttheme: professionalfonts
+    slide_level: 2
+fontsize: 10pt
+header-includes:
+  - \usepackage{newtxtext}
+  - \usepackage{newtxmath}
+  - \usepackage{booktabs}
+  - \usepackage{graphicx}
+  - \definecolor{uenfblue}{RGB}{0,61,121}
+  - \definecolor{iffblue}{RGB}{0,96,170}
+  - \setbeamercolor{palette primary}{bg=uenfblue,fg=white}
+  - \setbeamercolor{palette secondary}{bg=iffblue,fg=white}
+  - \setbeamercolor{structure}{fg=uenfblue}
+  - \setbeamercolor{frametitle}{bg=uenfblue,fg=white}
+  - \setbeamertemplate{navigation symbols}{}
+  - \setbeamertemplate{headline}{\leavevmode\hbox{\begin{beamercolorbox}[wd=\paperwidth,ht=1.7ex,dp=0ex]{palette primary}\end{beamercolorbox}}}
+  - \setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}[wd=.34\paperwidth,ht=3.2ex,dp=1.15ex,center]{palette primary}{\footnotesize\bfseries Ryan Santos}\end{beamercolorbox}\begin{beamercolorbox}[wd=.38\paperwidth,ht=3.2ex,dp=1.15ex,center]{palette secondary}{\footnotesize\bfseries Exposoma e AVC}\end{beamercolorbox}\begin{beamercolorbox}[wd=.28\paperwidth,ht=3.2ex,dp=1.15ex,center]{palette primary}{\scriptsize\bfseries\insertframenumber\,/\,\inserttotalframenumber}\end{beamercolorbox}}}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.align = "center", out.width = "88%", fig.path = "fig_beamer/")
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+library(scales)
+library(lubridate)
+library(knitr)
+library(kableExtra)
+root <- normalizePath("..", winslash = "/", mustWork = TRUE)
+dlnm_dir <- file.path(root, "01_DLNMs_RJ_cerebrovascular")
+assets_dir <- file.path(root, "03_RELATORIO_BSB2026", "assets")
+include_img <- function(path, width = "0.9\\textwidth") {
+  if (file.exists(path)) knitr::include_graphics(path) else invisible(NULL)
+}
+fmt <- function(x, acc = 0.01) scales::number(as.numeric(x), accuracy = acc, decimal.mark = ",")
+fmt_pct <- function(x) scales::percent(as.numeric(x), accuracy = 1, decimal.mark = ",")
+acentuar_macro <- function(x) {
+  x <- str_squish(as.character(x))
+  case_when(
+    x == "Baia da Ilha Grande" ~ "Ba\u00eda da Ilha Grande",
+    x == "Baixada Litoranea" ~ "Baixada Litor\u00e2nea",
+    x == "Medio Paraiba" ~ "M\u00e9dio Para\u00edba",
+    x == "Metropolitana I" ~ "Metropolitana I",
+    x == "Metropolitana II" ~ "Metropolitana II",
+    TRUE ~ x
+  )
+}
+rotulo_desfecho <- function(x) {
+  case_when(
+    x == "obitos_i60_i64" ~ "Óbitos I60-I64",
+    x == "obitos_i60_i69" ~ "Óbitos I60-I69",
+    x == "internacoes_i60_i69" ~ "Internações I60-I69",
+    x == "internacoes_i60_i64" ~ "Internações I60-I64",
+    TRUE ~ x
+  )
+}
+rotulo_exposicao <- function(x) {
+  case_when(
+    x == "ur_med" ~ "Umidade",
+    x == "temp_med" ~ "Temperatura",
+    TRUE ~ x
+  )
+}
+modelos_prioritarios_rr <- function(n = 5) {
+  read_csv(file.path(dlnm_dir, "outputs/tables/modelos_prioritarios_dlnm.csv"), show_col_types = FALSE) |>
+    mutate(
+      Macrorregião = acentuar_macro(macro_regiao),
+      Desfecho = rotulo_desfecho(desfecho),
+      Exposição = rotulo_exposicao(exposicao),
+      modelo_rotulo = str_wrap(paste(Macrorregião, Desfecho, Exposição, sep = " | "), width = 44)
+    ) |>
+    arrange(desc(rr_cumulativo_max), desc(auc_excesso_rr_cumulativo)) |>
+    slice_head(n = n)
+}
+plot_priorizacao_dlnm <- function() {
+  dat <- modelos_prioritarios_rr() |>
+    mutate(modelo_rotulo = factor(modelo_rotulo, levels = rev(modelo_rotulo)))
+  ggplot(dat, aes(rr_cumulativo_max, modelo_rotulo, fill = Exposição)) +
+    geom_col(width = 0.68) +
+    geom_text(
+      aes(label = paste0("AUC = ", fmt(auc_excesso_rr_cumulativo))),
+      hjust = -0.05,
+      size = 3.2
+    ) +
+    scale_fill_manual(values = c("Temperatura" = "#3568C7", "Umidade" = "#8A3FFC")) +
+    scale_x_continuous(expand = expansion(mult = c(0, 0.18))) +
+    theme_minimal(base_size = 10.5) +
+    theme(
+      legend.position = "bottom",
+      legend.title = element_blank(),
+      panel.grid.minor = element_blank(),
+      plot.title = element_text(face = "bold", size = 12.5),
+      axis.text.y = element_text(size = 10),
+      axis.title.y = element_blank()
+    ) +
+    labs(
+      title = "Cinco modelos DLNM com maior RR cumulativo máximo",
+      subtitle = "Priorização por magnitude de RR; rótulos mostram AUC de excesso de RR cumulativo.",
+      x = "RR cumulativo máximo"
+    )
+}
+plot_bayes_prioritarios <- function() {
+  prioridade <- modelos_prioritarios_rr()
+  rr_tbl <- read_csv(file.path(dlnm_dir, "outputs/tables/tabela_rr_dlnm_macrorregiao.csv"), show_col_types = FALSE) |>
+    inner_join(
+      prioridade |> dplyr::select(modelo_id, macro_regiao, desfecho, exposicao, modelo_rotulo, rr_cumulativo_max, auc_excesso_rr_cumulativo),
+      by = c("macro_regiao", "desfecho", "exposicao")
+    ) |>
+    group_by(modelo_id) |>
+    arrange(desc(rr_cumulativo), .by_group = TRUE) |>
+    slice_head(n = 1) |>
+    ungroup() |>
+    mutate(
+      theta = log(rr_cumulativo),
+      se_theta = (log(ic95_sup) - log(ic95_inf)) / (2 * qnorm(0.975))
+    )
+  mu0 <- stats::weighted.mean(rr_tbl$theta, 1 / pmax(rr_tbl$se_theta^2, 1e-8), na.rm = TRUE)
+  tau0 <- max(stats::sd(rr_tbl$theta, na.rm = TRUE), 0.15)
+  post <- rr_tbl |>
+    mutate(
+      var_post = 1 / (1 / pmax(se_theta^2, 1e-8) + 1 / tau0^2),
+      theta_post = var_post * (theta / pmax(se_theta^2, 1e-8) + mu0 / tau0^2),
+      se_post = sqrt(var_post),
+      rr_bayes = exp(theta_post),
+      cri95_inf_bayes = exp(theta_post - qnorm(0.975) * se_post),
+      cri95_sup_bayes = exp(theta_post + qnorm(0.975) * se_post),
+      prob_rr_maior_1_10 = 1 - pnorm(log(1.10), mean = theta_post, sd = se_post),
+      modelo_rotulo = factor(modelo_rotulo, levels = rev(prioridade$modelo_rotulo))
+    )
+  ggplot(post, aes(rr_bayes, modelo_rotulo)) +
+    geom_vline(xintercept = 1, linetype = "dashed", color = "grey35") +
+    geom_errorbar(aes(xmin = cri95_inf_bayes, xmax = cri95_sup_bayes), orientation = "y", width = 0.18, color = "#D95F5F", linewidth = 0.8) +
+    geom_point(color = "#D95F5F", size = 2.7) +
+    geom_text(
+      aes(label = paste0("AUC ", fmt(auc_excesso_rr_cumulativo), "; Pr ", fmt_pct(prob_rr_maior_1_10))),
+      nudge_y = 0.18,
+      size = 3.2,
+      color = "#A33D3D"
+    ) +
+    scale_x_continuous(labels = label_number(decimal.mark = ","), expand = expansion(mult = c(0.08, 0.22))) +
+    theme_minimal(base_size = 10.5) +
+    theme(
+      panel.grid.minor = element_blank(),
+      axis.title.y = element_blank(),
+      plot.title = element_text(face = "bold", size = 12.5)
+    ) +
+    labs(
+      title = "Validação posterior dos cinco modelos priorizados",
+      subtitle = "Mesmos modelos do slide anterior; posterior calculado a partir de log(RR) e IC95% dos DLNMs.",
+      x = "RR posterior estabilizado (CrI95%)"
+    )
+}
+surface_model_id <- function() modelos_prioritarios_rr(1)$modelo_id[1]
+surface_png_path <- function() {
+  priority_id <- surface_model_id()
+  candidates <- c(
+    file.path(dlnm_dir, "outputs/figures/suplementar", paste0("heatmap_3d_exposure_lag_", priority_id, ".png")),
+    file.path(dlnm_dir, "outputs/figures/suplementar", "heatmap_3d_exposure_lag_serrana_internacoes_i60_i69_temp_med.png"),
+    file.path(dlnm_dir, "outputs/figures/suplementar", "heatmap_3d_exposure_lag_noroeste_internacoes_i60_i69_temp_med.png")
+  )
+  hit <- candidates[file.exists(candidates)]
+  if (length(hit) == 0) NA_character_ else hit[[1]]
+}
+plot_sazonalidade_destaque <- function(variavel, titulo, eixo, n_destaque = 3) {
+  meses_pt <- c("janeiro", "fevereiro", "março", "abril", "maio", "junho",
+                "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
+  saz <- read_csv(file.path(dlnm_dir, "data_processed/inmet_diario_macrorregiao.csv"), show_col_types = FALSE)
+  saz <- saz |>
+    mutate(
+      data = as.Date(data),
+      mes_num = lubridate::month(data),
+      mes = factor(meses_pt[mes_num], levels = meses_pt, ordered = TRUE)
+    ) |>
+    group_by(macro_regiao, mes_num, mes) |>
+    summarise(valor = mean(.data[[variavel]], na.rm = TRUE), .groups = "drop")
+  rank <- saz |>
+    group_by(macro_regiao) |>
+    summarise(valor_rank = mean(valor, na.rm = TRUE), .groups = "drop") |>
+    arrange(desc(valor_rank)) |>
+    slice_head(n = n_destaque) |>
+    pull(macro_regiao)
+  saz <- saz |>
+    mutate(grupo = if_else(macro_regiao %in% rank, macro_regiao, "Demais macrorregiões"))
+  ggplot() +
+    geom_line(
+      data = filter(saz, grupo == "Demais macrorregiões"),
+      aes(mes, valor, group = macro_regiao),
+      color = "grey72", linewidth = 0.25, alpha = 0.65
+    ) +
+    geom_line(
+      data = filter(saz, grupo != "Demais macrorregiões"),
+      aes(mes, valor, group = macro_regiao, color = macro_regiao),
+      linewidth = 0.9, alpha = 0.9
+    ) +
+    geom_point(
+      data = filter(saz, grupo != "Demais macrorregiões"),
+      aes(mes, valor, color = macro_regiao),
+      size = 1.8
+    ) +
+    scale_y_continuous(labels = label_number(big.mark = ".", decimal.mark = ",")) +
+    scale_color_brewer(palette = "Dark2") +
+    theme_minimal(base_size = 12) +
+    theme(
+      legend.position = "bottom",
+      legend.title = element_blank(),
+      panel.grid.minor = element_blank(),
+      plot.title = element_text(face = "bold", size = 13),
+      axis.text.x = element_text(angle = 35, hjust = 1)
+    ) +
+    labs(
+      title = titulo,
+      subtitle = "Valores agregados por mês do ano no período 2010-2025; maiores médias destacadas em cor",
+      x = NULL,
+      y = eixo
+    )
+}
+plot_internacoes_mensais_macro <- function(n_destaque = 3) {
+  dat <- readRDS(file.path(dlnm_dir, "data_processed/dataset_dlnm_macrorregiao.rds"))
+  mensal <- dat |>
+    mutate(
+      data = as.Date(data),
+      ano_mes = floor_date(data, "month"),
+      mes_num = month(data),
+      mes = month(data, label = TRUE, abbr = FALSE)
+    ) |>
+    group_by(macro_regiao, ano_mes, mes_num, mes) |>
+    summarise(internacoes_mes = sum(internacoes_i60_i69, na.rm = TRUE), .groups = "drop") |>
+    group_by(macro_regiao, mes_num, mes) |>
+    summarise(internacoes = sum(internacoes_mes, na.rm = TRUE), .groups = "drop") |>
+    mutate(mes = factor(mes, levels = unique(mes[order(mes_num)]), ordered = TRUE))
+  destaque <- mensal |>
+    group_by(macro_regiao) |>
+    summarise(total = sum(internacoes, na.rm = TRUE), .groups = "drop") |>
+    arrange(desc(total)) |>
+    slice_head(n = n_destaque) |>
+    pull(macro_regiao)
+  mensal <- mensal |>
+    mutate(grupo = if_else(macro_regiao %in% destaque, macro_regiao, "Demais macrorregiões"))
+  ggplot() +
+    geom_line(
+      data = filter(mensal, grupo == "Demais macrorregiões"),
+      aes(mes, internacoes, group = macro_regiao),
+      color = "grey72", linewidth = 0.25, alpha = 0.65
+    ) +
+    geom_line(
+      data = filter(mensal, grupo != "Demais macrorregiões"),
+      aes(mes, internacoes, group = macro_regiao, color = macro_regiao),
+      linewidth = 0.9, alpha = 0.9
+    ) +
+    geom_point(
+      data = filter(mensal, grupo != "Demais macrorregiões"),
+      aes(mes, internacoes, color = macro_regiao),
+      size = 1.8
+    ) +
+    scale_y_continuous(labels = label_number(big.mark = ".", decimal.mark = ",")) +
+    scale_color_brewer(palette = "Dark2") +
+    theme_minimal(base_size = 12) +
+    theme(
+      legend.position = "bottom",
+      legend.title = element_blank(),
+      panel.grid.minor = element_blank(),
+      plot.title = element_text(face = "bold", size = 13),
+      axis.text.x = element_text(angle = 35, hjust = 1)
+    ) +
+    labs(
+      title = "Sazonalidade mensal das internações por macrorregião (2010-2025)",
+      subtitle = "Total absoluto acumulado em cada mês do ano; maiores cargas destacadas em cor",
+      x = NULL,
+      y = "Internações acumuladas I60-I69"
+    )
+}
+```
+
+## Problema e hipótese
+
+\small
+
+**Problema:** eventos cerebrovasculares podem responder a exposições climáticas de forma não linear, defasada e territorialmente heterogênea.
+
+\vspace{0.15cm}
+
+**H0:** temperatura e umidade média diária não se associam a internações ou óbitos cerebrovasculares após controle temporal, sazonal, populacional e pandêmico.
+
+**H1:** há associações exposição-\textit{lag} relevantes, com diferenças entre macrorregiões e padrões consistentes em análises de sensibilidade.
+
+\normalsize
+
+## Desenho do estudo
+
+\small
+
+- Período: 2010 a 2025;
+- Território: 9 macrorregiões de saúde do Rio de Janeiro;
+- Desfechos: SIH-RD para internações e SIM-DO para óbitos; critério geográfico por município de residência;
+- Exposições: temperatura e umidade do INMET agregadas por macrorregião;
+- \textit{Offset}: população municipal SIDRA/IBGE agregada por macrorregião e ano;
+- Escopo atual: DLNM epidemiológico com INMET, DATASUS e SIDRA.
+
+\normalsize
+
+## Equação DLNM aplicada ao estudo
+
+\footnotesize
+
+\[
+\log(\mu_{rto}) =
+\log(Pop_{rt}) + \alpha + cb(X_{rte},\ell) +
+ns(t,7n_{anos}) + dow_t + feriado_t + pandemia_t + ns(Z_{rte},3)
+\]
+
+\vspace{0.15cm}
+
+\begin{tabular}{r p{0.78\linewidth}}
+$\rightarrow$ & $\mu_{rto}$: contagem esperada de internações ou óbitos na macrorregião $r$, dia $t$ e desfecho $o$.\\
+$\rightarrow$ & $\log(Pop_{rt})$: \textit{offset} populacional SIDRA/IBGE, comparando regiões com tamanhos diferentes.\\
+$\rightarrow$ & $cb(X_{rte},\ell)$: efeito não linear da temperatura ou umidade ao longo dos \textit{lags}.\\
+$\rightarrow$ & $ns(t,7n_{anos})$, $dow$, feriado e pandemia: controle de tendência, sazonalidade e calendário.\\
+$\rightarrow$ & $ns(Z_{rte},3)$: ajuste pela exposição climática complementar.
+\end{tabular}
+
+## Sazonalidade das internações
+
+```{r saz-int, fig.width=9.5, fig.height=5.2, out.width='0.96\\textwidth'}
+plot_internacoes_mensais_macro()
+```
+
+## Sazonalidade da temperatura
+
+```{r saz-temp, fig.width=9.5, fig.height=5.2, out.width='0.96\\textwidth'}
+plot_sazonalidade_destaque(
+  "temp_med",
+  "Sazonalidade mensal da temperatura por macrorregião (2010-2025)",
+  "Temperatura média mensal (°C)"
+)
+```
+
+## Sazonalidade da umidade
+
+```{r saz-ur, fig.width=9.5, fig.height=5.2, out.width='0.96\\textwidth'}
+plot_sazonalidade_destaque(
+  "ur_med",
+  "Sazonalidade mensal da umidade por macrorregião (2010-2025)",
+  "Umidade relativa média mensal (%)"
+)
+```
+
+## Priorização DLNM
+
+```{r prioridade, fig.width=10.5, fig.height=5.6, out.width='0.99\\textwidth'}
+plot_priorizacao_dlnm()
+```
+
+## Superfície RR 3D
+
+```{r superficie-3d, out.width='0.70\\textwidth'}
+surface_path <- surface_png_path()
+include_img(surface_path, "0.70\\textwidth")
+```
+
+## Modelagem bayesiana hierárquica
+
+```{r bayes, fig.width=10.2, fig.height=5.4, out.width='0.98\\textwidth'}
+plot_bayes_prioritarios()
+```
+
+## Síntese interpretativa
+
+\small
+
+- O estudo estima associações ecológicas exposição-\textit{lag}; não atribui causalidade individual;
+- A coerência espacial foi reforçada com exposição climática por macrorregião;
+- A decisão final usa RR, IC95%, AUC, resíduos, sensibilidade e inferência bayesiana hierárquica;
+- O escopo atual é exclusivamente epidemiológico-climático: INMET, DATASUS e SIDRA.
+
+\normalsize

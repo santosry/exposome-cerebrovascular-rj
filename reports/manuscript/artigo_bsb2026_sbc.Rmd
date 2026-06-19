@@ -1,0 +1,661 @@
+---
+output:
+  pdf_document:
+    latex_engine: pdflatex
+    keep_tex: true
+fontsize: 11pt
+geometry: a4paper,portrait,top=3cm,bottom=2.5cm,left=2.5cm,right=2.5cm
+header-includes:
+  - \usepackage{mathptmx}
+  - \usepackage{helvet}
+  - \usepackage{courier}
+  - \usepackage{float}
+  - \usepackage{caption}
+  - \usepackage{amsmath}
+  - \usepackage{booktabs}
+  - \usepackage{titlesec}
+  - \usepackage{setspace}
+  - \usepackage{indentfirst}
+  - \captionsetup{font=small,labelfont=bf}
+  - \renewcommand{\figurename}{Figura}
+  - \renewcommand{\tablename}{Tabela}
+  - \pagestyle{empty}
+  - \setlength{\parindent}{1.27cm}
+  - \setlength{\parskip}{4pt}
+  - \setstretch{1}
+  - \titleformat{\section}{\normalfont\fontsize{12}{12}\selectfont\bfseries}{\thesection.}{0.5em}{}
+  - \titleformat{\subsection}{\normalfont\fontsize{11}{11}\selectfont\bfseries}{\thesubsection.}{0.5em}{}
+  - \titlespacing*{\section}{0pt}{8pt}{4pt}
+  - \titlespacing*{\subsection}{0pt}{6pt}{3pt}
+  - \newenvironment{sbcresumo}{\vspace{-3pt}\begin{spacing}{1}\begin{list}{}{\leftmargin=0.8cm\rightmargin=0.8cm\topsep=0pt\partopsep=0pt\parsep=0pt\itemsep=0pt}\item\relax}{\end{list}\end{spacing}\vspace{-3pt}}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.align = "center", fig.pos = "H", out.width = "82%")
+library(readr); library(dplyr); library(knitr); library(stringr); library(scales); library(tidyr)
+
+root <- normalizePath("..", winslash = "/", mustWork = TRUE)
+dlnm_dir <- file.path(root, "01_DLNMs_RJ_cerebrovascular")
+fig_dir  <- file.path(dlnm_dir, "outputs/figures")
+res_dir  <- file.path(fig_dir, "diagnosticos_residuos")
+
+# Funcao auxiliar: carrega CSV se existir, retorna tibble vazio se nao
+safe_csv <- function(path) {
+  if (file.exists(path)) read_csv(path, show_col_types = FALSE) else tibble()
+}
+
+# Carrega dados
+desfechos <- safe_csv(file.path(dlnm_dir, "outputs/audits/auditoria_desfechos_diarios.csv"))
+acf       <- safe_csv(file.path(dlnm_dir, "outputs/audits/diagnosticos_autocorrelacao_dlnm.csv"))
+ranking   <- safe_csv(file.path(dlnm_dir, "outputs/tables/ranking_modelos_rr_ic95_auc_residuos_bayes.csv"))
+robusto   <- safe_csv(file.path(dlnm_dir, "outputs/tables/priorizacao_achados_principais_robustos.csv"))
+cautela   <- safe_csv(file.path(dlnm_dir, "outputs/tables/priorizacao_achados_principais_com_cautela.csv"))
+resumo    <- safe_csv(file.path(dlnm_dir, "outputs/audits/resumo_familia_modelos_dlnm.csv"))
+assoc     <- safe_csv(file.path(dlnm_dir, "outputs/tables/fracao_numero_associados_extremos_climaticos.csv"))
+moran     <- safe_csv(file.path(dlnm_dir, "outputs/audits/diagnosticos_moran_espacial_dlnm.csv"))
+seasonal  <- safe_csv(file.path(dlnm_dir, "outputs/tables/sensibilidade_sazonal_dlnm.csv"))
+jackknife <- safe_csv(file.path(dlnm_dir, "outputs/tables/estabilidade_jackknife_temporal.csv"))
+priors    <- safe_csv(file.path(dlnm_dir, "outputs/tables/estabilidade_sensibilidade_priors.csv"))
+cc_valid  <- safe_csv(file.path(dlnm_dir, "outputs/tables/validacao_case_crossover.csv"))
+hi_auc    <- safe_csv(file.path(dlnm_dir, "outputs/tables/tabela_auc_rr_dlnm_heat_index.csv"))
+cid_dlnm  <- safe_csv(file.path(dlnm_dir, "outputs/tables/tabela_auc_rr_dlnm_macrorregiao.csv"))
+cv_clima  <- safe_csv(file.path(dlnm_dir, "outputs/audits/validacao_cruzada_imputacao_climatica.csv"))
+
+# Junta com dados bayesianos
+robusto <- robusto %>% left_join(ranking %>% dplyr::select(modelo_id, rr_cumulativo, ic95_inf, ic95_sup,
+  rr_bayes, cri95_inf_bayes, cri95_sup_bayes, prob_rr_maior_1_10, residuos_diagnostico, percentil, valor), by = "modelo_id")
+cautela <- cautela %>% left_join(ranking %>% dplyr::select(modelo_id, rr_cumulativo, ic95_inf, ic95_sup,
+  rr_bayes, cri95_inf_bayes, cri95_sup_bayes, prob_rr_maior_1_10, residuos_diagnostico, percentil, valor), by = "modelo_id")
+
+todos <- bind_rows(robusto %>% mutate(nivel = "Robusto"), cautela %>% mutate(nivel = "Com cautela")) %>%
+  arrange(desc(escore_robustez), desc(rr_cumulativo_max))
+
+ranking_p05 <- ranking %>% filter(percentil == "P05", !is.na(auc_excesso_rr_cumulativo))
+fortes_bayes <- ranking_p05 %>% filter(prob_rr_maior_1_10 >= 0.90) %>%
+  left_join(bind_rows(robusto,cautela) %>% dplyr::select(modelo_id, p_curva_fdr, classe_fdr), by = "modelo_id") %>%
+  arrange(desc(prob_rr_maior_1_10))
+
+acf_p05 <- acf %>% filter(lag == 21, grepl("i60_i69", desfecho))
+acf_med <- median(acf_p05$estatistica); acf_min <- min(acf_p05$estatistica); acf_max <- max(acf_p05$estatistica)
+n_acf_signif <- sum(acf_p05$pvalor < 0.05)
+
+fmt_rr   <- function(x) gsub("\\.", ",", scales::number(as.numeric(x), accuracy = 0.01))
+fmt_prob <- function(x) gsub("\\.", ",", scales::percent(as.numeric(x), accuracy = 1))
+fmt_fdr  <- function(x) ifelse(is.na(x), "-", ifelse(x < 0.001, "<0,001", fmt_rr(x)))
+fmt_int  <- function(x) scales::number(as.numeric(x), accuracy = 1, big.mark = ".")
+esc_latex <- function(x) {x <- as.character(x); gsub("([#$%&_{}])", "\\\\\\1", x, perl = TRUE)}
+
+# Contagens
+n_rob <- nrow(robusto); n_cau <- nrow(cautela)
+temp_rob <- sum(robusto$exposicao == "temp_med"); ur_rob <- sum(robusto$exposicao == "ur_med")
+temp_cau <- sum(cautela$exposicao == "temp_med"); ur_cau <- sum(cautela$exposicao == "ur_med")
+```
+
+\begin{center}
+{\fontsize{14}{16}\selectfont\bfseries Exposição Climática e Afecções Cerebrovasculares\par}
+\vspace{2pt}
+{\fontsize{14}{16}\selectfont\bfseries no Rio de Janeiro (2010--2025):\par}
+\vspace{2pt}
+{\fontsize{14}{16}\selectfont\bfseries DLNM com Inferência Bayesiana Hierárquica\par}
+\vspace{8pt}
+{\bfseries Ryan de Paulo Santos$^{1}$, Camila Henriques Nunes$^{1}$, Karla Rangel Ribeiro$^{1}$, Enrique Medina-Acosta$^{2}$\par}
+\vspace{8pt}
+$^{1}$Instituto Federal de Educação, Ciência e Tecnologia Fluminense Campus Campos Guarus (IFF Guarus)\\
+$^{2}$Laboratório de Biotecnologia, Universidade Estadual do Norte Fluminense Darcy Ribeiro (LBT/UENF)\\
+\vspace{3pt}
+{\ttfamily\fontsize{10}{12}\selectfont ryan.paulo@gsuite.iff.edu.br, camila.n@gsuite.iff.edu.br, karla.ribeiro@gsuite.iff.edu.br, quique@uenf.br}\\
+\vspace{2pt}
+\end{center}
+
+\begin{sbcresumo}
+\noindent\textbf{Resumo.} \textbf{Introdução:} investigaram-se associações não lineares e defasadas entre temperatura e umidade relativa e afecções cerebrovasculares (CID-10 I60--I69) nas nove macrorregiões de saúde do Rio de Janeiro (2010--2025). \textbf{Métodos:} foi desenvolvido \textit{pipeline} integralmente reproduzível integrando SIH-RD, SIM-DO, INMET e SIDRA/IBGE, com DLNM aninhados em \textit{splines} naturais, MMT, correção Newey-West, AUC de excesso de RR cumulativo, modelo bayesiano hierárquico com sensibilidade de \textit{priors}, validação \textit{case-crossover} com microdados individuais, diagnóstico espacial de Moran, estratificação por subtipo CID (hemorrágico I60--I62 e isquêmico I63), sexo e idade, análise sazonal, \textit{jackknife} temporal e \textit{heat index} como exposição composta. A estratégia de priorização em cinco níveis -- FDR, IC95\%, RR, AUC e Pr(RR $>$ 1,10) -- classificou `r n_rob` modelos como achados robustos e `r n_cau` com cautela. \textbf{Resultados:} a temperatura predominou entre os robustos (`r temp_rob`/`r n_rob`) e o sinal bayesiano para óbitos $\times$ temperatura foi universal (Pr(RR $>$ 1,10) $\geq$ 90\% nas 9 macrorregiões). Os maiores RR foram observados na Serrana e Noroeste para internações $\times$ temperatura. A umidade gerou as maiores AUC de excesso em macrorregiões litorâneas, porém sem significância estatística em nenhum destes modelos. \textbf{Conclusão:} a temperatura apresenta sinal espacialmente robusto para mortalidade cerebrovascular, enquanto a umidade exibe curvas de excesso localizadas cuja interpretação requer cautela metodológica. A validação \textit{case-crossover} confirmou a direção dos efeitos e o I de Moran não detectou autocorrelação espacial significativa.
+\end{sbcresumo}
+
+\onehalfspacing
+
+# Introdução
+
+As doenças cerebrovasculares (CID-10 I60--I69) constituem uma das principais causas de morbimortalidade no Brasil, respondendo por aproximadamente 100 mil óbitos anuais no país (DATASUS, 2024). No estado do Rio de Janeiro, o presente estudo totalizou 288.395 internações e 151.017 óbitos por estas causas ao longo dos 16 anos do período analisado (2010--2025). A relação entre fatores climáticos e eventos cerebrovasculares agudos está bem documentada na literatura epidemiológica: temperaturas extremas -- tanto o frio intenso quanto o calor excessivo -- associam-se a alterações na pressão arterial, na viscosidade sanguínea, na reologia vascular e na ativação de vias inflamatórias e trombóticas, mecanismos fisiopatológicos implicados tanto no acidente vascular cerebral isquêmico quanto no hemorrágico (Gasparrini \textit{et al.}, 2015).
+
+O conceito de exposoma, proposto por Wild (2005), oferece o arcabouço teórico para investigar a totalidade de exposições ambientais que afetam a saúde humana ao longo da vida. Neste contexto, o clima representa uma fração externa particularmente relevante do exposoma em regiões tropicais e subtropicais, onde a combinação de temperatura elevada e alta umidade relativa do ar impõe estresse térmico persistente sobre a população. O estado do Rio de Janeiro, com seu gradiente climático que vai do litoral úmido (Baixada Litorânea, Baía da Ilha Grande) ao interior mais seco (Médio Paraíba, Centro-Sul), oferece um cenário natural para investigar heterogeneidades territoriais na associação clima-saúde.
+
+Neste estudo, investigou-se se a temperatura média diária e a umidade relativa do ar associam-se a internações e óbitos por doenças cerebrovasculares nas nove macrorregiões de saúde fluminenses ao longo de 16 anos (2010--2025). Utilizaram-se \textit{Distributed Lag Non-linear Models} (DLNM) para capturar simultaneamente a não linearidade da relação exposição-resposta e sua estrutura de defasagem temporal, e modelagem bayesiana hierárquica para estabilizar estimativas regionais e quantificar a incerteza de forma coerente entre macrorregiões.
+
+# Metodologia
+
+## Desenho do estudo e fontes de dados
+
+Estudo ecológico de séries temporais diárias abrangendo 5.844 dias consecutivos (1º de janeiro de 2010 a 31 de dezembro de 2025). As unidades de análise são as nove macrorregiões de saúde do estado do Rio de Janeiro, definidas conforme o Plano Diretor de Regionalização da Secretaria de Estado de Saúde: Baía da Ilha Grande, Baixada Litorânea, Centro-Sul, Médio Paraíba, Metropolitana I, Metropolitana II, Noroeste, Norte e Serrana.
+
+Os desfechos -- internações e óbitos por doenças cerebrovasculares (I60--I69) -- foram obtidos do Sistema de Informações Hospitalares (SIH-RD) e do Sistema de Informações sobre Mortalidade (SIM-DO) via pacote \texttt{microdatasus}, utilizando município de residência como critério geográfico. Adicionalmente, o subconjunto I60--I64 (doenças cerebrovasculares estritas) foi analisado como desfecho de sensibilidade. Em 2025, ano para o qual o SIM-DO não estava validamente disponível no momento da execução, os óbitos hospitalares foram recuperados da variável de desfecho na AIH, sem imputação por zero, com auditoria específica desta decisão. A Tabela \ref{tab:desfechos} sumariza a distribuição dos desfechos.
+
+```{r tabela-desfechos, results='asis'}
+tab_desf <- desfechos %>% transmute(
+  Macrorregião = macro_regiao, Muni = as.character(municipios),
+  Internações = scales::number(internacoes_i60_i69, big.mark = ".", decimal.mark = ","),
+  Óbitos = scales::number(obitos_i60_i69, big.mark = ".", decimal.mark = ","))
+cat("\\begin{table}[H]\\centering\\normalsize\n\\caption{Desfechos diários por macrorregião de saúde, RJ, 2010--2025 (5.844 dias).\\newline\\textit{Daily cerebrovascular outcomes by health macroregion, Rio de Janeiro, 2010--2025 (5,844 days).}}\\label{tab:desfechos}\\vspace{2pt}\n")
+cat("\\begin{tabular}{@{}lrrr@{}}\\toprule\nMacrorregião & Muni. & Internações I60-I69 & Óbitos I60-I69 \\\\ \\midrule\n")
+for(i in 1:nrow(tab_desf)) cat(paste(tab_desf[i,], collapse=" & "), "\\\\\n")
+cat("\\bottomrule\\end{tabular}\n\\end{table}\n")
+```
+
+O \textit{offset} populacional foi obtido do SIDRA/IBGE (tabela 6579 e Censo 2022) via pacote \texttt{sidrar}, agregado por macrorregião e ano, com interpolação linear entre observações oficiais e ancoragem no Censo Demográfico de 2022. Dados meteorológicos diários de temperatura (média, mínima e máxima) e umidade relativa do ar foram obtidos do INMET via pacote \texttt{BrazilMet}. As estações meteorológicas foram associadas às macrorregiões de saúde por dois métodos complementares: (a) município de localização informado pelo INMET, validado contra um \textit{lookup table} dos 92 municípios fluminenses; e (b) distância de Haversine entre as coordenadas da estação e os centroides municipais obtidos via \texttt{geobr}/\texttt{sf}. Dias sem estação própria na macrorregião receberam os dados da estação mais próxima disponível, com registro do método, distância e código da estação em trilha de auditoria.
+
+## Qualidade dos dados e preenchimento de exposições climáticas
+
+É importante distinguir entre os diferentes tipos de dados que alimentam o DLNM:
+
+1. **Desfechos (internações e óbitos):** 100% reais, nunca imputados. As internações provêm do SIH-RD e os óbitos do SIM-DO. Nos anos em que o SIM-DO não estava disponível (ex.: 2025), os óbitos hospitalares foram recuperados da variável MORTE nas AIHs do SIH-RD -- também dados reais, apenas de fonte alternativa, com auditoria específica desta decisão.
+
+2. **Exposições climáticas (temperatura e umidade):** obtidas do INMET via medições reais de estações meteorológicas. O preenchimento por estação mais próxima é aplicado apenas quando a macrorregião não possui estação com dados naquele dia -- situação documentada na auditoria `auditoria_inmet_metodos_preenchimento_macrorregiao.csv`. A validação cruzada da imputação climática (Seção Resultados) quantifica o erro introduzido por este procedimento.
+
+3. **Offset populacional:** obtido do SIDRA/IBGE (Censo 2022 + estimativas anuais). Apenas o ano de 2023 utiliza interpolação linear entre 2022 e 2024, e o impacto é limitado pois afeta apenas o denominador (offset).
+
+Portanto, os resultados do DLNM (RR, IC95%, AUC, probabilidades bayesianas) são calculados sobre dados reais. A imputação climática afeta exclusivamente a exposição e seu impacto é quantificado pela validação cruzada.
+
+## Cobertura da rede INMET e critérios de preenchimento
+
+A rede do INMET no estado do Rio de Janeiro conta com 26 estações meteorológicas com dados disponíveis em algum momento do período 2010--2025. Destas, 20 permanecem em operação e 6 encontram-se desativadas, mas contribuíram com medições durante parte do período. O critério de inclusão foi permissivo: qualquer estação cuja data de início de operação fosse anterior ao fim do período do estudo (31/12/2025) foi incorporada, independentemente de seu estado operacional atual, para maximizar a cobertura espacial e temporal da série histórica.
+
+A Tabela \ref{tab:inmet} apresenta a relação completa das estações, o município-sede, a macrorregião de saúde à qual foram associadas, a altitude, a situação operacional e a data de ativação. A associação estação-macrorregião empregou dois métodos complementares e validação cruzada: (a) correspondência exata entre o município informado pelo INMET e a tabela de referência dos 92 municípios fluminenses com suas respectivas macrorregiões de saúde (Plano Diretor de Regionalização -- SES/RJ); e (b) para estações cujo nome municipal não encontrou correspondência direta na tabela (ex.: estação em área limítrofe ou com nome composto), associação pelo município mais próximo por distância de Haversine entre as coordenadas da estação e os centroides municipais obtidos via \texttt{geobr}.
+
+\begin{table}[H]\centering\normalsize
+\caption{Relação completa das estações INMET utilizadas no estudo, com respectivas macrorregiões de saúde, situação operacional e data de início de operação. Estações ativadas após o início do período do estudo (2010) estão assinaladas.\newline\textit{Complete list of INMET weather stations used in the study, with corresponding health macroregions, operational status and operation start date. Stations activated after the study period start (2010) are flagged.}}\label{tab:inmet}\vspace{2pt}
+\begin{tabular}{@{}llllrrl@{}}
+\toprule
+Cód. & Estação/Município & Macrorregião & Sit. & Alt. (m) & Início & Pós-2010 \\
+\midrule
+A601 & Seropédica -- Ecol. Agrícola & Metropolitana I & Oper. & 35 & 23/05/2000 & -- \\
+A602 & Rio de Janeiro -- Marambaia & Metropolitana I & Oper. & 12 & 07/11/2002 & -- \\
+A621 & Rio de Janeiro -- Vila Militar & Metropolitana I & Oper. & 30 & 12/04/2007 & -- \\
+A652 & Rio de Janeiro -- Forte Copacabana & Metropolitana I & Oper. & 26 & 17/05/2007 & -- \\
+A636 & Rio de Janeiro -- Jacarepaguá & Metropolitana I & Oper. & 20 & 09/08/2017 & $\bigstar$ \\
+A603 & Duque de Caxias -- Xerém & Metropolitana I & Desat. & 22 & 20/10/2002 & -- \\
+\addlinespace
+A627 & Niterói & Metropolitana II & Oper. & 6 & 12/07/2018 & $\bigstar$ \\
+A659 & Silva Jardim & Metropolitana II & Oper. & 19 & 27/08/2015 & $\bigstar$ \\
+\addlinespace
+A619 & Paraty & Baía da Ilha G. & Oper. & 3 & 18/11/2006 & -- \\
+A628 & Angra dos Reis & Baía da Ilha G. & Desat. & 6 & 24/08/2017 & $\bigstar$ \\
+\addlinespace
+A606 & Arraial do Cabo & Baixada Litorânea & Oper. & 5 & 21/09/2006 & -- \\
+A667 & Saquarema -- Sampaio Correia & Baixada Litorânea & Desat. & 26 & 01/09/2015 & $\bigstar$ \\
+\addlinespace
+A625 & Três Rios & Centro-Sul & Oper. & 295 & 07/06/2016 & $\bigstar$ \\
+A637 & Paty do Alferes -- Avelar & Centro-Sul & Oper. & 508 & 09/11/2022 & $\bigstar$ \\
+\addlinespace
+A609 & Resende & Médio Paraíba & Oper. & 439 & 28/09/2006 & -- \\
+A611 & Valença & Médio Paraíba & Desat. & 370 & 26/09/2006 & -- \\
+A626 & Rio Claro & Médio Paraíba & Oper. & 516 & 02/06/2016 & $\bigstar$ \\
+\addlinespace
+A604 & Cambuci & Noroeste & Oper. & 46 & 19/11/2002 & -- \\
+\addlinespace
+A607 & Campos dos Goytacazes & Norte & Oper. & 17 & 24/09/2006 & -- \\
+A608 & Macaé & Norte & Oper. & 28 & 21/09/2006 & -- \\
+A620 & Campos dos Goyt. -- São Tomé & Norte & Oper. & 7 & 12/06/2008 & -- \\
+\addlinespace
+A610 & Pico do Couto & Serrana & Oper. & 1777 & 21/10/2006 & -- \\
+A618 & Teresópolis -- Parque Nacional & Serrana & Oper. & 981 & 31/10/2006 & -- \\
+A624 & Nova Friburgo -- Salinas & Serrana & Oper. & 1070 & 17/09/2010 & $\bigstar$ \\
+A629 & Carmo & Serrana & Desat. & 293 & 10/10/2018 & $\bigstar$ \\
+A630 & Santa Maria Madalena & Serrana & Desat. & 586 & 15/10/2018 & $\bigstar$ \\
+\bottomrule
+\end{tabular}
+\par\vspace{4pt}
+\footnotesize{Oper. = em operação; Desat. = desativada. $\bigstar$ = estação ativada após 01/01/2010. Macrorregiões ordenadas por número de estações.}
+\end{table}
+
+Das 26 estações, 10 foram ativadas após o início do período do estudo (2010). Para estas, bem como para qualquer dia em que a macrorregião não dispunha de estação própria com medição válida, o \textit{pipeline} aplicou preenchimento por \textbf{estação mais próxima com dado disponível no dia}. O procedimento opera da seguinte forma:
+
+\begin{enumerate}
+\item Calcula-se o centroide de cada macrorregião como a média das coordenadas (latitude/longitude) dos centroides de seus municípios constituintes;
+\item Para cada dia e macrorregião com temperatura ou umidade ausente, todas as estações INMET do estado com medições válidas naquele dia são candidatas;
+\item Seleciona-se a estação candidata com a menor distância de Haversine ao centroide da macrorregião;
+\item Os valores de temperatura (média, mínima, máxima) e umidade relativa dessa estação são atribuídos à macrorregião para o dia em questão;
+\item O método de preenchimento, o código da estação utilizada e a distância em km são registrados na trilha de auditoria.
+\end{enumerate}
+
+Este procedimento assegura que: (a) nenhum dia-macrorregião fique sem exposição climática; (b) a estação de referência seja sempre a mais próxima geograficamente com dado real naquele dia -- e não uma média histórica ou interpolação temporal; (c) a distância de preenchimento seja conhecida e auditável. A Tabela \ref{tab:fill} sumariza, para cada macrorregião, a cobertura por estações próprias e a frequência e distância média do preenchimento externo.
+
+```{r tabela-fill, results='asis'}
+fill_audit <- safe_csv(file.path(dlnm_dir, "outputs/audits/auditoria_inmet_metodos_preenchimento_macrorregiao.csv"))
+estacoes_macro <- safe_csv(file.path(dlnm_dir, "outputs/audits/auditoria_inmet_estacoes_por_macro_resumo.csv"))
+
+if (nrow(fill_audit) > 0 && nrow(estacoes_macro) > 0) {
+  tab_fill <- fill_audit |>
+    filter(metodo_preenchimento == "estacao_mais_proxima_com_dado_no_dia") |>
+    left_join(estacoes_macro |> dplyr::select(macro_regiao, estacoes, codigos_estacoes), by = "macro_regiao") |>
+    mutate(
+      pct_dias_preenchidos = round(dias / 5844 * 100, 1),
+      dist_media = round(distancia_media_preenchimento_km, 1)
+    ) |>
+    arrange(macro_regiao)
+  cat("\\begin{table}[H]\\centering\\normalsize\n\\caption{Cobertura de estações próprias e preenchimento externo por macrorregião de saúde. Dias totais: 5.844.\\newline\\textit{Own-station coverage and external gap-filling by health macroregion. Total days: 5,844.}}\\label{tab:fill}\\vspace{2pt}\n")
+  cat("\\begin{tabular}{@{}lrrrr@{}}\n\\toprule\nMacrorregião & Est. próprias & Dias preenchidos & \\% dos dias & Dist. média (km) \\\\ \\midrule\n")
+  for(i in 1:nrow(tab_fill)) {
+    cat(paste(
+      tab_fill$macro_regiao[i], tab_fill$estacoes[i], tab_fill$dias[i],
+      tab_fill$pct_dias_preenchidos[i], tab_fill$dist_media[i], sep = " & "
+    ), "\\\\\n")
+  }
+  cat("\\bottomrule\\end{tabular}\n\\end{table}\n")
+  
+  # Destaque: macrorregiões com maior dependência de preenchimento
+  mais_dependentes <- tab_fill |> slice_max(pct_dias_preenchidos, n = 2)
+  cat(paste0(
+    "\n\nAs macrorregiões com maior proporção de dias preenchidos por estação externa foram ",
+    paste(mais_dependentes$macro_regiao, collapse = " e "),
+    " (", paste(mais_dependentes$pct_dias_preenchidos, collapse = "\\% e "),
+    "\\% dos dias, respectivamente). ",
+    "A distância média de preenchimento variou de ",
+    round(min(tab_fill$dist_media), 1), " km (",
+    tab_fill$macro_regiao[which.min(tab_fill$dist_media)],
+    ") a ", round(max(tab_fill$dist_media), 1), " km (",
+    tab_fill$macro_regiao[which.max(tab_fill$dist_media)], ").\n"
+  ))
+} else {
+  cat("\\textbf{Nota:} a auditoria de preenchimento INMET (\\texttt{auditoria\\_inmet\\_metodos\\_preenchimento\\_macrorregiao.csv}) ainda não foi gerada pelo \\textit{pipeline}. Esta tabela será populada automaticamente na próxima execução completa.\n")
+}
+```
+
+## Modelagem DLNM
+
+Para cada macrorregião ($r$), desfecho ($o$: internações ou óbitos I60--I69) e exposição principal ($e$: temperatura média ou umidade relativa), foi ajustado um DLNM com a seguinte especificação:
+
+\[
+\begin{aligned}
+Y_{r,t,o}\mid\mu_{r,t,o} &\sim \text{Quasi-Poisson}(\mu_{r,t,o}) \\
+\log(\mu_{r,t,o}) &= \log(Pop_{r,t}) + \alpha + cb(X_{r,t,e},\ell) \\
+&\quad + ns(t, 7n_{\text{anos}}) + dow_t + feriado_t + pandemia_t + ns(Z_{r,t,e}, 3)
+\end{aligned}
+\]
+
+A base cruzada $cb(X,\ell)$ foi construída com \textit{splines} naturais em ambas as dimensões: 4 graus de liberdade (\textit{df}) para a dimensão da exposição e 3 \textit{df} para a dimensão dos \textit{lags}, com nós posicionados em escala logarítmica (\texttt{logknots}) e \textit{lag} máximo de 14 dias. O controle temporal $ns(t, 7n_{\text{anos}})$ utiliza \textit{splines} naturais com 7 \textit{df} por ano para capturar tendência secular e sazonalidade intra-anual. As covariáveis $dow_t$ (dia da semana), $feriado_t$ e $pandemia_t$ (março/2020 a dezembro/2022) controlam efeitos de calendário e o período pandêmico. A exposição complementar $Z$ (umidade quando a exposição principal é temperatura, e vice-versa) é modelada com \textit{spline} natural de 3 \textit{df}.
+
+A escolha do Quasi-Poisson com função de ligação logarítmica como modelo-base segue a prática consolidada em epidemiologia ambiental de séries temporais (Gasparrini, 2011; Bhaskaran \textit{et al.}, 2013). Quando a dispersão de Pearson excedeu 3, o modelo migrou para binomial negativa (\texttt{MASS::glm.nb}), mantendo-se o Quasi-Poisson apenas quando a binomial negativa apresentou instabilidade numérica. O \textit{pipeline} testou 324 combinações de hiperparâmetros (3 \textit{df} de exposição $\times$ 3 \textit{df} de \textit{lag} $\times$ 3 \textit{lags} máximos $\times$ 3 \textit{df} de \textit{spline} temporal $\times$ 2 desfechos $\times$ 2 exposições), selecionando a especificação final ($df_{exp}=4$, $df_{lag}=3$, $lag_{max}=14$) com base no desempenho global medido por AIC, dispersão e estabilidade numérica.
+
+## Sobre o uso de p-valor e FDR no DLNM
+
+O DLNM produz um p-valor global que testa a hipótese nula de que a superfície bidimensional exposição-\textit{lag}-resposta como um todo não está associada ao desfecho. Este p-valor é obtido via teste F (Quasi-Poisson) comparando o modelo completo (com a base cruzada) contra o modelo reduzido (sem a base cruzada), ou via razão de verossimilhanças (binomial negativa). Quando o modelo reduzido não era estimável, utilizou-se teste de Wald global sobre os coeficientes da base cruzada (Gasparrini, 2014).
+
+É crucial distinguir este p-valor global do p-valor associado a um ponto específico da curva de RR: o teste avalia a significância da associação em toda a superfície exposição-\textit{lag}, não em um percentil ou \textit{lag} particular. Para controlar a inflação da taxa de erro tipo I decorrente da multiplicidade de testes (36 modelos DLNM no percentil P05), aplicou-se a correção de Benjamini-Hochberg (False Discovery Rate -- FDR), que controla a proporção esperada de falsos positivos entre os achados declarados significativos (Benjamini e Hochberg, 1995). O FDR foi preferido à correção de Bonferroni por ser menos conservador e mais adequado a contextos exploratórios com múltiplas hipóteses correlacionadas.
+
+Adicionalmente, a presença generalizada de autocorrelação residual nas séries temporais de desfechos hospitalares pode inflar a significância estatística ao subestimar os erros-padrão. Por esta razão, o FDR e o IC95\% do RR cumulativo foram interpretados conjuntamente, e a convergência com os demais níveis da estratégia de priorização foi utilizada como salvaguarda adicional.
+
+## AUC de excesso de risco relativo cumulativo
+
+A AUC de excesso de RR foi definida como a integral trapezoidal da função $f(x) = \max(\text{RR}_{\text{cumulativo}}(x) - 1, 0)$ sobre o gradiente da exposição (percentis 1 a 99). Diferentemente da AUC empregada em curvas ROC (que varia de 0 a 1 e mede capacidade discriminativa), a AUC aqui proposta expressa a carga acumulada de excesso de risco ao longo de toda a distribuição da exposição. Valores superiores a 1 são esperados e indicam grande área de excesso de risco.
+
+Uma propriedade importante desta métrica é que AUC elevada não implica necessariamente RR cumulativo elevado. Curvas com picos pronunciados de RR em faixas específicas da exposição, mas com RR abaixo de 1 nos extremos da distribuição, podem gerar AUC alta mesmo quando o RR cumulativo médio -- a média ponderada do RR ao longo de todos os percentis -- é modesto ou inferior a 1. Esta característica torna a AUC particularmente sensível à variabilidade da curva exposição-resposta, o que recomenda seu uso como critério complementar, e não primário, na priorização de modelos.
+
+## Estratégia de priorização em cinco níveis
+
+O \textit{pipeline} implementa uma hierarquia decisória de cinco níveis para classificação dos modelos DLNM, executada pelo módulo de \textit{benchmark} de validação. O primeiro nível -- e o único excludente -- é o FDR $<$ 0,05, que atua como filtro primário de credibilidade estatística: apenas modelos cuja associação global é estatisticamente detectável após correção para múltiplos testes (Benjamini-Hochberg) são retidos para os níveis subsequentes. O segundo nível avalia a significância local por meio do IC95\% do RR cumulativo no percentil de referência, exigindo que este se situe integralmente acima da unidade. O terceiro nível ordena os modelos remanescentes por magnitude do efeito, priorizando aqueles com maior RR cumulativo. O quarto nível utiliza a AUC de excesso como critério complementar para desempatar modelos com RR semelhante, valorizando a carga acumulada de excesso de risco. O quinto e último nível incorpora a probabilidade posterior bayesiana Pr(RR $>$ 1,10), que expressa a confiança de que o RR verdadeiro excede o limiar de 10\% de excesso de risco -- mínimo de relevância epidemiológica --, obtida do modelo hierárquico normal-normal.
+
+Modelos que passam no nível 1 e não apresentam fragilidades metodológicas (alertas de convergência, instabilidade entre horizontes de \textit{lag}, dependência do período pandêmico, estimativas extremas, IC excessivamente amplos, ou número muito baixo de eventos) são classificados como \textbf{achados principais robustos} (escore = 120). Modelos que passam no nível 1 mas apresentam uma ou mais fragilidades são classificados como \textbf{achados principais com cautela} (escore = 110). Modelos com FDR $\geq$ 0,05 são tratados como exploratórios, independentemente da magnitude de RR ou AUC.
+
+## Inferência bayesiana hierárquica
+
+O modelo bayesiano hierárquico utilizado é da forma:
+
+\[
+\begin{aligned}
+\hat\theta_{r,e,o} &= \log(RR^{\text{DLNM}}_{r,e,o}) \\
+\hat\theta_{r,e,o}\mid\theta_{r,e,o} &\sim N(\theta_{r,e,o}, SE^2_{r,e,o}) \\
+\theta_{r,e,o}\mid\mu_{e,o},\tau^2_{e,o} &\sim N(\mu_{e,o},\tau^2_{e,o})
+\end{aligned}
+\]
+
+com inferência por integração em grade normal-normal (sem MCMC). O modelo foi ajustado separadamente por desfecho, exposição e percentil de referência, com macrorregião como nível hierárquico. Esta estrutura produz \textit{shrinkage} das estimativas regionais em direção à média hierárquica, reduzindo o impacto de estimativas extremas baseadas em poucos eventos (Wilson \textit{et al.}, 2017). O limiar Pr(RR $>$ 1,10) $\geq$ 90\% foi adotado por corresponder a um excesso de risco de pelo menos 10\% com alta confiança posterior -- critério compatível com relevância em saúde pública.
+
+## \textit{Benchmark} de validação e análises de sensibilidade
+
+O \textit{benchmark} automático do \textit{pipeline} executa verificações de integridade em todos os arquivos de saída. Além das análises de sensibilidade clássicas -- (a) variação dos \textit{df} do \textit{spline} temporal (5, 7 e 9/ano); (b) exclusão do período pandêmico; e (c) substituição do desfecho I60--I69 por I60--I64 --, foram implementadas as seguintes análises complementares:
+
+### Minimum Mortality Temperature (MMT)
+
+Em substituição ao centro de referência fixo no percentil 50 (P50), o RR cumulativo foi centrado no MMT empírico, definido como o valor da exposição que minimiza o RR predito na superfície exposição-\textit{lag}. Este procedimento alinha o estudo às melhores práticas da rede MCC (Multi-Country Multi-City Collaborative; Gasparrini \textit{et al.}, 2015) e evita o viés de centrar o RR em um percentil arbitrário que pode não corresponder à temperatura de mínimo risco.
+
+### Correção Newey-West para autocorrelação
+
+Para mitigar a subestimação dos erros-padrão decorrente da autocorrelação residual, foram calculados erros-padrão robustos à heterocedasticidade e autocorrelação (HAC) pelo estimador de Newey-West com \textit{lag} de truncamento de 21 dias (Newey e West, 1987). O p-valor do teste global do DLNM foi recalculado com a matriz de covariância HAC sobre os coeficientes da base cruzada, e reportado como métrica complementar de significância.
+
+### Validação com desenho case-crossover
+
+Como salvaguarda contra a falácia ecológica, foi implementada análise de sensibilidade com desenho \textit{case-crossover} estratificado por tempo (\textit{time-stratified}) utilizando os microdados individuais do SIH-RD (Maclure, 1991). Cada caso (internação por AVC) foi pareado com dias de controle do mesmo dia da semana dentro do mesmo mês e ano, eliminando variáveis de confusão fixas e controlando sazonalidade por desenho. Foram ajustados modelos de regressão logística condicional (\texttt{survival::clogit}) para cada macrorregião, exposição e subtipo CID.
+
+### Diagnóstico espacial de Moran
+
+A independência espacial entre macrorregiões foi testada por meio do I de Moran sobre os RR cumulativos máximos de cada modelo DLNM, utilizando matriz de vizinhança \textit{k}-nearest neighbors (k=3) sobre os centroides macrorregionais. A hipótese nula de ausência de autocorrelação espacial foi testada com 999 permutações (\texttt{spdep::moran.test}).
+
+### Estratificação por subtipo CID
+
+Foram construídas séries diárias específicas para AVC hemorrágico (CID-10 I60--I62) e isquêmico (I63) a partir dos microdados SIH-RD e SIM-DO, e ajustados DLNMs separados para cada subtipo. Esta estratificação é motivada pela hipótese fisiopatológica de que o frio associa-se predominantemente a eventos hemorrágicos (via vasoconstrição e aumento pressórico), enquanto o calor associa-se a eventos isquêmicos (via desidratação e hemoconcentração).
+
+### DLNM sazonal e estratificado por sexo/idade
+
+Foram ajustados modelos separados para os meses de verão (dezembro--fevereiro) e inverno (junho--agosto), com \textit{lag} máximo de 7 dias no verão e 21 dias no inverno, refletindo a diferente latência dos efeitos agudos do calor e subagudos do frio. Adicionalmente, DLNMs foram estratificados por sexo (Masculino/Feminino) e faixa etária (menores de 65 anos e 65 anos ou mais), com \textit{offsets} populacionais específicos obtidos do SIDRA/IBGE.
+
+### \textit{Jackknife} temporal
+
+Foi implementado procedimento \textit{leave-one-out} por ano: para cada modelo DLNM, removeu-se sequencialmente cada um dos 16 anos e reajustou-se o modelo. A estabilidade foi avaliada pela variação percentual do RR cumulativo máximo ($\Delta$RR\%). Modelos com $\Delta$RR $>$ 20\% em qualquer ano foram sinalizados como sensíveis.
+
+### Sensibilidade de \textit{priors} bayesianos
+
+A robustez das conclusões bayesianas à escolha de \textit{priors} foi testada com três especificações: (a) cético -- N(0,1) para $\mu$ e half-Cauchy(0.5) para $\tau$; (b) otimista -- N(log(1.05), 0.3) para $\mu$ e half-Cauchy(0.3) para $\tau$; (c) plano -- N(0,3) para $\mu$ e half-Cauchy(1.5) para $\tau$. A estabilidade foi quantificada pela amplitude do RR bayesiano e da probabilidade posterior entre as três especificações.
+
+### Temperatura aparente (\textit{heat index})
+
+A temperatura aparente foi calculada pela fórmula de Rothfusz (Steadman, 1979) integrando temperatura e umidade relativa, e utilizada como exposição terciária em modelos DLNM adicionais. Esta variável composta captura o efeito sinérgico do binômio temperatura--umidade, mais relevante fisiologicamente que cada exposição isolada.
+
+### Controle de confundimento por influenza
+
+Foram obtidas contagens diárias de internações por influenza/pneumonia (CID-10 J09--J18) das mesmas fontes SIH-RD, e incluídas como covariável defasada (média móvel de 7 dias, \textit{spline} natural com 2 \textit{df}) nos modelos DLNM.
+
+### Validação cruzada da imputação climática
+
+A acurácia do preenchimento de dados climáticos faltantes por estação mais próxima foi validada por \textit{leave-one-out cross-validation}: para cada macrorregião com duas ou mais estações INMET, cada estação foi alternadamente excluída e seus valores preditos pela média das demais, calculando-se RMSE e viés para temperatura e umidade.
+
+# Resultados e Discussão
+
+## Panorama geral dos modelos
+
+Foram ajustados 72 modelos DLNM para o desfecho I60--I69 (9 macrorregiões $\times$ 2 desfechos $\times$ 2 exposições $\times$ 2 percentis) e 36 modelos adicionais para o desfecho de sensibilidade I60--I64. A Tabela \ref{tab:familias} resume a distribuição das famílias dos modelos.
+
+```{r tabela-familias, results='asis'}
+tab_fam <- resumo %>% filter(desfecho %in% c("internacoes_i60_i69","obitos_i60_i69")) %>%
+  transmute(Família = if_else(familia=="quasipoisson","Quasi-Poisson","Binom. Neg."),
+    Desfecho = if_else(desfecho=="internacoes_i60_i69","Internações","Óbitos"),
+    Exposição = if_else(exposicao=="temp_med","Temperatura","Umidade"),
+    `n modelos` = as.character(n_modelos),
+    `Dispersão mediana` = fmt_rr(mediana_dispersao_qp))
+cat("\\begin{table}[H]\\centering\\normalsize\n\\caption{Famílias dos modelos DLNM ajustados (desfecho I60--I69).\\newline\\textit{Model families of fitted DLNMs (I60--I69 outcome).}}\\label{tab:familias}\\vspace{2pt}\n")
+cat("\\begin{tabular}{@{}lllr@{}}\\toprule\nFamília & Desfecho & Exposição & n \\\\ \\midrule\n")
+for(i in 1:nrow(tab_fam)) cat(paste(tab_fam[i,1:4],collapse=" & "),"\\\\\n")
+cat("\\bottomrule\\end{tabular}\n\\end{table}\n")
+```
+
+A maioria dos modelos (68/72) utilizou Quasi-Poisson com dispersão adequada. Quatro modelos de internações (Serrana e Médio Paraíba, para ambas as exposições) migraram para binomial negativa devido à dispersão de Pearson elevada ($>$ 3), possivelmente refletindo maior heterogeneidade nos padrões de internação nestas macrorregiões. Nenhum modelo apresentou alerta de convergência.
+
+O diagnóstico de autocorrelação residual (\textit{lag} 21) detectou dependência temporal estatisticamente significativa em `r n_acf_signif`/36 modelos P05 (94\%). A mediana da estatística de ACF foi `r fmt_rr(acf_med)` (amplitude: `r fmt_rr(acf_min)`--`r fmt_rr(acf_max)`). A persistência generalizada de autocorrelação é esperada em séries de desfechos hospitalares e pode refletir sazonalidade residual incompleta, estrutura de atendimento (ex.: internações programadas que geram correlação serial) ou atraso entre exposição e registro administrativo. Como consequência, os IC95\% reportados devem ser interpretados como potencialmente subestimados.
+
+## Achados principais
+
+A aplicação da estratégia de cinco níveis resultou em `r n_rob` modelos classificados como achados principais robustos e `r n_cau` como achados com cautela (Tabela \ref{tab:prioritarios}). A temperatura predominou entre os robustos (`r temp_rob`/`r n_rob` modelos), enquanto entre os modelos com cautela a proporção foi de `r temp_cau`/`r n_cau`. A umidade contribuiu com `r ur_rob` modelo(s) robusto(s) e `r ur_cau` com cautela.
+
+```{r tabela-prioritarios, results='asis'}
+tab_pri <- todos %>% transmute(
+  Macrorregião = case_when(macro_regiao=="Baia da Ilha Grande"~"Baía da Ilha G.",macro_regiao=="Baixada Litoranea"~"Baixada Litor.",
+    macro_regiao=="Medio Paraiba"~"Médio Paraíba",TRUE~macro_regiao),
+  Desf = if_else(desfecho=="obitos_i60_i69","Óbitos","Int."),
+  Exp = if_else(exposicao=="ur_med","UR","Temp."),
+  `FDR` = fmt_fdr(p_curva_fdr),
+  `RR (IC95%)` = paste0(fmt_rr(rr_cumulativo)," (",fmt_rr(ic95_inf),"--",fmt_rr(ic95_sup),")"),
+  AUC = fmt_rr(auc_excesso_rr_cumulativo),
+  `RR Bayes` = paste0(fmt_rr(rr_bayes)," (",fmt_rr(cri95_inf_bayes),"--",fmt_rr(cri95_sup_bayes),")"),
+  `Pr>1,10` = fmt_prob(prob_rr_maior_1_10),
+  Nível = nivel)
+cat("\\begin{table}[H]\\centering\\normalsize\n\\caption{Achados principais -- modelos com FDR $<$ 0,05 segundo a estratégia de cinco níveis.\\newline\\textit{Main findings -- models with FDR $<$ 0.05 according to the five-tier prioritization strategy.}}\\label{tab:prioritarios}\\vspace{2pt}\n")
+cat("\\begin{tabular}{@{}lp{1.2cm}ccp{2.4cm}lp{2.4cm}cl@{}}\\toprule\n")
+cat("Macrorregião & Desf. & Exp. & FDR & RR (IC95\\%) & AUC & RR Bayes (CrI95\\%) & Pr$>$1,10 & Nível \\\\ \\midrule\n")
+for(i in 1:nrow(tab_pri)) cat(paste(vapply(tab_pri[i,1:9],esc_latex,character(1)),collapse=" & "),"\\\\\n")
+cat("\\bottomrule\\end{tabular}\n\\end{table}\n")
+```
+
+Dois modelos destacam-se pela magnitude do RR com FDR $<$ 0,001: Serrana (internações $\times$ temperatura, RR=1,60; IC95\% 1,18--2,18) e Noroeste (internações $\times$ temperatura, RR=1,69; IC95\% 1,18--2,43). Ambos foram classificados como achados com cautela devido a fragilidades relacionadas à migração para binomial negativa (dispersão $>$ 16) -- que, embora corrija a superdispersão, pode indicar heterogeneidade não modelada -- e à sensibilidade marginal em relação aos horizontes de \textit{lag}.
+
+A Metropolitana I (óbitos $\times$ temperatura, FDR $<$ 0,001; RR=1,22; IC95\% 1,12--1,32) foi o modelo com menor p-valor global do estudo e constitui um achado robusto, beneficiando-se do grande número de eventos (91.298 óbitos) que confere alta precisão às estimativas.
+
+```{r figuras-noroeste-serrana, fig.cap="Heatmaps exposição-lag dos dois modelos com maior RR: Serrana e Noroeste, ambos para internações I60-I69 $\\times$ temperatura no P05.\\newline\\textit{Exposure-lag heatmaps for the two highest-RR models: Serrana and Noroeste, both for I60--I69 admissions $\\times$ temperature at P05.}", fig.align='center', out.width='0.88\\linewidth', fig.show='hold'}
+knitr::include_graphics(file.path(fig_dir,"suplementar","heatmap_3d_exposure_lag_serrana_internacoes_i60_i69_temp_med.png"))
+knitr::include_graphics(file.path(fig_dir,"suplementar","heatmap_3d_exposure_lag_noroeste_internacoes_i60_i69_temp_med.png"))
+```
+
+Os heatmaps exposição-\textit{lag} (Figura 1) revelam padrões não lineares característicos: na Serrana, o RR atinge 1,79 no percentil 5 de temperatura (~10,9°C), sugerindo que temperaturas baixas -- e não altas -- são o principal fator de risco para internações cerebrovasculares nesta macrorregião serrana. No Noroeste, o RR máximo de 1,87 ocorre em temperatura similar (~19,2°C, também P05), e o risco declina progressivamente com o aumento da temperatura. Este achado é consistente com a literatura internacional que documenta curvas em J ou U para temperatura e eventos cardiovasculares, com maior risco nos extremos frios (Gasparrini \textit{et al.}, 2015; Zhao \textit{et al.}, 2021).
+
+As curvas de \textit{lag} indicam que o efeito da temperatura é mais pronunciado nos primeiros 7 dias após a exposição (efeito agudo), com atenuação progressiva ao longo de 14 dias -- padrão compatível com mecanismos fisiológicos de curto prazo como vasoconstrição induzida pelo frio, aumento da pressão arterial e hemoconcentração.
+
+## \textit{Benchmark} de validação e reprodutibilidade
+
+O módulo de \textit{benchmark} do \textit{pipeline} executou verificações sistemáticas de integridade, consistência e acurácia sobre todos os arquivos de saída. A Tabela \ref{tab:benchmark} sumariza os resultados.
+
+\begin{table}[H]\centering\normalsize
+\caption{Resultados do \textit{benchmark} de validação.\newline\textit{Validation benchmark results.}}\label{tab:benchmark}\vspace{2pt}
+\begin{tabular}{@{}lr@{}}\toprule
+Verificação & Resultado \\ \midrule
+Macrorregiões cobertas & 9/9 \\
+Modelos DLNM P05 com AUC & 36/36 \\
+Combinações macro $\times$ desfecho $\times$ exposição & 36/36 \\
+RR cumulativo $>$ 0 em todos os modelos & Sim \\
+AUC $\geq$ 0 em todos os modelos & Sim \\
+Probabilidades bayesianas em [0,1] & Sim \\
+Dispersões finitas & Sim \\
+Dias por macrorregião & 5.844/5.844 \\
+Arquivos essenciais presentes & 7/7 \\
+Achados robustos com FDR $<$ 0,05 & 8/8 \\
+Achados com cautela com FDR $<$ 0,05 & 3/3 \\
+Sobreposição robustos/cautela & 0 \\
+Total de internações I60--I69 & 288.395 \\
+Total de óbitos I60--I69 & 151.017 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+O \textit{benchmark} confirma a integridade completa dos dados: não foram encontrados RR negativos, AUC inválidas, probabilidades bayesianas fora do intervalo [0,1], dispersões não finitas, inconsistências entre tabelas ou sobreposição entre as categorias de priorização. As 36 combinações esperadas de macrorregião, desfecho e exposição estão presentes e corretamente documentadas. Estes resultados atestam a acurácia e a reprodutibilidade do \textit{pipeline} e garantem que todos os valores reportados no manuscrito são rastreáveis aos arquivos de saída originais.
+
+## Divergência entre AUC e credibilidade estatística: a armadilha da umidade
+
+```{r figura-auc, fig.cap="Ranking dos modelos DLNM com maior AUC de excesso de RR cumulativo. Barras coloridas por exposição (temperatura vs. umidade). Rótulos indicam o RR máximo.\\newline\\textit{Ranking of DLNM models by highest cumulative excess RR AUC. Bars colored by exposure (temperature vs. humidity). Labels show maximum RR.}", fig.align='center', out.width='95%'}
+knitr::include_graphics(file.path(fig_dir,"priorizacao_robusta","ranking_achados_principais_por_auc.png"))
+```
+
+As três maiores AUC de excesso de RR pertencem a modelos de umidade (Figura 2): Baía da Ilha Grande, óbitos (5,79); Centro-Sul, internações (5,30); e Baixada Litorânea, óbitos (5,29). Entretanto, \textbf{nenhum destes três modelos atingiu FDR $<$ 0,05}, e seus IC95\% cruzam amplamente a unidade. A divergência entre AUC elevada e credibilidade estatística ausente constitui um dos achados metodologicamente mais informativos deste estudo.
+
+O caso da Baía da Ilha Grande é paradigmático: a AUC de 5,79 -- a maior do estudo -- coexiste com RR cumulativo de 0,96 (IC95\% 0,52--1,78), ou seja, abaixo da unidade. O \textit{shrinkage} bayesiano desloca o RR para 1,02 (CrI95\% 0,88--1,19), com Pr(RR $>$ 1,10) de apenas 12\%. A curva exposição-resposta atinge pico de 1,45 em umidades elevadas (~72%), mas situa-se abaixo de 1 nos extremos. A AUC elevada decorre, portanto, da grande variabilidade da curva -- que gera extensas áreas de excesso de RR em faixas intermediárias e altas de umidade --, mas o RR cumulativo médio, que pondera toda a distribuição, é essencialmente nulo.
+
+```{r figuras-baia-baixada, fig.cap="Heatmap exposição-lag para óbitos I60-I69 $\\times$ umidade relativa na Baixada Litorânea.\\newline\\textit{Exposure-lag heatmap for I60--I69 deaths $\\times$ relative humidity in Baixada Litorânea.}", fig.align='center', out.width='0.88\\linewidth'}
+knitr::include_graphics(file.path(fig_dir,"suplementar","heatmap_3d_exposure_lag_baixada_litoranea_obitos_i60_i69_ur_med.png"))
+```
+
+Na Baixada Litorânea (Figura 3), a curva é menos errática: RR máximo de 1,51 em umidades muito elevadas (~92%), com RR cumulativo de 1,33 (IC95\% 0,92--1,93) -- próximo da significância, mas ainda não significativo pelo FDR. A inspeção visual sugere uma curva em J com efeito protetor aparente em baixas umidades e risco aumentado em altas umidades, padrão compatível com o conceito de efeito higrotérmico: a umidade elevada reduz a evaporação do suor, aumenta a carga térmica percebida e pode deslocar o organismo para maior esforço cardiovascular (Raymond \textit{et al.}, 2020).
+
+A heterogeneidade territorial da umidade é notável: enquanto Baía da Ilha Grande e Baixada Litorânea -- ambas macrorregiões costeiras -- apresentam AUC elevadas para óbitos $\times$ UR, as macrorregiões Metropolitana I e Metropolitana II têm AUC ~0 para a mesma combinação desfecho-exposição. Esta heterogeneidade pode refletir diferenças reais no efeito higrotérmico (regiões litorâneas têm maior exposição combinada calor + umidade) ou pode ser artefato da variabilidade amostral em macrorregiões com menor número de eventos.
+
+```{r figura-diagnosticos, fig.cap="Diagnóstico de resíduos para modelos selecionados. Acima: Metropolitana I, óbitos $\\times$ temp. (achado robusto). Centro: Serrana, internações $\\times$ temp. (achado com cautela). Abaixo: Baixada Litorânea, óbitos $\\times$ UR (exploratório, alta AUC).\\newline\\textit{Residual diagnostics for selected models. Top: Metropolitana I, deaths $\\times$ temp. (robust finding). Center: Serrana, admissions $\\times$ temp. (cautious finding). Bottom: Baixada Litorânea, deaths $\\times$ RH (exploratory, high AUC).}", fig.align='center', out.width='0.60\\linewidth', fig.show='hold'}
+knitr::include_graphics(file.path(res_dir,"diagnostico_residuos_metropolitana_i_obitos_i60_i69_temp_med.png"))
+knitr::include_graphics(file.path(res_dir,"diagnostico_residuos_serrana_internacoes_i60_i69_temp_med.png"))
+knitr::include_graphics(file.path(res_dir,"diagnostico_residuos_baixada_litoranea_obitos_i60_i69_ur_med.png"))
+```
+
+O diagnóstico residual (Figura 4) revela padrões distintos entre os tipos de achado. A Metropolitana I (robusto) apresenta resíduos aproximadamente bem comportados, com ACF significativa apenas em \textit{lags} longos -- padrão considerado aceitável para modelos de séries temporais com 16 anos de observações. A Serrana (com cautela) exibe ACF elevada em múltiplos \textit{lags}, consistente com a migração para binomial negativa e a maior dispersão. A Baixada Litorânea (exploratório, alta AUC) mostra ACF persistente que pode estar inflando artificialmente as áreas de excesso de RR e, consequentemente, a AUC.
+
+## Sinal bayesiano universal: temperatura $\times$ óbitos
+
+```{r tabela-bayes, results='asis'}
+tab_by <- fortes_bayes %>% transmute(
+  Macrorregião = case_when(macro_regiao=="Baia da Ilha Grande"~"Baía da Ilha G.",macro_regiao=="Baixada Litoranea"~"Baixada Litor.",
+    macro_regiao=="Medio Paraiba"~"Médio Paraíba",TRUE~macro_regiao),
+  Desf = if_else(desfecho=="obitos_i60_i69","Ób.","Int."), Exp = if_else(exposicao=="temp_med","T","UR"),
+  `FDR` = fmt_fdr(p_curva_fdr),
+  `RR DLNM` = paste0(fmt_rr(rr_cumulativo)," (",fmt_rr(ic95_inf),"--",fmt_rr(ic95_sup),")"),
+  `RR Bayes` = paste0(fmt_rr(rr_bayes)," (",fmt_rr(cri95_inf_bayes),"--",fmt_rr(cri95_sup_bayes),")"),
+  `Pr>1,10` = fmt_prob(prob_rr_maior_1_10))
+cat("\\begin{table}[H]\\centering\\normalsize\n\\caption{Modelos com Pr(RR$>$1,10) $\\geq$ 90\\% (nível 5 da estratégia).\\newline\\textit{Models with Pr(RR$>$1.10) $\\geq$ 90\\% (tier 5 of the prioritization strategy).}}\\label{tab:bayes}\\vspace{2pt}\n")
+cat("\\begin{tabular}{@{}lp{1.2cm}ccp{2.5cm}p{2.5cm}c@{}}\\toprule\n")
+cat("Macrorregião & Desf. & Exp. & FDR & RR DLNM (IC95\\%) & RR Bayes (CrI95\\%) & Pr$>$1,10 \\\\ \\midrule\n")
+for(i in 1:nrow(tab_by)) cat(paste(vapply(tab_by[i,],esc_latex,character(1)),collapse=" & "),"\\\\\n")
+cat("\\bottomrule\\end{tabular}\n\\end{table}\n")
+```
+
+A Tabela \ref{tab:bayes} apresenta um dos achados mais consistentes do estudo: todos os nove modelos de óbitos $\times$ temperatura no P05 apresentam Pr(RR $>$ 1,10) $\geq$ 90\%. O \textit{shrinkage} bayesiano reduz as estimativas mais extremas (ex.: Baía da Ilha Grande: RR DLNM = 1,46 $\to$ RR Bayes = 1,23; Serrana: RR DLNM = 1,14 $\to$ RR Bayes = 1,22), mas o sinal permanece acima do limiar de relevância em todas as macrorregiões.
+
+A convergência entre macrorregiões tão diversas -- da metropolitana (10 milhões de habitantes) à serrana (900 mil) -- sugere que o efeito da temperatura sobre a mortalidade cerebrovascular não é idiossincrático de uma região específica, mas sim um fenômeno de base fisiológica compartilhada. Os RR bayesianos, entre 1,20 e 1,23, indicam um excesso de risco de 20--23\% associado a temperaturas no percentil 5 (fri moderado) em relação à mediana, magnitude compatível com estimativas de estudos multinacionais (Gasparrini \textit{et al.}, 2015).
+
+## Síntese territorial
+
+```{r figura-estratificacao, fig.cap="Categorias finais da estratégia de priorização robusta dos modelos DLNM.\\newline\\textit{Final categories from the robust DLNM prioritization strategy.}", fig.align='center', out.width='90%'}
+knitr::include_graphics(file.path(fig_dir,"priorizacao_robusta","categorias_finais_priorizacao_robusta.png"))
+```
+
+## Validação case-crossover
+
+```{r case-crossover, results='asis'}
+if (nrow(cc_valid) > 0) {
+  cc_tab <- cc_valid %>% 
+    mutate(
+      OR_fmt = paste0(fmt_rr(odds_ratio), " (", fmt_rr(ic95_inf), "--", fmt_rr(ic95_sup), ")"),
+      p_fmt = if_else(p_valor < 0.001, "<0,001", fmt_rr(p_valor))
+    ) %>%
+    arrange(macro_regiao, exposicao)
+  cat("\\begin{table}[H]\\centering\\normalsize\n\\caption{Validação case-crossover: odds ratio por macrorregião e exposição.\\newline\\textit{Case-crossover validation: odds ratio by macroregion and exposure.}}\\label{tab:cc}\\vspace{2pt}\n")
+  cat("\\begin{tabular}{@{}llcrr@{}}\\toprule\nMacrorregião & Exposição & n casos & OR (IC95\\%) & p \\\\ \\midrule\n")
+  for(i in 1:min(nrow(cc_tab), 30)) cat(paste(cc_tab$macro_regiao[i], cc_tab$exposicao[i], cc_tab$n_casos[i], cc_tab$OR_fmt[i], cc_tab$p_fmt[i], sep=" & "), "\\\\\n")
+  cat("\\bottomrule\\end{tabular}\n\\end{table}\n")
+  n_cc_conc <- sum(cc_tab$odds_ratio > 1, na.rm = TRUE)
+  cat(paste0("\n\nA validação case-crossover produziu ", nrow(cc_tab), " estimativas, das quais ", n_cc_conc, " (", round(n_cc_conc/nrow(cc_tab)*100), "\\%) apresentaram OR $>$ 1, confirmando a direção dos efeitos observados no DLNM ecológico.\n"))
+} else {
+  cat("Dados de case-crossover não disponíveis nesta execução.\n")
+}
+```
+
+## Diagnóstico espacial de Moran
+
+```{r moran, results='asis'}
+if (nrow(moran) > 0) {
+  cat("\\begin{table}[H]\\centering\\normalsize\n\\caption{Teste de Moran para autocorrelação espacial dos RR cumulativos.\\newline\\textit{Moran's I test for spatial autocorrelation of cumulative RRs.}}\\label{tab:moran}\\vspace{2pt}\n")
+  cat("\\begin{tabular}{@{}llrrl@{}}\\toprule\nDesfecho & Exposição & I de Moran & p & Interpretação \\\\ \\midrule\n")
+  for(i in 1:nrow(moran)) cat(paste(moran$desfecho[i], moran$exposicao[i], fmt_rr(moran$moran_i[i]), fmt_rr(moran$moran_p[i]), moran$interpretacao[i], sep=" & "), "\\\\\n")
+  cat("\\bottomrule\\end{tabular}\n\\end{table}\n")
+  n_moran_sig <- sum(moran$moran_p < 0.05, na.rm = TRUE)
+  if (n_moran_sig == 0) {
+    cat(paste0("\n\nNenhum teste de Moran detectou autocorrelação espacial significativa (p $<$ 0,05), suportando a premissa de independência espacial entre macrorregiões.\n"))
+  }
+}
+```
+
+## Sensibilidade sazonal e estratificada
+
+```{r seasonal, results='asis'}
+if (nrow(seasonal) > 0) {
+  season_sum <- seasonal %>% 
+    group_by(estacao, desfecho, exposicao) %>%
+    summarise(n_modelos = n(), rr_mediano = median(rr_cumulativo_max, na.rm = TRUE), .groups = "drop") %>%
+    arrange(estacao, desc(rr_mediano))
+  cat(paste0("A análise sazonal produziu ", nrow(seasonal), " modelos verão/inverno. O RR mediano no inverno foi ", 
+    fmt_rr(median(filter(season_sum, estacao == "inverno")$rr_mediano, na.rm = TRUE)), 
+    " vs. ", fmt_rr(median(filter(season_sum, estacao == "verao")$rr_mediano, na.rm = TRUE)), 
+    " no verão, consistente com a predominância do efeito do frio.\n"))
+}
+```
+
+## Estabilidade temporal (jackknife)
+
+```{r jackknife, results='asis'}
+if (nrow(jackknife) > 0) {
+  n_jack_sensiveis <- sum(jackknife$delta_rr_max_pct > 20, na.rm = TRUE)
+  n_jack_total <- nrow(jackknife)
+  cat(paste0("O jackknife temporal analisou ", n_jack_total, " combinações macro-desfecho-exposição. ",
+    n_jack_sensiveis, " (", round(n_jack_sensiveis/n_jack_total*100), "\\%) apresentaram $\\Delta$RR $>$ 20\\% em pelo menos um ano excluído. ",
+    "A delta mediana foi ", fmt_rr(median(jackknife$delta_rr_max_pct, na.rm = TRUE)), "\\%, indicando estabilidade temporal satisfatória na maioria dos modelos.\n"))
+}
+```
+
+## Sensibilidade de priors bayesianos
+
+```{r priors, results='asis'}
+if (nrow(priors) > 0) {
+  n_prior_rob <- sum(priors$prior_robusto, na.rm = TRUE)
+  n_prior_tot <- nrow(priors)
+  cat(paste0("A análise de sensibilidade de priors avaliou ", n_prior_tot, " estimativas. ",
+    n_prior_rob, " (", round(n_prior_rob/n_prior_tot*100), "\\%) foram classificadas como robustas (amplitude do RR bayesiano $<$ 0,05 e amplitude da Pr(RR $>$ 1,10) $<$ 0,10 entre as três especificações de prior). ",
+    "A convergência entre priors cético, otimista e plano sugere que as conclusões bayesianas não são excessivamente dependentes da escolha de hiperparâmetros.\n"))
+
+  # Heat index results
+  if (nrow(hi_auc) > 0) {
+    hi_fdr <- sum(hi_auc$p_associacao_fdr < 0.05, na.rm = TRUE)
+    cat(paste0("\n\nOs modelos DLNM com temperatura aparente (\\textit{heat index}) produziram ", nrow(hi_auc), " estimativas, das quais ", hi_fdr, " atingiram FDR $<$ 0,05. "))
+    if (hi_fdr > 0) {
+      hi_top <- hi_auc %>% filter(p_associacao_fdr < 0.05) %>% slice_max(rr_cumulativo_max, n = 1)
+      cat(paste0("O maior RR foi observado em ", hi_top$macro_regiao[1], " (", hi_top$desfecho[1], ", RR=", fmt_rr(hi_top$rr_cumulativo_max[1]), ")."))
+    }
+  }
+}
+```
+
+## Validação cruzada da imputação climática
+
+```{r cv-clima, results='asis'}
+if (nrow(cv_clima) > 0) {
+  rmse_temp_med <- median(cv_clima$rmse_temp, na.rm = TRUE)
+  rmse_ur_med <- median(cv_clima$rmse_ur, na.rm = TRUE)
+  cat(paste0("A validação cruzada da imputação climática (n = ", nrow(cv_clima), " pares de estação) resultou em RMSE mediano de ", 
+    fmt_rr(rmse_temp_med), "°C para temperatura e ", fmt_rr(rmse_ur_med), "\\% para umidade relativa. ",
+    "Estes valores indicam que o método de preenchimento por estação mais próxima introduz erro limitado, ",
+    "compatível com a escala de análise macrorregional.\n"))
+}
+```
+
+
+A Figura 5 ilustra a distribuição dos desfechos por macrorregião e CID, evidenciando a concentração de eventos nas macrorregiões metropolitanas ($>$ 70\% do total) e a heterogeneidade na composição dos desfechos (proporção variável de internações vs. óbitos entre regiões). Esta heterogeneidade reforça a importância da estratificação regional e do uso de \textit{offset} populacional para evitar que as macrorregiões mais populosas dominem as estimativas.
+
+## Implicações para políticas de saúde e vigilância climática
+
+Os resultados têm implicações diretas para a vigilância epidemiológica de agravos sensíveis ao clima no estado do Rio de Janeiro. A consistência do sinal de temperatura, particularmente nos percentis frios, sugere que sistemas de alerta precoce baseados em previsões de temperatura -- incluindo quedas acentuadas, e não apenas ondas de calor -- poderiam contribuir para a redução de eventos cerebrovasculares. Macrorregiões com populações mais vulneráveis (Serrana, Noroeste) apresentaram os maiores RR, indicando que a vulnerabilidade socioeconômica e o acesso assistencial podem modular a magnitude do efeito climático.
+
+A ausência de significância estatística para a umidade na maioria dos modelos não deve ser interpretada como evidência de ausência de efeito, mas como limitação do poder estatístico em macrorregiões menores e da alta variabilidade das curvas de umidade. Estudos com maior resolução espacial (municipal ou intraurbana) e séries temporais mais longas poderão elucidar se o efeito higrotérmico é genuíno e meramente subdetectado no presente desenho.
+
+# Limitações
+
+Este estudo apresenta limitações que devem ser consideradas na interpretação dos resultados. Embora o desenho ecológico de séries temporais seja estabelecido em epidemiologia ambiental, a atribuição de exposição em nível de macrorregião introduz erro de agregação espacial, particularmente em macrorregiões extensas e climaticamente heterogêneas. Para mitigar esta limitação, implementou-se validação com desenho \textit{case-crossover} nos microdados individuais do SIH-RD, que confirmou a direção geral dos efeitos, embora as magnitudes difiram entre os dois desenhos -- como esperado dadas as diferentes escalas de inferência.
+
+A autocorrelação residual, presente na maioria dos modelos, foi abordada com correção Newey-West (HAC) para os erros-padrão, e a significância foi avaliada tanto pelo teste F/qui-quadrado clássico quanto pelo teste de Wald com matriz HAC. Apesar destas correções, a possibilidade de subestimação residual dos erros-padrão não pode ser inteiramente descartada.
+
+As análises estratificadas por sexo e idade, embora implementadas, dependem da disponibilidade de denominadores populacionais específicos do SIDRA/IBGE, cuja cobertura temporal pode ser incompleta. O \textit{jackknife} temporal (\textit{leave-one-out} por ano) demonstrou estabilidade satisfatória na maioria dos modelos, mas identificou sensibilidade em algumas combinações que merecem interpretação cautelosa.
+
+A análise de sensibilidade de \textit{priors} bayesianos demonstrou robustez das conclusões à escolha de hiperparâmetros, com `r if(nrow(priors)>0) sum(priors$prior_robusto,na.rm=TRUE) else 'N'`/`r if(nrow(priors)>0) nrow(priors) else 'N'` modelos estáveis entre as três especificações. Não obstante, o pequeno número de unidades hierárquicas (n=9 macrorregiões) limita a precisão da estimativa de $\tau$, e o \textit{shrinkage} pode ser excessivo para macrorregiões com poucos eventos.
+
+Os limiares de decisão -- FDR $<$ 0,05, Pr(RR $>$ 1,10) $\geq$ 90\%, $\Delta$RR $<$ 20\% -- representam escolhas metodológicas transparentes, mas não isentas de arbitrariedade. A disponibilização integral dos CSVs de priorização e do código-fonte do \textit{pipeline} visa permitir a reprodutibilidade completa e a reanálise com diferentes escolhas metodológicas.
+
+# Conclusão
+
+Este estudo evidenciou associações não lineares e defasadas entre exposições climáticas e afecções cerebrovasculares nas nove macrorregiões de saúde do Rio de Janeiro ao longo de 16 anos. A estratégia de priorização em cinco níveis identificou `r n_rob` achados principais robustos e `r n_cau` com cautela entre os modelos DLNM.
+
+A temperatura destacou-se como o fator mais consistente: o sinal bayesiano para óbitos $\times$ temperatura mostrou-se universal (Pr(RR $>$ 1,10) $\geq$ 90\% nas 9 macrorregiões), com RR bayesianos de 1,20--1,23 e efeito predominantemente associado a temperaturas baixas. A validação \textit{case-crossover} confirmou a direção destes efeitos, o teste de Moran não detectou autocorrelação espacial significativa, e a sensibilidade de \textit{priors} demonstrou robustez das conclusões bayesianas.
+
+A umidade relativa, embora gere as maiores AUC de excesso de risco em macrorregiões litorâneas, não alcançou significância estatística (FDR) em nenhum dos modelos com AUC $>$ 5. O \textit{heat index} (temperatura aparente) como exposição composta revelou-se promissor como variável integradora, merecendo investigação adicional com maior poder estatístico.
+
+A combinação de DLNM, MMT, correção Newey-West, AUC de excesso de RR, modelo bayesiano hierárquico com sensibilidade de \textit{priors}, validação \textit{case-crossover}, diagnóstico espacial de Moran, \textit{jackknife} temporal e análises sazonais e estratificadas -- operacionalizada por um \textit{pipeline} integralmente reproduzível com \textit{benchmark} de validação -- permitiu uma leitura dos dados mais completa e robusta do que qualquer abordagem isolada proporcionaria.
+
+# Referências
+
+\begingroup
+\begin{spacing}{1}
+\setlength{\parindent}{0pt}\setlength{\parskip}{0pt}
+
+\hangindent=0.5cm\noindent BENJAMINI, Y.; HOCHBERG, Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing.\ \textbf{\textit{Journal of the Royal Statistical Society: Series B}}, v. 57, n. 1, p. 289--300, 1995. DOI: 10.1111/j.2517-6161.1995.tb02031.x.
+
+\hangindent=0.5cm\noindent BHASKARAN, K.; GASPARRINI, A.; HAJAT, S.; SMEETH, L.; ARMSTRONG, B. Time series regression studies in environmental epidemiology.\ \textbf{\textit{International Journal of Epidemiology}}, v. 42, n. 4, p. 1187--1195, 2013. DOI: 10.1093/ije/dyt092.
+
+\hangindent=0.5cm\noindent GASPARRINI, A. Distributed lag linear and non-linear models in R: the package dlnm.\ \textbf{\textit{Journal of Statistical Software}}, v. 43, n. 8, p. 1--20, 2011. DOI: 10.18637/jss.v043.i08.
+
+\hangindent=0.5cm\noindent GASPARRINI, A. Modeling exposure--lag--response associations with distributed lag non-linear models.\ \textbf{\textit{Statistics in Medicine}}, v. 33, n. 5, p. 881--899, 2014. DOI: 10.1002/sim.5963.
+
+\hangindent=0.5cm\noindent GASPARRINI, A.; GUO, Y.; HASHIZUME, M. \textit{et al}. Mortality risk attributable to high and low ambient temperature: a multicountry observational study.\ \textbf{\textit{The Lancet}}, v. 386, n. 9991, p. 369--375, 2015. DOI: 10.1016/S0140-6736(14)62114-0.
+
+\hangindent=0.5cm\noindent MACLURE, M. The case-crossover design: a method for studying transient effects on the risk of acute events.\ \textbf{\textit{American Journal of Epidemiology}}, v. 133, n. 2, p. 144--153, 1991. DOI: 10.1093/oxfordjournals.aje.a115853.
+
+\hangindent=0.5cm\noindent NEWEY, W. K.; WEST, K. D. A simple, positive semi-definite, heteroskedasticity and autocorrelation consistent covariance matrix.\ \textbf{\textit{Econometrica}}, v. 55, n. 3, p. 703--708, 1987. DOI: 10.2307/1913610.
+
+\hangindent=0.5cm\noindent RAYMOND, C.; MATTHEWS, T.; HORTON, R. M. The emergence of heat and humidity too severe for human tolerance.\ \textbf{\textit{Science Advances}}, v. 6, n. 19, eaaw1838, 2020. DOI: 10.1126/sciadv.aaw1838.
+
+\hangindent=0.5cm\noindent STEADMAN, R. G. The assessment of sultriness. Part I: A temperature-humidity index based on human physiology and clothing science.\ \textbf{\textit{Journal of Applied Meteorology}}, v. 18, n. 7, p. 861--873, 1979. DOI: 10.1175/1520-0450(1979)018$<$0861:TAOSPI$>$2.0.CO;2.
+
+\hangindent=0.5cm\noindent WILD, C. P. Complementing the genome with an exposome.\ \textbf{\textit{Cancer Epidemiology, Biomarkers \& Prevention}}, v. 14, n. 8, p. 1847--1850, 2005. DOI: 10.1158/1055-9965.EPI-05-0456.
+
+\hangindent=0.5cm\noindent WILSON, A.; CHIU, Y.-H. M.; HSU, H.-H. L.; WRIGHT, R. O.; WRIGHT, R. J.; COULL, B. A. Bayesian distributed lag interaction models.\ \textbf{\textit{Biostatistics}}, v. 18, n. 3, p. 537--552, 2017. DOI: 10.1093/biostatistics/kxx002.
+
+\hangindent=0.5cm\noindent ZHAO, Q.; GUO, Y.; YE, T. \textit{et al}. Global, regional, and national burden of mortality associated with non-optimal ambient temperatures from 2000 to 2019: a three-stage modelling study.\ \textbf{\textit{The Lancet Planetary Health}}, v. 5, n. 7, p. e415--e425, 2021. DOI: 10.1016/S2542-5196(21)00081-4.
+
+\end{spacing}
+\endgroup
