@@ -28,14 +28,12 @@ jobs:
     container: rocker/geospatial:latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run unit tests
+      - name: Run validation checks
         run: |
           Rscript -e '
-          if (!requireNamespace("testthat", quietly=TRUE)) install.packages("testthat", repos="https://cloud.r-project.org")
-          library(testthat)
           source("config/config.R", local=TRUE)
           source("R/utils.R", local=TRUE)
-          source("tests/testthat/test_utils.R", local=TRUE)
+          source("tests/test_runner.R", local=TRUE)
           '
 
   # -- Repository Size Check --
