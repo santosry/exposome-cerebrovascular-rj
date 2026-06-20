@@ -2,7 +2,9 @@
 
 [![CI](https://github.com/santosry/exposome-cerebrovascular-rj/actions/workflows/ci.yml/badge.svg)](https://github.com/santosry/exposome-cerebrovascular-rj/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![FAIR](https://img.shields.io/badge/FAIR-Principles-green.svg)](https://www.go-fair.org/fair-principles/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](docker/)
+[![AI Used](https://img.shields.io/badge/AI_Declared-CNPq_2664%2F2026-purple.svg)](docs/AI_DECLARATION.md)
 [![FAIR](https://img.shields.io/badge/FAIR-Principles-green.svg)](https://www.go-fair.org/fair-principles/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](docker/)
 
@@ -233,6 +235,22 @@ make docker-build
 # Generate renv.lock
 make renv-snapshot
 ```
+
+---
+
+## 🤖 AI Usage Declaration
+
+This project used AI technologies as technical assistants in compliance with **CNPq Portaria 2664/2026**.
+
+| Technology | Purpose |
+|------------|--------|
+| **DeepSeek v4-pro** | Code refactoring, documentation, CI/CD pipelines, research compendium structure |
+| **OpenAI Codex** | R function assistance, statistical debugging, FAIR metadata |
+| **ChatGPT 5.5** | Technical audit, international benchmarking, compliance checklists |
+
+**All scientific decisions** (model selection, parameters, result interpretation) were made exclusively by human researchers.
+
+📄 Full declaration: [`docs/AI_DECLARATION.md`](docs/AI_DECLARATION.md)
 
 ---
 
