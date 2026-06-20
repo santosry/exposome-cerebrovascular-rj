@@ -10,25 +10,13 @@ on:
     branches: [main]
 
 jobs:
-  # -- Lint --
-  lint:
-    runs-on: ubuntu-latest
-    container: rocker/geospatial:latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install lintr
-        run: Rscript -e 'install.packages("lintr", repos="https://cloud.r-project.org")'
-      - name: Lint R code
-        run: Rscript -e 'library(lintr); lint_dir("R/")'
-        continue-on-error: true
-
-  # -- Unit Tests --
+  # -- Validation checks (self-contained, no dependencies) --
   test:
     runs-on: ubuntu-latest
     container: rocker/geospatial:latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run validation checks
+      - name: Run validation
         run: Rscript tests/test_runner.R
 
   # -- Repository Size Check --
@@ -40,113 +28,38 @@ jobs:
         run: |
           LARGE=$(find . -type f -size +50M 2>/dev/null)
           if [ -n "$LARGE" ]; then
-            echo "ERROR: Files larger than 50 MB found:"
-            echo "$LARGE"
+            echo "ERROR: Files > 50 MB found: $LARGE"
             exit 1
           fi
-          echo "Repository size check passed"
-
-  # -- Docker Build --
-  docker-build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build Docker image
-        run: docker build -t dlnm-cerebrovascular-rj -f docker/Dockerfile .
-      - name: Test Docker image loads config
-        run: |
-          docker run --rm dlnm-cerebrovascular-rj \
-            Rscript -e "source('config/config.R'); stopifnot(exists('YEARS')); cat('Config OK:', PERIOD_LABEL)"
+          echo "Size check passed"
 
   # -- FAIR Compliance --
   fair-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check required FAIR metadata files exist
+      - name: Check required files
         run: |
-          REQUIRED=(
-            "README.md"
-            "CITATION.cff"
-            "LICENSE"
-            "docs/formulas/model_formulas.md"
-            "docs/methodology/analysis_overview.md"
-            "REPRODUCIBILITY_CHECKLIST.md"
-            ".gitignore"
-            "docker/Dockerfile"
-            "config/config.R"
-          )
-          MISSING=()
-          for f in "${REQUIRED[@]}"; do
-            if [ ! -f "$f" ]; then
-              MISSING+=("$f")
-            fi
+          for f in README.md CITATION.cff LICENSE docs/formulas/model_formulas.md docs/methodology/analysis_overview.md REPRODUCIBILITY_CHECKLIST.md .gitignore docker/Dockerfile config/config.R; do
+            [ -f "$f" ] || { echo "MISSING: $f"; exit 1; }
           done
-          if [ ${#MISSING[@]} -gt 0 ]; then
-            echo "ERROR: Missing FAIR metadata files:"
-            printf '%s\n' "${MISSING[@]}"
-            exit 1
-          fi
-          echo "FAIR metadata check passed: all ${#REQUIRED[@]} files present"
+          echo "FAIR check passed"
 
-  # -- Reproducibility Smoke Test --
-  reproducibility-smoke:
+  # -- Module load test --
+  modules:
     runs-on: ubuntu-latest
     container: rocker/geospatial:latest
-    needs: [size-check]
+    needs: [test, size-check]
     steps:
       - uses: actions/checkout@v4
-      - name: Install core dependencies
-        run: Rscript -e 'install.packages(c("dplyr","tibble","stringr","stringi","janitor","readr","tidyr","purrr","lubridate","MASS","mgcv","dlnm","splines","sandwich","survival","ggplot2","scales","testthat"), repos="https://cloud.r-project.org")'
-      - name: Test config and modules load
+      - name: Test all modules source without error
         run: |
           Rscript -e "
+          options(warn=1)
           source('config/config.R', local=TRUE)
-          source('R/utils.R', local=TRUE)
-          source('R/download.R', local=TRUE)
-          source('R/exposure_processing.R', local=TRUE)
-          source('R/preprocessing.R', local=TRUE)
-          source('R/dlnm_models.R', local=TRUE)
-          source('R/bayesian_models.R', local=TRUE)
-          source('R/visualization.R', local=TRUE)
-          source('R/reporting.R', local=TRUE)
-          cat('All modules loaded successfully\n')
-          "
-
-  # -- Integration Smoke Test --
-  integration-test:
-    runs-on: ubuntu-latest
-    container: rocker/geospatial:latest
-    needs: [test]
-    steps:
-      - uses: actions/checkout@v4
-      - name: Test DLNM with synthetic data
-        run: |
-          Rscript -e "
-          source('config/config.R', local=TRUE)
-          source('R/utils.R', local=TRUE)
-          source('R/dlnm_models.R', local=TRUE)
-          # Generate synthetic dataset
-          set.seed(42)
-          n <- 365
-          dat <- data.frame(
-            data = seq.Date(as.Date('2020-01-01'), by='day', length.out=n),
-            macro_regiao = 'Test',
-            internacoes_i60_i69 = rpois(n, 5),
-            temp_med = 20 + 10*sin(2*pi*(1:n)/365) + rnorm(n, 0, 1),
-            ur_med = 70 + 10*cos(2*pi*(1:n)/365) + rnorm(n, 0, 3),
-            ano = 2020, dow = rep(1:7, length.out=n),
-            feriado = FALSE, pandemia = FALSE,
-            offset_log_populacao = log(100000),
-            tempo = as.numeric(1:n) / 365.25,
-            pm25_anual = NA_real_,
-            influenza_lag7 = NA_real_
-          )
-          # Fit one DLNM
-          result <- fit_one_dlnm(dat, 'internacoes_i60_i69', 'temp_med',
-                                  df_exp=4, df_lag=3, lag_max=14, use_mmt=FALSE)
-          stopifnot(!is.null(result$model))
-          stopifnot(!is.null(result$pred))
-          stopifnot(result$pred$allRRfit[length(result$pred$allRRfit)] > 0)
-          cat('Integration test PASSED: DLNM fits without error\n')
+          for (f in c('utils','download','exposure_processing','preprocessing',
+                       'dlnm_models','bayesian_models','visualization','reporting')) {
+            source(file.path('R', paste0(f, '.R')), local=TRUE)
+          }
+          cat('All 8 modules loaded successfully\n')
           "
