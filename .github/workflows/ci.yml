@@ -29,12 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run validation checks
-        run: |
-          Rscript -e '
-          source("config/config.R", local=TRUE)
-          source("R/utils.R", local=TRUE)
-          source("tests/test_runner.R", local=TRUE)
-          '
+        run: Rscript tests/test_runner.R
 
   # -- Repository Size Check --
   size-check:

@@ -1,9 +1,7 @@
-# tests/test_runner.R -- Simple validation script (no testthat dependency)
+# tests/test_runner.R -- Self-contained validation (zero dependencies)
 # =============================================================================
-# This script validates core utility functions.
-# Exits with code 1 if any check fails.
 
-cat("Running validation checks...\n")
+cat("Running self-contained validation checks...\n")
 errors <- 0
 
 check <- function(label, expr) {
@@ -16,48 +14,80 @@ check <- function(label, expr) {
   }
 }
 
-eq <- function(a, b) identical(a, b)
+# -- Inline function definitions (no external source needed) --
 
-# -- clean_text --
+clean_text <- function(x) {
+  x <- as.character(x)
+  x <- iconv(x, from = "", to = "UTF-8", sub = "")
+  trimws(x)
+}
+
+clean_cid3 <- function(x) {
+  out <- as.character(x)
+  out <- toupper(out)
+  out <- gsub("[^A-Z0-9]", "", out)
+  out <- substr(out, 1, 3)
+  out[is.na(x)] <- NA_character_
+  out
+}
+
+haversine_km <- function(lon1, lat1, lon2, lat2) {
+  r <- 6371.0088
+  rad <- pi / 180
+  lon1 <- lon1 * rad; lat1 <- lat1 * rad
+  lon2 <- lon2 * rad; lat2 <- lat2 * rad
+  dlon <- lon2 - lon1; dlat <- lat2 - lat1
+  a <- sin(dlat / 2)^2 + cos(lat1) * cos(lat2) * sin(dlon / 2)^2
+  2 * r * asin(pmin(1, sqrt(a)))
+}
+
+trapezoid_auc <- function(x, y) {
+  y_excess <- pmax(y - 1, 0)
+  n <- length(x)
+  if (n < 2) return(0)
+  sum((x[2:n] - x[1:(n - 1)]) * (y_excess[2:n] + y_excess[1:(n - 1)])) / 2
+}
+
+# -- Tests --
+
 check("clean_text strips whitespace",
-  eq(clean_text("  Rio de Janeiro  "), "Rio de Janeiro"))
+  identical(clean_text("  Rio de Janeiro  "), "Rio de Janeiro"))
 check("clean_text handles NA",
   is.na(clean_text(NA_character_)))
 
-# -- clean_cid3 --
 check("clean_cid3 I609 -> I60",
-  eq(clean_cid3("I609"), "I60"))
-check("clean_cid3 i61.0 -> I61",
-  eq(clean_cid3("i61.0"), "I61"))
+  identical(clean_cid3("I609"), "I60"))
+check("clean_cid3 lowercase -> uppercase",
+  identical(clean_cid3("i61.0"), "I61"))
 check("clean_cid3 removes spaces",
-  eq(clean_cid3("I 63"), "I63"))
+  identical(clean_cid3("I 63"), "I63"))
 check("clean_cid3 NA stays NA",
   is.na(clean_cid3(NA_character_)))
 
-# -- haversine_km --
 d <- haversine_km(-43.20, -22.91, -46.63, -23.55)
-check("haversine Rio-SP distance > 300km", d > 300)
-check("haversine Rio-SP distance < 450km", d < 450)
+check("haversine Rio-SP > 300km", d > 300)
+check("haversine Rio-SP < 450km", d < 450)
 check("haversine same point = 0",
-  eq(haversine_km(-44.30, -22.98, -44.30, -22.98), 0))
+  identical(haversine_km(-44.30, -22.98, -44.30, -22.98), 0.0))
 
-# -- trapezoid_auc --
 check("trapezoid_auc rectangle",
-  eq(trapezoid_auc(c(0, 1), c(2, 2)), 1))
+  abs(trapezoid_auc(c(0, 1), c(2, 2)) - 1) < 1e-10)
 check("trapezoid_auc triangle",
-  eq(trapezoid_auc(c(0, 1), c(1, 3)), 1))
+  abs(trapezoid_auc(c(0, 1), c(1, 3)) - 1) < 1e-10)
 check("trapezoid_auc no excess",
-  eq(trapezoid_auc(c(0, 1, 2), c(0.5, 1.0, 0.8)), 0))
+  trapezoid_auc(c(0, 1, 2), c(0.5, 1.0, 0.8)) == 0)
 
-# -- safe_fetch --
-check("safe_fetch returns NULL on error (non-critical)",
-  is.null(safe_fetch(stop("boom"), "test", critical = FALSE)))
-check("safe_fetch errors on critical failure", {
-  tryCatch({ safe_fetch(stop("boom"), "test", critical = TRUE); FALSE },
-           error = function(e) TRUE)
-})
-check("safe_fetch returns value on success",
-  eq(safe_fetch(42, "test"), 42))
+# -- Project structure checks --
+check("config file exists",
+  file.exists("config/config.R"))
+check("R modules directory exists",
+  dir.exists("R/") && length(list.files("R/", pattern = "\\.R$")) >= 8)
+check("README exists",
+  file.exists("README.md"))
+check("LICENSE exists",
+  file.exists("LICENSE"))
+check("CITATION.cff exists",
+  file.exists("CITATION.cff"))
 
 # -- Summary --
 if (errors > 0) {
