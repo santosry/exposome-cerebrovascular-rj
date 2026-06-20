@@ -145,6 +145,52 @@ make all         # Everything
 
 ---
 
+## R Environment
+
+R version 4.6.0 (2026-04-24)
+
+| Package | Version |
+|---|---|
+| microdatasus | 2.5.0 |
+| BrazilMet | 0.4.0 |
+| tidyverse | 2.0.0 |
+| dplyr | 1.2.1 |
+| tidyr | 1.3.2 |
+| readr | 2.2.0 |
+| tibble | 3.3.1 |
+| purrr | 1.2.2 |
+| forcats | 1.0.1 |
+| stringr | 1.6.0 |
+| stringi | 1.8.7 |
+| lubridate | 1.9.5 |
+| janitor | 2.2.1 |
+| ggplot2 | 4.0.3 |
+| scales | 1.4.0 |
+| ggrepel | 0.9.8 |
+| patchwork | 1.3.2 |
+| dlnm | 2.4.10 |
+| splines | 4.6.0 |
+| MASS | 7.3.65 |
+| mgcv | 1.9.4 |
+| lmtest | 0.9.40 |
+| sandwich | 3.1.1 |
+| survival | 3.8.6 |
+| spdep | 1.4.2 |
+| igraph | 2.3.0 |
+| zoo | 1.8.15 |
+| plotly | 4.12.0 |
+| htmlwidgets | 1.6.4 |
+| rmarkdown | 2.31 |
+| knitr | 1.51 |
+| sidrar | 0.2.9 |
+| geobr | 1.9.1 |
+| sf | 1.1.0 |
+| httr | 1.4.8 |
+| jsonlite | 2.0.0 |
+| data.table | 1.18.4 |
+
+---
+
 ## Reproducibility
 
 This compendium follows the [Turing Way](https://the-turing-way.netlify.app/) and [FAIR Principles](https://www.go-fair.org/):
