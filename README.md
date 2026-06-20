@@ -1,5 +1,4 @@
 # 🌡️ Climate Exposure and Cerebrovascular Outcomes in Rio de Janeiro (2010–2025)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](docker/)
 
 **Research Compendium** — Epidemiologia Ambiental com DLNM e Inferência Bayesiana Hierárquica
 
