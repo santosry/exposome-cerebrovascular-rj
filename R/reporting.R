@@ -17,9 +17,9 @@ render_bsb_outputs <- function() {
   }
 
   # Copy Rmd files from original location if needed
-  original_article <- file.path(PROJECT_ROOT, "02_RELATORIO_BSB2026",
+  original_article <- file.path(PROJECT_ROOT, "03_RELATORIO_BSB2026",
                                 "artigo_bsb2026_sbc.Rmd")
-  original_pres <- file.path(PROJECT_ROOT, "02_RELATORIO_BSB2026",
+  original_pres <- file.path(PROJECT_ROOT, "03_RELATORIO_BSB2026",
                              "apresentacao_BSB2026.Rmd")
 
   if (!file.exists(article_rmd) && file.exists(original_article)) {

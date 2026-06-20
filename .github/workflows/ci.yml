@@ -112,3 +112,41 @@ jobs:
           source('R/reporting.R', local=TRUE)
           cat('All modules loaded successfully\n')
           "
+
+  # -- Integration Smoke Test --
+  integration-test:
+    runs-on: ubuntu-latest
+    container: rocker/geospatial:latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test DLNM with synthetic data
+        run: |
+          Rscript -e "
+          source('config/config.R', local=TRUE)
+          source('R/utils.R', local=TRUE)
+          source('R/dlnm_models.R', local=TRUE)
+          # Generate synthetic dataset
+          set.seed(42)
+          n <- 365
+          dat <- data.frame(
+            data = seq.Date(as.Date('2020-01-01'), by='day', length.out=n),
+            macro_regiao = 'Test',
+            internacoes_i60_i69 = rpois(n, 5),
+            temp_med = 20 + 10*sin(2*pi*(1:n)/365) + rnorm(n, 0, 1),
+            ur_med = 70 + 10*cos(2*pi*(1:n)/365) + rnorm(n, 0, 3),
+            ano = 2020, dow = rep(1:7, length.out=n),
+            feriado = FALSE, pandemia = FALSE,
+            offset_log_populacao = log(100000),
+            tempo = as.numeric(1:n) / 365.25,
+            pm25_anual = NA_real_,
+            influenza_lag7 = NA_real_
+          )
+          # Fit one DLNM
+          result <- fit_one_dlnm(dat, 'internacoes_i60_i69', 'temp_med',
+                                  df_exp=4, df_lag=3, lag_max=14, use_mmt=FALSE)
+          stopifnot(!is.null(result$model))
+          stopifnot(!is.null(result$pred))
+          stopifnot(result$pred$allRRfit[length(result$pred$allRRfit)] > 0)
+          cat('Integration test PASSED: DLNM fits without error\n')
+          "

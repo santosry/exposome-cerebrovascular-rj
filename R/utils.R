@@ -216,3 +216,55 @@ haversine_km <- function(lon1, lat1, lon2, lat2) {
   a <- sin(dlat / 2)^2 + cos(lat1) * cos(lat2) * sin(dlon / 2)^2
   2 * r * asin(pmin(1, sqrt(a)))
 }
+
+# [F-004] Brazilian holidays including movable dates.
+# Uses Gauss algorithm for Easter; derives Carnival and Corpus Christi.
+#' Get Brazilian national and state (RJ) holidays for given years
+get_brazilian_holidays <- function(years) {
+  easter_date <- function(yr) {
+    a <- yr %% 19; b <- yr %/% 100; c <- yr %% 100
+    d <- b %/% 4; e <- b %% 4
+    f <- (b + 8) %/% 25
+    g <- (b - f + 1) %/% 3
+    h <- (19 * a + b - d - g + 15) %% 30
+    i <- c %/% 4; k <- c %% 4
+    l <- (32 + 2 * e + 2 * i - h - k) %% 7
+    m <- (a + 11 * h + 22 * l) %/% 451
+    month <- (h + l - 7 * m + 114) %/% 31
+    day <- ((h + l - 7 * m + 114) %% 31) + 1
+    as.Date(sprintf("%04d-%02d-%02d", yr, month, day))
+  }
+  fixed_holidays <- function(yr) {
+    dates <- as.Date(c(
+      sprintf("%d-01-01", yr),   # Ano Novo
+      sprintf("%d-04-21", yr),   # Tiradentes
+      sprintf("%d-05-01", yr),   # Dia do Trabalho
+      sprintf("%d-09-07", yr),   # Independencia
+      sprintf("%d-10-12", yr),   # N.S. Aparecida
+      sprintf("%d-11-02", yr),   # Finados
+      sprintf("%d-11-15", yr),   # Proclamacao Republica
+      sprintf("%d-12-25", yr)    # Natal
+    ))
+    # RJ state holidays
+    dates <- c(dates, as.Date(sprintf("%d-04-23", yr)))  # Sao Jorge
+    if (yr <= 2023) {
+      dates <- c(dates, as.Date(sprintf("%d-11-20", yr))) # Consciencia Negra (RJ ate 2023)
+    }
+    dates
+  }
+  all_dates <- character()
+  for (yr in years) {
+    easter <- easter_date(yr)
+    carnival <- easter - 47  # Terca de Carnaval
+    good_friday <- easter - 2
+    corpus_christi <- easter + 60
+    all_dates <- c(all_dates,
+      as.character(carnival),
+      as.character(carnival - 1),  # Segunda de Carnaval
+      as.character(good_friday),
+      as.character(corpus_christi),
+      as.character(fixed_holidays(yr))
+    )
+  }
+  sort(as.Date(unique(all_dates)))
+}

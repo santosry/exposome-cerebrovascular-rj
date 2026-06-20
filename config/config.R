@@ -58,7 +58,8 @@ INFLUENZA_CIDS <- paste0("J", sprintf("%02d", 9:18))
 # ── DLNM specification ──
 DLNM_LAG_GRID <- c(7, 14, 21)
 DLNM_FALLBACK <- list(df_exp = 4, df_lag = 3, lag_max = 14)
-DLNM_DF_EXP_GRID <- c(3, 4, 5)
+# [F-005] Grid estendido para incluir df=6 (recomendado por Gasparrini 2014)
+DLNM_DF_EXP_GRID <- c(3, 4, 5, 6)
 DLNM_DF_LAG_GRID <- c(3, 4, 5)
 DLNM_MMT_ENABLE <- TRUE
 DLNM_NW_HAC_ENABLE <- TRUE
@@ -84,8 +85,11 @@ PANDEMIC_END   <- as.Date("2022-12-31")
 # ── Feature flags ──
 CASE_CROSSOVER_ENABLE <- FALSE
 MORAN_ENABLE <- TRUE
+# [F-005] Controle de poluicao do ar ATIVO por padrao.
+# Dados: PM2.5 anual por macrorregiao (02_MP25_RJ_exposicao/data_processed/)
+# Granularidade anual -- usado como termo linear (sem spline).
 AIR_QUALITY_ENABLE <- tolower(
-  Sys.getenv("DLNM_ENABLE_AIR_QUALITY", unset = "false")) %in%
+  Sys.getenv("DLNM_ENABLE_AIR_QUALITY", unset = "true")) %in%
   c("1", "true", "sim", "yes")
 FORCE_RAW_DOWNLOAD <- tolower(
   Sys.getenv("DLNM_FORCE_RAW_DOWNLOAD", unset = "false")) %in%

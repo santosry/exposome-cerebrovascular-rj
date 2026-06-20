@@ -2,6 +2,13 @@
 # =============================================================================
 # Normal-normal hierarchical model for cumulative log(RR) estimates.
 # Provides posterior probabilities, credible intervals, and prior sensitivity.
+#
+# [S-012] LIMITACAO CONHECIDA: O modelo bayesiano opera em dois estagios:
+# 1) DLNM frequentista produz estimativas de log(RR) e SE
+# 2) Modelo hierarquico Normal-Normal sobre essas estimativas
+# Isso ignora a incerteza nos parametros de nuisance do primeiro estagio,
+# potencialmente subestimando a incerteza posterior.
+# Um modelo completamente Bayesiano (ex: via rstan) seria preferivel.
 
 #' Normal-normal hierarchical Bayesian group model
 #'
@@ -101,12 +108,17 @@ run_bayesian_hierarchical_validation <- function(rr_tbl, auc_tbl,
                                                   rr_threshold = 1.10) {
   log_msg("INFO", "Starting Bayesian hierarchical validation")
 
-  # Prepare input: compute log(RR) and approximate SE from CI
+  # [S-009] Prepare input: use HAC-based SE when available,
+  # fall back to CI-derived approximation
   bayes_input <- rr_tbl |>
     dplyr::mutate(
       log_rr = log(rr_cumulativo),
-      # Approximate SE from 95% CI width
-      se_log_rr = (log(rr_cumulativo_high) - log(rr_cumulativo_low)) / (2 * 1.96)
+      # Prefer HAC-based SE from delta method; fallback to CI width
+      se_log_rr = dplyr::if_else(
+        is.finite(se_log_rr_hac) & se_log_rr_hac > 0,
+        se_log_rr_hac,
+        (log(rr_cumulativo_high) - log(rr_cumulativo_low)) / (2 * 1.96)
+      )
     ) |>
     dplyr::filter(is.finite(log_rr), is.finite(se_log_rr), se_log_rr > 0)
 

@@ -295,6 +295,32 @@ process_inmet <- function() {
   climate_macro
 }
 
+# [F-005] Process PM2.5 air pollution data for confounding control.
+# Data source: INEA/MonitorAr via Power BI dashboard, extracted to CSV.
+# Granularity: ANNUAL by macroregion (not daily).
+# Downscaling: national VIGIAR trend applied to municipal means.
+# 2025 is extrapolated. These limitations are documented in the article.
+#' Process PM2.5 pollution data
+process_poluentes <- function() {
+  pm25_path <- file.path(PROJECT_ROOT, "..", "02_MP25_RJ_exposicao",
+                         "data_processed", "mp25_rj_anual_2010_2025.csv")
+  if (!file.exists(pm25_path)) {
+    log_msg("WARN", "PM2.5 data not found at ", pm25_path,
+            "; air quality control disabled.")
+    return(tibble::tibble(macro_regiao = character(), ano = integer(),
+                          pm25_anual = numeric()))
+  }
+  pm25 <- readr::read_csv(pm25_path, show_col_types = FALSE) |>
+    janitor::clean_names() |>
+    dplyr::group_by(macroregiao, ano) |>
+    dplyr::summarise(pm25_anual = mean(pm25, na.rm = TRUE), .groups = "drop") |>
+    dplyr::rename(macro_regiao = macroregiao)
+  log_msg("INFO", "PM2.5 loaded: ", nrow(pm25), " rows, ",
+          sprintf("%.1f", mean(pm25$pm25_anual, na.rm = TRUE)),
+          " ug/m3 mean")
+  pm25
+}
+
 #' Build analytic dataset: merge outcomes, climate, and population offset
 make_analytic_dataset <- function(outcomes, meteo, population = NULL) {
   if (is.null(population)) {
@@ -335,42 +361,17 @@ make_analytic_dataset <- function(outcomes, meteo, population = NULL) {
       influenza_lag7 = dplyr::lag(internacoes_influenza, 7)
     )
 
-  # Add Brazilian national holidays (simplified: fixed dates)
-  holidays <- as.Date(c(
-    "2010-01-01", "2010-04-21", "2010-05-01", "2010-09-07",
-    "2010-10-12", "2010-11-02", "2010-11-15", "2010-12-25",
-    "2011-01-01", "2011-04-21", "2011-05-01", "2011-09-07",
-    "2011-10-12", "2011-11-02", "2011-11-15", "2011-12-25",
-    "2012-01-01", "2012-04-21", "2012-05-01", "2012-09-07",
-    "2012-10-12", "2012-11-02", "2012-11-15", "2012-12-25",
-    "2013-01-01", "2013-04-21", "2013-05-01", "2013-09-07",
-    "2013-10-12", "2013-11-02", "2013-11-15", "2013-12-25",
-    "2014-01-01", "2014-04-21", "2014-05-01", "2014-09-07",
-    "2014-10-12", "2014-11-02", "2014-11-15", "2014-12-25",
-    "2015-01-01", "2015-04-21", "2015-05-01", "2015-09-07",
-    "2015-10-12", "2015-11-02", "2015-11-15", "2015-12-25",
-    "2016-01-01", "2016-04-21", "2016-05-01", "2016-09-07",
-    "2016-10-12", "2016-11-02", "2016-11-15", "2016-12-25",
-    "2017-01-01", "2017-04-21", "2017-05-01", "2017-09-07",
-    "2017-10-12", "2017-11-02", "2017-11-15", "2017-12-25",
-    "2018-01-01", "2018-04-21", "2018-05-01", "2018-09-07",
-    "2018-10-12", "2018-11-02", "2018-11-15", "2018-12-25",
-    "2019-01-01", "2019-04-21", "2019-05-01", "2019-09-07",
-    "2019-10-12", "2019-11-02", "2019-11-15", "2019-12-25",
-    "2020-01-01", "2020-04-21", "2020-05-01", "2020-09-07",
-    "2020-10-12", "2020-11-02", "2020-11-15", "2020-12-25",
-    "2021-01-01", "2021-04-21", "2021-05-01", "2021-09-07",
-    "2021-10-12", "2021-11-02", "2021-11-15", "2021-12-25",
-    "2022-01-01", "2022-04-21", "2022-05-01", "2022-09-07",
-    "2022-10-12", "2022-11-02", "2022-11-15", "2022-12-25",
-    "2023-01-01", "2023-04-21", "2023-05-01", "2023-09-07",
-    "2023-10-12", "2023-11-02", "2023-11-15", "2023-12-25",
-    "2024-01-01", "2024-04-21", "2024-05-01", "2024-09-07",
-    "2024-10-12", "2024-11-02", "2024-11-15", "2024-12-25",
-    "2025-01-01", "2025-04-21", "2025-05-01", "2025-09-07",
-    "2025-10-12", "2025-11-02", "2025-11-15", "2025-12-25"
-  ))
+  # [F-004] Brazilian holidays including movable dates (Carnival, Easter, Corpus Christi)
+  holidays <- get_brazilian_holidays(YEARS)
   dat$feriado[dat$data %in% holidays] <- TRUE
+
+  # [F-005] Join PM2.5 air pollution data (annual by macroregion) when enabled
+  if (AIR_QUALITY_ENABLE) {
+    pm25 <- process_poluentes()
+    dat <- dat |> dplyr::left_join(pm25, by = c("macro_regiao", "ano"))
+  } else {
+    dat$pm25_anual <- NA_real_
+  }
 
   save_rds(dat, file.path(PROJECT_ROOT, "data", "processed",
                            "dataset_dlnm_macrorregiao.rds"))

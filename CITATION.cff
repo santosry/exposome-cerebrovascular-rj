@@ -6,15 +6,19 @@ authors:
   - family-names: "Santos"
     given-names: "Ryan de Paulo"
     email: "ryan.paulo@gsuite.iff.edu.br"
+    orcid: "0000-0000-0000-0000"  # TODO: preencher ORCID real
   - family-names: "Nunes"
     given-names: "Camila Henriques"
     email: "camila.n@gsuite.iff.edu.br"
+    orcid: "0000-0000-0000-0000"  # TODO: preencher ORCID real
   - family-names: "Ribeiro"
     given-names: "Karla Rangel"
     email: "karla.ribeiro@gsuite.iff.edu.br"
+    orcid: "0000-0000-0000-0000"  # TODO: preencher ORCID real
   - family-names: "Medina-Acosta"
     given-names: "Enrique"
     email: "quique@uenf.br"
+    orcid: "0000-0000-0000-0000"  # TODO: preencher ORCID real
 keywords:
   - "DLNM"
   - "environmental epidemiology"
@@ -22,7 +26,7 @@ keywords:
   - "cerebrovascular diseases"
   - "Rio de Janeiro"
 license: "MIT"
-date-released: "2026-06-16"
+date-released: "2026-06-20"
 preferred-citation:
   type: article
   title: "Climate exposure and cerebrovascular outcomes in Rio de Janeiro: a reproducible DLNM-Bayesian framework using INMET, DATASUS and SIDRA"
@@ -36,3 +40,4 @@ preferred-citation:
     - family-names: "Medina-Acosta"
       given-names: "Enrique"
   year: 2026
+  doi: "a-depositar-via-Zenodo"

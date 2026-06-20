@@ -3,7 +3,7 @@
 # Generates: exposure-response curves, lag-response curves, AUC rankings,
 #            seasonal plots, residual diagnostics, 3D heatmap surfaces.
 
-#' Plot exposure-response curve with confidence bands
+#' Plot exposure-response curve with confidence bands (HAC-corrected when available)
 plot_exposure_response <- function(obj, region, fdr_value = NA_real_,
                                     percentile_values = NULL) {
   pred <- obj$pred

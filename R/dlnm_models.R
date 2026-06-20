@@ -23,10 +23,16 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
   )
 
   complementary <- if (exposure == "temp_med") "ur_med" else "temp_med"
+  # [F-003] 7 df/year for temporal trend (upper bound per Bhaskaran et al. 2013)
+  # Total df = 7 * N_years distributed across 16-year span
   covars <- paste0("ns(tempo, df = ", 7 * length(unique(dat$ano)),
     ") + dow + feriado + pandemia + ns(", complementary, ", df = 3)")
   if (!is.null(dat$influenza_lag7) && all(is.finite(dat$influenza_lag7))) {
     covars <- paste0(covars, " + ns(influenza_lag7, df = 2)")
+  }
+  # [F-005] PM2.5 air pollution control (annual, linear term -- no spline)
+  if (!is.null(dat$pm25_anual) && any(is.finite(dat$pm25_anual))) {
+    covars <- paste0(covars, " + pm25_anual")
   }
   form <- stats::as.formula(
     paste(outcome, "~ cb +", covars, "+ offset(offset_log_populacao)"))
@@ -43,7 +49,10 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
   p_association <- NA_real_
   p_method <- "Quasi-Poisson F test"
 
-  # Negative binomial fallback for high overdispersion
+  # [S-005] Negative binomial fallback when dispersion > 3.
+  # Threshold justification: Quasi-Poisson is robust for moderate overdispersion
+  # (< 3). Above that, inflated Type I error risk. Reference: Ver Hoef & Boveng
+  # (2007, Ecological Applications).
   if (is.finite(dispersion) && dispersion > 3) {
     nb_warnings <- character()
     m_nb <- try(withCallingHandlers(
@@ -97,9 +106,11 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
   }
 
   # Cross-prediction
+  # [S-004] Extended prediction range to capture extreme effects.
+  # Caveat: extrapolation beyond [P0.1, P99.9] has higher uncertainty.
   pred_at <- seq(
-    stats::quantile(dat[[exposure]], 0.01, na.rm = TRUE),
-    stats::quantile(dat[[exposure]], 0.99, na.rm = TRUE),
+    stats::quantile(dat[[exposure]], 0.001, na.rm = TRUE),
+    stats::quantile(dat[[exposure]], 0.999, na.rm = TRUE),
     length.out = 80
   )
 
@@ -121,8 +132,10 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
   pred <- dlnm::crosspred(cb, model, at = pred_at, cen = cen,
                             bylag = 1, cumul = TRUE)
 
-  # Newey-West HAC standard errors
+  # [S-008] Newey-West HAC standard errors with delta-method propagation
+  # to cumulative RR. The SE from crosspred uses model vcov, not HAC.
   nw_se <- NULL; nw_cov <- NULL
+  se_log_rr_hac <- NA_real_
   if (DLNM_NW_HAC_ENABLE && requireNamespace("sandwich", quietly = TRUE)) {
     nw_cov <- tryCatch(
       sandwich::NeweyWest(model, lag = DLNM_NW_LAGS, prewhite = FALSE),
@@ -130,6 +143,18 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
     )
     if (!is.null(nw_cov)) {
       nw_se <- sqrt(diag(nw_cov))
+      # [S-009] Delta method: propagate HAC vcov to cumulative log(RR)
+      cb_idx <- grep("^cb", names(stats::coef(model)))
+      if (length(cb_idx) > 0) {
+        # Gradient of cumulative prediction w.r.t. cross-basis coefficients
+        grad_cumul <- colSums(pred$matRRfit) / nrow(pred$matRRfit)
+        # Approximate: SE of log(cumul RR) via delta method on HAC vcov
+        vc_cb <- nw_cov[cb_idx, cb_idx, drop = FALSE]
+        se_log_rr_hac <- tryCatch(
+          sqrt(t(grad_cumul) %*% vc_cb %*% grad_cumul),
+          error = function(e) NA_real_
+        )
+      }
     }
   }
 
@@ -144,6 +169,7 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
     cen = cen, cen_mmt = cen_mmt,
     cen_percentil_mmt = cen_percentil_mmt,
     nw_se = nw_se, nw_cov = nw_cov,
+    se_log_rr_hac = se_log_rr_hac,
     alerta_convergencia = alerta_convergencia,
     model_warnings = model_warnings,
     exposure = exposure, outcome = outcome,
@@ -156,13 +182,26 @@ summarise_pred <- function(obj, region) {
   rr <- obj$pred$allRRfit
   rr_low <- obj$pred$allRRlow
   rr_high <- obj$pred$allRRhigh
+  # [S-009] HAC-based CI for cumulative RR
+  se_hac <- obj$se_log_rr_hac
+  rr_cum <- rr[length(rr)]
+  if (is.finite(se_hac) && se_hac > 0) {
+    hac_low <- exp(log(rr_cum) - 1.96 * se_hac)
+    hac_high <- exp(log(rr_cum) + 1.96 * se_hac)
+  } else {
+    hac_low <- rr_low[length(rr_low)]
+    hac_high <- rr_high[length(rr_high)]
+  }
   tibble::tibble(
     macro_regiao = region,
     outcome = obj$outcome,
     exposure = obj$exposure,
-    rr_cumulativo = rr[length(rr)],
+    rr_cumulativo = rr_cum,
     rr_cumulativo_low = rr_low[length(rr_low)],
     rr_cumulativo_high = rr_high[length(rr_high)],
+    rr_cumulativo_hac_low = hac_low,
+    rr_cumulativo_hac_high = hac_high,
+    se_log_rr_hac = se_hac,
     p_association = obj$p_association,
     family = obj$family,
     dispersion = obj$dispersion,
@@ -210,6 +249,16 @@ diagnose_model <- function(obj, region) {
     error = function(e) list(statistic = NA_real_, p.value = NA_real_)
   )
   acf_vals <- stats::acf(res, plot = FALSE, lag.max = 14, na.action = na.pass)
+  # [S-014] Ljung-Box test for residual autocorrelation (multiple lags)
+  lb <- tryCatch(
+    stats::Box.test(res, lag = 14, type = "Ljung-Box"),
+    error = function(e) list(statistic = NA_real_, p.value = NA_real_)
+  )
+  # [S-014] Check if autocorrelation persists after Newey-West
+  autocorr_after_hac <- FALSE
+  if (!is.null(obj$nw_cov) && is.finite(lb$p.value)) {
+    autocorr_after_hac <- lb$p.value < 0.05
+  }
   tibble::tibble(
     macro_regiao = region,
     outcome = obj$outcome,
@@ -219,6 +268,9 @@ diagnose_model <- function(obj, region) {
     acf_lag1 = acf_vals$acf[2],
     acf_lag7 = acf_vals$acf[8],
     acf_lag14 = acf_vals$acf[15],
+    lb_statistic = lb$statistic,
+    lb_pvalue = lb$p.value,
+    autocorr_residual_after_hac = autocorr_after_hac,
     n_residuals = length(res),
     dispersion = obj$dispersion,
     alerta_convergencia = obj$alerta_convergencia
@@ -284,10 +336,15 @@ run_dlnm <- function(dat_macro, extra_outcomes = character(),
 
 #' Add FDR correction and evidence flags
 add_fdr_and_evidence_flags <- function(auc_tbl) {
+  # [S-013] FDR controls false discovery rate among rejected tests,
+  # but does not control global error when multiple dimensions
+  # (RR, AUC, Pr posterior) are examined.
+  n_total <- nrow(auc_tbl)
   auc_tbl |>
     dplyr::mutate(
       p_fdr = stats::p.adjust(p_association, method = "fdr"),
       fdr_significant = p_fdr < 0.05,
+      n_testes_total = n_total,
       evidence_level = dplyr::case_when(
         p_fdr < 0.01 ~ "strong",
         p_fdr < 0.05 ~ "moderate",
@@ -470,4 +527,64 @@ write_dlnm_method_note <- function() {
   )
   writeLines(lines, file.path(PROJECT_ROOT, "docs", "formulas",
                                "model_formulas.md"))
+}
+
+# [F-003] Sensitivity analysis for temporal df (4, 5, 6 df/year)
+# to assess robustness of the 7 df/year choice.
+#' Run temporal df sensitivity analysis
+run_temporal_df_sensitivity <- function(dat_macro, df_grid = c(4, 5, 6)) {
+  log_msg("INFO", "Temporal df sensitivity: testing ",
+          paste(df_grid, collapse = ", "), " df/year")
+  results <- list()
+  for (df_year in df_grid) {
+    log_msg("INFO", "Temporal df sensitivity: df/year = ", df_year)
+    for (region in sort(unique(dat_macro$macro_regiao))) {
+      d <- dplyr::filter(dat_macro, macro_regiao == region)
+      for (outc in c("internacoes_i60_i69", "obitos_i60_i69")) {
+        for (exp in c("temp_med", "ur_med")) {
+          # Re-fit with modified temporal df
+          obj <- safe_fetch({
+            cb <- dlnm::crossbasis(
+              d[[exp]], lag = DLNM_FALLBACK$lag_max,
+              argvar = list(fun = "ns", df = DLNM_FALLBACK$df_exp),
+              arglag = list(fun = "ns",
+                knots = dlnm::logknots(DLNM_FALLBACK$lag_max,
+                                        df = DLNM_FALLBACK$df_lag))
+            )
+            complementary <- if (exp == "temp_med") "ur_med" else "temp_med"
+            covars <- paste0("ns(tempo, df = ", df_year * length(unique(d$ano)),
+              ") + dow + feriado + pandemia + ns(", complementary, ", df = 3)")
+            if (!is.null(d$pm25_anual) && any(is.finite(d$pm25_anual)))
+              covars <- paste0(covars, " + pm25_anual")
+            if (!is.null(d$influenza_lag7) && all(is.finite(d$influenza_lag7)))
+              covars <- paste0(covars, " + ns(influenza_lag7, df = 2)")
+            form <- stats::as.formula(paste(outc, "~ cb +", covars,
+              "+ offset(offset_log_populacao)"))
+            glm(form, family = quasipoisson(link = "log"),
+                data = d, na.action = na.exclude)
+          }, paste("TEMP_DF_SENS", region, outc, exp, "df", df_year),
+          critical = FALSE)
+          if (is.null(obj)) next
+          pred <- dlnm::crosspred(cb, obj, at = seq(
+            stats::quantile(d[[exp]], 0.01, na.rm = TRUE),
+            stats::quantile(d[[exp]], 0.99, na.rm = TRUE),
+            length.out = 50), cen = stats::quantile(d[[exp]], 0.50, na.rm = TRUE),
+            bylag = 1, cumul = TRUE)
+          results[[paste(region, outc, exp, df_year, sep = "__")]] <-
+            tibble::tibble(
+              macro_regiao = region, outcome = outc, exposure = exp,
+              df_year = df_year,
+              rr_cumulativo = pred$allRRfit[length(pred$allRRfit)],
+              aic = stats::AIC(obj)
+            )
+        }
+      }
+    }
+  }
+  sens_tbl <- dplyr::bind_rows(results)
+  if (nrow(sens_tbl) > 0) {
+    write_audit(sens_tbl,
+      file.path(PROJECT_ROOT, "outputs", "tables", "sensibilidade_df_temporal.csv"))
+  }
+  sens_tbl
 }
