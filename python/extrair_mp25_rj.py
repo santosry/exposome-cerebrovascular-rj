@@ -1,7 +1,7 @@
 """
 ================================================================================
 SCRIPT DE EXTRAÇÃO E PROCESSAMENTO DE DADOS MP2.5 — MUNICÍPIOS DO RJ
-Projeto: DLNM - CNPq
+Projeto: DLNM - Exposome Cerebrovascular RJ
 Fonte: Power BI INEA/MonitorAr (Programa VIGIAR)
 ================================================================================
 
@@ -17,7 +17,7 @@ O que este script faz:
 Requisitos:
     pip install playwright pandas numpy
 
-Autor: Gerado automaticamente para projeto DLNM-CNPq
+Autor: Gerado automaticamente para projeto DLNM - Exposome Cerebrovascular RJ
 Data: 2026-06-20
 ================================================================================
 """
@@ -38,7 +38,7 @@ import pandas as pd
 # ============================================================
 # CONFIGURAÇÃO DE DIRETÓRIOS
 # ============================================================
-BASE_DIR = Path("C:/Users/oorie/OneDrive/Documentos/TRABALHOS/DLNM - CNPq")
+BASE_DIR = Path("C:/Users/oorie/OneDrive/Documentos/TRABALHOS/DLNM")
 DATA_DIR = BASE_DIR / "00_dados"
 SCRIPTS_DIR = BASE_DIR / "01_scripts"
 OUTPUT_DIR = BASE_DIR / "02_outputs"
@@ -717,7 +717,7 @@ def _gerar_relatorio_auditoria(df_final: pd.DataFrame, df_municipios: pd.DataFra
     with open(relatorio_path, "w", encoding="utf-8") as f:
         f.write("=" * 70 + "\n")
         f.write("RELATÓRIO DE AUDITORIA — DADOS MP2.5 MUNICÍPIOS DO RJ\n")
-        f.write("Projeto: DLNM - CNPq\n")
+        f.write("Projeto: DLNM - Exposome Cerebrovascular RJ\n")
         f.write(f"Gerado em: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         f.write("=" * 70 + "\n\n")
 
@@ -781,7 +781,7 @@ def _gerar_relatorio_auditoria(df_final: pd.DataFrame, df_municipios: pd.DataFra
 def main():
     logger.info("=" * 60)
     logger.info("EXTRAÇÃO MP2.5 — MUNICÍPIOS DO RJ (2010-2025)")
-    logger.info(f"Projeto: DLNM - CNPq | Início: {datetime.now()}")
+    logger.info(f"Projeto: DLNM - Exposome Cerebrovascular RJ | Início: {datetime.now()}")
     logger.info("=" * 60)
 
     # Passo 1: Capturar dados do Power BI

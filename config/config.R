@@ -4,7 +4,7 @@
 
 # ── Project paths ──
 PROJECT_ROOT <- normalizePath(
-  Sys.getenv("DLNM_CNPQ_ROOT", unset = getwd()),
+  Sys.getenv("DLNM_PROJECT_ROOT", unset = getwd()),
   winslash = "/",
   mustWork = TRUE
 )

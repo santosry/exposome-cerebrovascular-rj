@@ -77,7 +77,6 @@ make all         # Everything
       formulas/
       methodology/
       AI_DECLARATION.md
-      ZENODO_DEPOSIT.md
     tests/testthat/
     docker/
     .github/workflows/
@@ -230,7 +229,7 @@ python extrair_mp25_rj.py
 
 ## AI Usage Declaration
 
-This project used AI technologies as technical assistants in compliance with **CNPq Portaria 2664/2026**.
+This project used AI technologies as technical assistants.
 
 | Technology | Purpose |
 |------------|--------|

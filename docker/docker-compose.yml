@@ -14,7 +14,7 @@ services:
     image: dlnm-cerebrovascular-rj:latest
     container_name: dlnm-pipeline
     environment:
-      - DLNM_CNPQ_ROOT=/home/rstudio/dlnm-compendium
+      - DLNM_PROJECT_ROOT=/home/rstudio/dlnm-compendium
       - DLNM_FORCE_RAW_DOWNLOAD=false
       - RUN_PIPELINE_ON_SOURCE=true
     volumes:
@@ -39,7 +39,7 @@ services:
     environment:
       - PASSWORD=dlnm2026
       - ROOT=TRUE
-      - DLNM_CNPQ_ROOT=/home/rstudio/dlnm-compendium
+      - DLNM_PROJECT_ROOT=/home/rstudio/dlnm-compendium
     volumes:
       - ./outputs:/home/rstudio/dlnm-compendium/outputs
       - ./data:/home/rstudio/dlnm-compendium/data
@@ -56,7 +56,7 @@ services:
     image: dlnm-cerebrovascular-rj:latest
     container_name: dlnm-benchmark
     environment:
-      - DLNM_CNPQ_ROOT=/home/rstudio/dlnm-compendium
+      - DLNM_PROJECT_ROOT=/home/rstudio/dlnm-compendium
       - RUN_PIPELINE_ON_SOURCE=false
     volumes:
       - ./outputs:/home/rstudio/dlnm-compendium/outputs
