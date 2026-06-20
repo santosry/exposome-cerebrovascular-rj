@@ -6,7 +6,7 @@
 
 ## Abstract
 
-This repository investigates non-linear and delayed associations between temperature, relative humidity, and hospital admissions/deaths from cerebrovascular diseases (ICD-10 I60-I69) across the nine health macroregions of Rio de Janeiro state, Brazil, from 2010 to 2025.
+This repository investigates non-linear and delayed associations between temperature, relative humidity, PM2.5 air pollution, and hospital admissions/deaths from cerebrovascular diseases (ICD-10 I60-I69) across the nine health macroregions of Rio de Janeiro state, Brazil, from 2010 to 2025.
 
 **Study design:** Ecological daily time series
 **Methods:** Distributed Lag Non-linear Models (DLNMs) with natural spline cross-bases, Quasi-Poisson/Negative Binomial regression, PM2.5 air pollution adjustment, hierarchical Bayesian stabilization, Newey-West HAC standard errors with delta-method propagation, and FDR-corrected prioritization
