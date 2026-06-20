@@ -18,29 +18,37 @@ This repository investigates non-linear and delayed associations between tempera
 
 ## Quick Start
 
-### Option 1: Docker (recommended for reproducibility)
+> **R compatibility:** Developed and tested on R 4.6.0. Minimum required: **R ≥ 4.4.0** (required by `MASS 7.3-65`).  
+> The pipeline is **fully functional on R 4.4.x, 4.5.x, and 4.6.x** — `renv::restore()` handles all version resolution.  
+> For older R versions or non-Linux systems, use **Docker** (zero compatibility issues).
+
+### Option 1: Docker (recommended — zero setup, any OS)
 
 ```bash
-docker-compose -f docker/docker-compose.yml up dlnm-pipeline
-docker-compose -f docker/docker-compose.yml up dlnm-interactive
+git clone https://github.com/santosry/exposome-cerebrovascular-rj.git
+cd exposome-cerebrovascular-rj
+make docker-build    # Single command: R, Python, Playwright, all packages
+make docker-run      # Runs full pipeline end-to-end
 ```
 
-### Option 2: Local R
+### Option 2: Local (R ≥ 4.4.0 + Python 3.9+)
 
 ```bash
-Rscript -e 'renv::restore()'
-Rscript run_pipeline.R
+git clone https://github.com/santosry/exposome-cerebrovascular-rj.git
+cd exposome-cerebrovascular-rj
+make setup           # renv::restore() + pip install + playwright install chromium
+make all             # Full pipeline
 ```
 
-### Option 3: Make targets
+### Option 3: Step-by-step
 
 ```bash
-make download    # Download raw data
-make process     # Build analytic dataset
-make models      # Fit DLNM models
-make validate    # Run Bayesian validation
-make reports     # Generate figures and manuscript
-make all         # Everything
+make download-pm25   # PM2.5 from INEA/MonitorAr (Playwright)
+make download        # SIH + SIM (DATASUS) + INMET (API or local zip fallback)
+make process         # Build analytic dataset
+make models          # Fit DLNM models
+make validate        # Bayesian hierarchical validation
+make reports         # Figures, tables, manuscript
 ```
 
 ---
