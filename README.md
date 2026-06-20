@@ -282,4 +282,4 @@ Full declaration: [docs/AI_DECLARATION.md](docs/AI_DECLARATION.md)
 
 ---
 
-Status: Production-ready for journal submission
+Languages: R, HTML
