@@ -27,10 +27,14 @@ This repository investigates non-linear and delayed associations between tempera
 ### Option 1: Docker (recommended — zero setup, any OS)
 
 ```bash
+# IMPORTANT: This repository uses Git LFS for large data files.
+# Clone with LFS enabled to get all data:
+git lfs install
 git clone https://github.com/santosry/exposome-cerebrovascular-rj.git
 cd exposome-cerebrovascular-rj
-make docker-build    # Single command: R, Python, Playwright, all packages
-make docker-run      # Runs full pipeline end-to-end
+git lfs pull               # Ensure all data files are downloaded
+make docker-build           # Single command: R, Python, Playwright, all packages
+make docker-run             # Runs full pipeline end-to-end
 ```
 
 ### Option 2: Local (R ≥ 4.4.0 + Python 3.9+)
@@ -332,14 +336,15 @@ python extrair_mp25_rj.py
 
 ## Limitations
 
-1. **Ecological design** -- associations at macroregional level; no individual-level inference
-2. **PM2.5 granularity** -- annual by macroregion; intra-annual variation not captured; 2025 extrapolated
-3. **SIM-DO 2025** unavailable -- filled with SIH hospital deaths (proxy, undercounts out-of-hospital deaths)
-4. **Noroeste macroregion** has only 1 INMET station (no redundancy)
-5. **Climate aggregation** -- simple mean across stations, not population-weighted
-6. **Two-stage Bayesian** -- uncertainty from DLNM stage not fully propagated to posterior intervals
-7. **Intercensal population estimates** for 2023-2025 based on post-Census 2022 projections
-8. **Multiple comparisons** -- prioritization examines multiple dimensions (exploratory nature documented)
+1. **Ecological design** — associations at macroregional level; no individual-level inference
+2. **PM2.5 granularity** — annual by macroregion; intra-annual variation not captured; 2025 extrapolated via linear regression from 2020–2024
+3. **SIM-DO 2025 unavailable** — mortality for 2025 uses SIH in-hospital deaths as proxy, which **undercounts out-of-hospital cerebrovascular fatalities** (common in stroke). This affects ~1/16 of the time series. A sensitivity analysis excluding 2025 is recommended for confirmation
+4. **SIM-DO 2014–2016 partial** — some monthly SIM files were unavailable; filled with SIH deaths where gaps exist
+5. **Noroeste macroregion** has only 1 INMET station (no spatial redundancy for imputation)
+6. **Climate aggregation** — simple mean across stations, not population-weighted or distance-weighted
+7. **Two-stage Bayesian** — uncertainty from DLNM stage not fully propagated to posterior intervals (when using plug-in RR point estimates)
+8. **Intercensal population estimates** for 2023–2025 based on post-Census 2022 projections (IBGE/SIDRA table 6579)
+9. **Multiple comparisons** — FDR correction applied; prioritization examines multiple dimensions (exploratory nature documented)
 
 ---
 
