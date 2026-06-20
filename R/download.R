@@ -38,8 +38,23 @@ download_microdatasus_monthly <- function(system, year, month, prefix, out_dir,
     if (!is.null(dat)) break
   }
   if (is.null(dat)) {
+    # Fallback: check if pre-downloaded files exist (e.g. from Git LFS clone)
+    if (file.exists(out)) {
+      log_msg("INFO", "Using pre-downloaded RDS from repository: ", basename(out))
+      return(out)
+    }
+    # Check if any RDS files exist at all (partial clone recovery)
+    existing <- list.files(out_dir, "\\.rds$", full.names = TRUE)
+    if (length(existing) > 0) {
+      log_msg("WARN", "Download failed but ", length(existing),
+              " pre-existing RDS files found in ", out_dir,
+              " — continuing with available files")
+      return(NA_character_)
+    }
     stop("Download failed after ", max_tries, " attempts for ", system, " ",
-         year, "-", sprintf("%02d", month), call. = FALSE)
+         year, "-", sprintf("%02d", month),
+         ". Ensure Git LFS is enabled (git lfs pull) or download manually.",
+         call. = FALSE)
   }
   save_rds(dat, out)
   out
@@ -107,7 +122,17 @@ download_sim <- function() {
   write_audit(audit,
     file.path(PROJECT_ROOT, "audit", "auditoria_download_sim.csv"))
   if (!any(audit$status %in% c("baixado", "existente"))) {
-    stop("No SIM-DO year was downloaded or found locally.", call. = FALSE)
+    # Fallback: check for pre-downloaded RDS files (e.g. from Git LFS)
+    existing <- list.files(out_dir, "sim_do_rj_year_.*\\.rds$", full.names = TRUE)
+    if (length(existing) > 0) {
+      log_msg("INFO", "No DATASUS download succeeded, but ", length(existing),
+              " pre-existing annual SIM RDS files found (Git LFS) — using those")
+      return(invisible(TRUE))
+    }
+    stop("No SIM-DO year was downloaded or found locally.\n",
+         "  Ensure Git LFS is enabled: git lfs pull\n",
+         "  Or download manually from DATASUS via microdatasus package.",
+         call. = FALSE)
   }
   invisible(TRUE)
 }
