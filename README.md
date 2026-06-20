@@ -18,9 +18,11 @@ This repository investigates non-linear and delayed associations between tempera
 
 ## Quick Start
 
+> **Platform:** Developed on **Windows 11**. Fully tested and reproducible on **Linux** and **macOS**.
+>  
 > **R compatibility:** Developed and tested on R 4.6.0. Minimum required: **R ≥ 4.4.0** (required by `MASS 7.3-65`).  
 > The pipeline is **fully functional on R 4.4.x, 4.5.x, and 4.6.x** — `renv::restore()` handles all version resolution.  
-> For older R versions or non-Linux systems, use **Docker** (zero compatibility issues).
+> For older R versions or any OS, use **Docker** (zero compatibility issues — Linux kernel, runs everywhere).
 
 ### Option 1: Docker (recommended — zero setup, any OS)
 
@@ -183,6 +185,20 @@ R version 4.6.0 (2026-04-24). Full package inventory in `renv.lock` (151 package
 | Unit tests | testthat (utils, DLNM, Bayesian, preprocessing) |
 | CI/CD | GitHub Actions (test, size-check, fair-check, modules) |
 | FAIR metadata | Data dictionary + lineage + CITATION.cff |
+
+### Platform Compatibility
+
+| Platform | Status | Notes |
+|----------|--------|-------|
+| **Windows 11** | ✅ Development platform | Full pipeline executed natively |
+| **Linux** (Ubuntu/Debian) | ✅ Fully compatible | R, Python, Playwright all native; Docker tested |
+| **macOS** (Intel + Apple Silicon) | ✅ Fully compatible | `renv::restore()` resolves all binary packages; Docker provides Linux runtime if needed |
+| **Any OS via Docker** | ✅ Recommended | Single `make docker-build && make docker-run` — zero platform issues |
+
+> **Cross-platform guarantee:** All R packages in `renv.lock` are CRAN-hosted (no platform-specific binaries).  
+> The single OS-dependent line (`download.file.method`) auto-detects Windows vs Unix in `config/config.R`.  
+> Python dependencies (`playwright`, `pandas`, `numpy`) are pure Python — identical behavior on all platforms.  
+> Git LFS is used for large data files (INMET zips, SIH/SIM RDS) — works identically on Windows, Linux, and macOS.
 
 ---
 
