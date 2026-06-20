@@ -54,10 +54,10 @@
 
 | # | Item | Status | Notes |
 |---|------|--------|-------|
-| 16 | Key results | ⚠️ Pending | Manuscript in 03_RELATORIO_BSB2026 |
-| 17 | Limitations | ✅ | 9 limitations documented in README |
-| 18 | Interpretation | ⚠️ Pending | Caution about ecological fallacy |
-| 19 | Generalisability | ⚠️ Pending | Rio de Janeiro state only; tropical climate context |
+| 16 | Key results | ✅ | Manuscript §Resultados e discussão; 2 robust associations, 8 with caution; temperature predominates |
+| 17 | Limitations | ✅ | 9 limitations documented in README + §Limitações section in manuscript |
+| 18 | Interpretation | ✅ | Caution about ecological fallacy stated in abstract, §Limitações, and §Conclusão |
+| 19 | Generalisability | ✅ | Rio de Janeiro state only; tropical climate context discussed in §Introdução and §Limitações |
 
 ## Other Information
 
