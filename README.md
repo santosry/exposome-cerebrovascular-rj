@@ -321,6 +321,13 @@ R version 4.6.0 (2026-04-24). Full package inventory in `renv.lock` (151 package
 | **SIM-DO** | Mortality records | `microdatasus` |
 | **INMET** | Weather stations (temp, humidity) | `BrazilMet` |
 | **INEA/MonitorAr** | PM2.5 air pollution | Python/Playwright extraction from public Power BI dashboard |
+| **SIDRA/IBGE** | Population denominators | `sidrar` |
+| **geobr** | Municipality geometries | `geobr` |
+
+**📋 Detailed station coverage:** See [docs/data_sources/station_coverage.md](docs/data_sources/station_coverage.md)
+— complete catalog of 26 INMET stations (codes, coordinates, operation dates),
+74 PM2.5-monitored + 18 neighbor-attributed municipalities, imputation methods,
+and PM2.5 annual series per macroregion.
 
 To reproduce the PM2.5 extraction:
 ```bash
@@ -329,8 +336,6 @@ pip install -r requirements.txt
 playwright install chromium
 python extrair_mp25_rj.py
 ```
-| **SIDRA/IBGE** | Population denominators | `sidrar` |
-| **geobr** | Municipality geometries | `geobr` |
 
 ---
 
