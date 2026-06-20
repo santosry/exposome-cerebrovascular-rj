@@ -55,6 +55,98 @@ make reports         # Figures, tables, manuscript
 
 ---
 
+## How to Run — Full Guide
+
+All data files (SIH, SIM, INMET, PM2.5) are already included in the repository via Git LFS.  
+If the public APIs are unavailable, the pipeline falls back to the pre-downloaded files automatically.
+
+### A) One-liner (Rscript)
+
+```bash
+Rscript run_pipeline.R
+```
+
+Runs the full pipeline end-to-end. Uses renv for package management and falls back to local data when APIs fail.
+
+### B) Makefile (granular control)
+
+| Command | What it does |
+|---------|-------------|
+| `make setup` | First-time: installs renv packages + Python deps + Playwright browser |
+| `make download-pm25` | Extracts PM2.5 from INEA/MonitorAr Power BI dashboard (Python + Playwright) |
+| `make download` | Downloads SIH-RD, SIM-DO, INMET (or uses local fallback) |
+| `make process` | Builds analytic dataset (daily counts per macroregion × exposure) |
+| `make models` | Fits all DLNM models (9 macroregions × 2 exposures × 2 outcomes × grid) |
+| `make validate` | Bayesian hierarchical validation + prior sensitivity |
+| `make reports` | Generates figures, tables, and renders manuscript |
+| `make audit` | Runs benchmark validation and quality control |
+| `make test` | Runs unit tests (testthat) |
+| `make all` | Everything above, in order |
+| `make clean` | Removes derived outputs (keeps raw data) |
+| `make clean-all` | Removes everything including raw data |
+| `make renv-snapshot` | Updates renv.lock with current package versions |
+| `make renv-restore` | Restores exact package versions from renv.lock |
+| `make help` | Shows this list |
+
+### C) Docker (isolated, portable)
+
+```bash
+# Build the image (R 4.6.0 + all packages + Python + Playwright)
+make docker-build
+
+# Run the full pipeline in a container
+make docker-run
+
+# Or use docker-compose for multi-service orchestration
+docker-compose -f docker/docker-compose.yml up dlnm-pipeline     # Full pipeline
+docker-compose -f docker/docker-compose.yml up dlnm-interactive  # RStudio Server on port 8787
+docker-compose -f docker/docker-compose.yml up dlnm-benchmark    # Benchmark only
+```
+
+### D) targets pipeline (incremental, skips unchanged steps)
+
+```r
+library(targets)
+tar_make()  # Runs only what's needed; caches intermediate results
+```
+
+The `_targets.R` file defines a `targets` workflow that skips already-computed steps — ideal for iterative development.
+
+### E) Individual R scripts (manual exploration)
+
+```r
+source("config/config.R")
+source("R/utils.R")
+source("R/download.R")
+
+# Download specific data
+download_sih()       # 192 monthly SIH-RD files
+download_sim()       # 15 annual SIM-DO files
+download_inmet()     # Weather station data (API or local zip fallback)
+
+# Or process specific components
+source("R/exposure_processing.R")
+meteo <- process_inmet()
+
+source("R/preprocessing.R")
+outcomes <- process_outcomes()
+```
+
+### What to do if downloads fail
+
+The pipeline automatically falls back to pre-downloaded files stored in the repository (Git LFS):
+- `data/raw/sih/` — 192 monthly hospital admission files
+- `data/raw/sim/` — 15 annual mortality files
+- `data/raw/inmet_zip/` — 16 yearly INMET zip archives
+- `data/processed/pm25/` — Pre-computed PM2.5 tables
+
+If Git LFS files weren't pulled during clone:
+```bash
+git lfs pull
+```
+
+---
+
 ## Repository Structure
 
     README.md
