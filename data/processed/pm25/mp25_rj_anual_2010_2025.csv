@@ -1,0 +1,1473 @@
+Municipio;Macroregiao;Ano;PM25;Fonte;Metodo
+Paraty;Baía da Ilha Grande;2010;18.0503;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2011;14.0537;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2012;14.5566;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2013;12.9199;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2014;14.5881;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2015;15.7222;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2016;15.365;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2017;14.9296;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2018;14.2029;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2019;15.5171;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2020;15.8438;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2021;16.3457;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2022;16.6317;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2023;14.9373;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2024;19.8862;Monitorado;Observado
+Paraty;Baía da Ilha Grande;2025;18.7318;Monitorado;Extrapolado (regressão linear)
+Angra dos Reis;Baía da Ilha Grande;2010;24.1472;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2011;18.8007;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2012;19.4734;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2013;17.2839;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2014;19.5157;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2015;21.0327;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2016;20.5549;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2017;19.9725;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2018;19.0002;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2019;20.7584;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2020;21.1955;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2021;21.8669;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2022;22.2495;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2023;19.9827;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2024;26.6033;Monitorado;Observado
+Angra dos Reis;Baía da Ilha Grande;2025;25.059;Monitorado;Extrapolado (regressão linear)
+Arraial do Cabo;Baixada Litorânea;2010;10.9814;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2011;8.55;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2012;8.8559;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2013;7.8602;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2014;8.8752;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2015;9.5651;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2016;9.3478;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2017;9.0829;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2018;8.6408;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2019;9.4403;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2020;9.6391;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2021;9.9444;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2022;10.1184;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2023;9.0876;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2024;12.0984;Monitorado;Observado
+Arraial do Cabo;Baixada Litorânea;2025;11.3961;Monitorado;Extrapolado (regressão linear)
+Mangaratiba;Baía da Ilha Grande;2010;27.6135;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2011;21.4995;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2012;22.2688;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2013;19.765;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2014;22.3171;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2015;24.0519;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2016;23.5055;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2017;22.8395;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2018;21.7277;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2019;23.7383;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2020;24.2381;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2021;25.0059;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2022;25.4433;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2023;22.8512;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2024;30.4221;Monitorado;Observado
+Mangaratiba;Baía da Ilha Grande;2025;28.6562;Monitorado;Extrapolado (regressão linear)
+Maricá;Metropolitana II;2010;19.2057;Monitorado;Observado
+Maricá;Metropolitana II;2011;14.9533;Monitorado;Observado
+Maricá;Metropolitana II;2012;15.4884;Monitorado;Observado
+Maricá;Metropolitana II;2013;13.7469;Monitorado;Observado
+Maricá;Metropolitana II;2014;15.522;Monitorado;Observado
+Maricá;Metropolitana II;2015;16.7286;Monitorado;Observado
+Maricá;Metropolitana II;2016;16.3485;Monitorado;Observado
+Maricá;Metropolitana II;2017;15.8853;Monitorado;Observado
+Maricá;Metropolitana II;2018;15.112;Monitorado;Observado
+Maricá;Metropolitana II;2019;16.5104;Monitorado;Observado
+Maricá;Metropolitana II;2020;16.858;Monitorado;Observado
+Maricá;Metropolitana II;2021;17.3921;Monitorado;Observado
+Maricá;Metropolitana II;2022;17.6963;Monitorado;Observado
+Maricá;Metropolitana II;2023;15.8934;Monitorado;Observado
+Maricá;Metropolitana II;2024;21.1591;Monitorado;Observado
+Maricá;Metropolitana II;2025;19.9309;Monitorado;Extrapolado (regressão linear)
+Saquarema;Baixada Litorânea;2010;13.8227;Monitorado;Observado
+Saquarema;Baixada Litorânea;2011;10.7621;Monitorado;Observado
+Saquarema;Baixada Litorânea;2012;11.1473;Monitorado;Observado
+Saquarema;Baixada Litorânea;2013;9.8939;Monitorado;Observado
+Saquarema;Baixada Litorânea;2014;11.1714;Monitorado;Observado
+Saquarema;Baixada Litorânea;2015;12.0399;Monitorado;Observado
+Saquarema;Baixada Litorânea;2016;11.7663;Monitorado;Observado
+Saquarema;Baixada Litorânea;2017;11.433;Monitorado;Observado
+Saquarema;Baixada Litorânea;2018;10.8764;Monitorado;Observado
+Saquarema;Baixada Litorânea;2019;11.8828;Monitorado;Observado
+Saquarema;Baixada Litorânea;2020;12.133;Monitorado;Observado
+Saquarema;Baixada Litorânea;2021;12.5174;Monitorado;Observado
+Saquarema;Baixada Litorânea;2022;12.7364;Monitorado;Observado
+Saquarema;Baixada Litorânea;2023;11.4388;Monitorado;Observado
+Saquarema;Baixada Litorânea;2024;15.2286;Monitorado;Observado
+Saquarema;Baixada Litorânea;2025;14.3446;Monitorado;Extrapolado (regressão linear)
+Niterói;Metropolitana II;2010;24.5037;Monitorado;Observado
+Niterói;Metropolitana II;2011;19.0782;Monitorado;Observado
+Niterói;Metropolitana II;2012;19.7609;Monitorado;Observado
+Niterói;Metropolitana II;2013;17.5391;Monitorado;Observado
+Niterói;Metropolitana II;2014;19.8038;Monitorado;Observado
+Niterói;Metropolitana II;2015;21.3432;Monitorado;Observado
+Niterói;Metropolitana II;2016;20.8583;Monitorado;Observado
+Niterói;Metropolitana II;2017;20.2674;Monitorado;Observado
+Niterói;Metropolitana II;2018;19.2807;Monitorado;Observado
+Niterói;Metropolitana II;2019;21.0649;Monitorado;Observado
+Niterói;Metropolitana II;2020;21.5084;Monitorado;Observado
+Niterói;Metropolitana II;2021;22.1898;Monitorado;Observado
+Niterói;Metropolitana II;2022;22.5779;Monitorado;Observado
+Niterói;Metropolitana II;2023;20.2777;Monitorado;Observado
+Niterói;Metropolitana II;2024;26.996;Monitorado;Observado
+Niterói;Metropolitana II;2025;25.4289;Monitorado;Extrapolado (regressão linear)
+Araruama;Baixada Litorânea;2010;13.0643;Monitorado;Observado
+Araruama;Baixada Litorânea;2011;10.1717;Monitorado;Observado
+Araruama;Baixada Litorânea;2012;10.5357;Monitorado;Observado
+Araruama;Baixada Litorânea;2013;9.3511;Monitorado;Observado
+Araruama;Baixada Litorânea;2014;10.5585;Monitorado;Observado
+Araruama;Baixada Litorânea;2015;11.3793;Monitorado;Observado
+Araruama;Baixada Litorânea;2016;11.1208;Monitorado;Observado
+Araruama;Baixada Litorânea;2017;10.8057;Monitorado;Observado
+Araruama;Baixada Litorânea;2018;10.2797;Monitorado;Observado
+Araruama;Baixada Litorânea;2019;11.2309;Monitorado;Observado
+Araruama;Baixada Litorânea;2020;11.4674;Monitorado;Observado
+Araruama;Baixada Litorânea;2021;11.8306;Monitorado;Observado
+Araruama;Baixada Litorânea;2022;12.0376;Monitorado;Observado
+Araruama;Baixada Litorânea;2023;10.8112;Monitorado;Observado
+Araruama;Baixada Litorânea;2024;14.3931;Monitorado;Observado
+Araruama;Baixada Litorânea;2025;13.5576;Monitorado;Extrapolado (regressão linear)
+Itaguaí;Metropolitana I;2010;28.3844;Monitorado;Observado
+Itaguaí;Metropolitana I;2011;22.0997;Monitorado;Observado
+Itaguaí;Metropolitana I;2012;22.8905;Monitorado;Observado
+Itaguaí;Metropolitana I;2013;20.3168;Monitorado;Observado
+Itaguaí;Metropolitana I;2014;22.9402;Monitorado;Observado
+Itaguaí;Metropolitana I;2015;24.7234;Monitorado;Observado
+Itaguaí;Metropolitana I;2016;24.1617;Monitorado;Observado
+Itaguaí;Metropolitana I;2017;23.4772;Monitorado;Observado
+Itaguaí;Metropolitana I;2018;22.3343;Monitorado;Observado
+Itaguaí;Metropolitana I;2019;24.401;Monitorado;Observado
+Itaguaí;Metropolitana I;2020;24.9148;Monitorado;Observado
+Itaguaí;Metropolitana I;2021;25.704;Monitorado;Observado
+Itaguaí;Metropolitana I;2022;26.1537;Monitorado;Observado
+Itaguaí;Metropolitana I;2023;23.4892;Monitorado;Observado
+Itaguaí;Metropolitana I;2024;31.2715;Monitorado;Observado
+Itaguaí;Metropolitana I;2025;29.4562;Monitorado;Extrapolado (regressão linear)
+São Pedro da Aldeia;Baixada Litorânea;2010;11.8103;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2011;9.1954;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2012;9.5244;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2013;8.4535;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2014;9.5451;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2015;10.2871;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2016;10.0533;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2017;9.7685;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2018;9.293;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2019;10.1529;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2020;10.3667;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2021;10.6951;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2022;10.8822;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2023;9.7735;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2024;13.0116;Monitorado;Observado
+São Pedro da Aldeia;Baixada Litorânea;2025;12.2563;Monitorado;Extrapolado (regressão linear)
+São Gonçalo;Metropolitana II;2010;23.356;Monitorado;Observado
+São Gonçalo;Metropolitana II;2011;18.1846;Monitorado;Observado
+São Gonçalo;Metropolitana II;2012;18.8353;Monitorado;Observado
+São Gonçalo;Metropolitana II;2013;16.7176;Monitorado;Observado
+São Gonçalo;Metropolitana II;2014;18.8762;Monitorado;Observado
+São Gonçalo;Metropolitana II;2015;20.3436;Monitorado;Observado
+São Gonçalo;Metropolitana II;2016;19.8813;Monitorado;Observado
+São Gonçalo;Metropolitana II;2017;19.3181;Monitorado;Observado
+São Gonçalo;Metropolitana II;2018;18.3777;Monitorado;Observado
+São Gonçalo;Metropolitana II;2019;20.0782;Monitorado;Observado
+São Gonçalo;Metropolitana II;2020;20.501;Monitorado;Observado
+São Gonçalo;Metropolitana II;2021;21.1504;Monitorado;Observado
+São Gonçalo;Metropolitana II;2022;21.5204;Monitorado;Observado
+São Gonçalo;Metropolitana II;2023;19.328;Monitorado;Observado
+São Gonçalo;Metropolitana II;2024;25.7316;Monitorado;Observado
+São Gonçalo;Metropolitana II;2025;24.2379;Monitorado;Extrapolado (regressão linear)
+São João de Meriti;Metropolitana I;2010;27.6;Monitorado;Observado
+São João de Meriti;Metropolitana I;2011;21.4889;Monitorado;Observado
+São João de Meriti;Metropolitana I;2012;22.2579;Monitorado;Observado
+São João de Meriti;Metropolitana I;2013;19.7553;Monitorado;Observado
+São João de Meriti;Metropolitana I;2014;22.3062;Monitorado;Observado
+São João de Meriti;Metropolitana I;2015;24.0402;Monitorado;Observado
+São João de Meriti;Metropolitana I;2016;23.494;Monitorado;Observado
+São João de Meriti;Metropolitana I;2017;22.8284;Monitorado;Observado
+São João de Meriti;Metropolitana I;2018;21.717;Monitorado;Observado
+São João de Meriti;Metropolitana I;2019;23.7266;Monitorado;Observado
+São João de Meriti;Metropolitana I;2020;24.2262;Monitorado;Observado
+São João de Meriti;Metropolitana I;2021;24.9937;Monitorado;Observado
+São João de Meriti;Metropolitana I;2022;25.4309;Monitorado;Observado
+São João de Meriti;Metropolitana I;2023;22.84;Monitorado;Observado
+São João de Meriti;Metropolitana I;2024;30.4072;Monitorado;Observado
+São João de Meriti;Metropolitana I;2025;28.6421;Monitorado;Extrapolado (regressão linear)
+Belford Roxo;Metropolitana I;2010;27.9217;Monitorado;Observado
+Belford Roxo;Metropolitana I;2011;21.7394;Monitorado;Observado
+Belford Roxo;Metropolitana I;2012;22.5173;Monitorado;Observado
+Belford Roxo;Metropolitana I;2013;19.9856;Monitorado;Observado
+Belford Roxo;Metropolitana I;2014;22.5662;Monitorado;Observado
+Belford Roxo;Metropolitana I;2015;24.3204;Monitorado;Observado
+Belford Roxo;Metropolitana I;2016;23.7678;Monitorado;Observado
+Belford Roxo;Metropolitana I;2017;23.0944;Monitorado;Observado
+Belford Roxo;Metropolitana I;2018;21.9702;Monitorado;Observado
+Belford Roxo;Metropolitana I;2019;24.0032;Monitorado;Observado
+Belford Roxo;Metropolitana I;2020;24.5086;Monitorado;Observado
+Belford Roxo;Metropolitana I;2021;25.285;Monitorado;Observado
+Belford Roxo;Metropolitana I;2022;25.7273;Monitorado;Observado
+Belford Roxo;Metropolitana I;2023;23.1063;Monitorado;Observado
+Belford Roxo;Metropolitana I;2024;30.7616;Monitorado;Observado
+Belford Roxo;Metropolitana I;2025;28.976;Monitorado;Extrapolado (regressão linear)
+Itaboraí;Metropolitana II;2010;20.7022;Monitorado;Observado
+Itaboraí;Metropolitana II;2011;16.1184;Monitorado;Observado
+Itaboraí;Metropolitana II;2012;16.6952;Monitorado;Observado
+Itaboraí;Metropolitana II;2013;14.8181;Monitorado;Observado
+Itaboraí;Metropolitana II;2014;16.7314;Monitorado;Observado
+Itaboraí;Metropolitana II;2015;18.032;Monitorado;Observado
+Itaboraí;Metropolitana II;2016;17.6223;Monitorado;Observado
+Itaboraí;Metropolitana II;2017;17.1231;Monitorado;Observado
+Itaboraí;Metropolitana II;2018;16.2895;Monitorado;Observado
+Itaboraí;Metropolitana II;2019;17.7968;Monitorado;Observado
+Itaboraí;Metropolitana II;2020;18.1716;Monitorado;Observado
+Itaboraí;Metropolitana II;2021;18.7472;Monitorado;Observado
+Itaboraí;Metropolitana II;2022;19.0752;Monitorado;Observado
+Itaboraí;Metropolitana II;2023;17.1318;Monitorado;Observado
+Itaboraí;Metropolitana II;2024;22.8078;Monitorado;Observado
+Itaboraí;Metropolitana II;2025;21.4838;Monitorado;Extrapolado (regressão linear)
+Armação dos Búzios;Baixada Litorânea;2010;10.7264;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2011;8.3514;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2012;8.6503;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2013;7.6777;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2014;8.669;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2015;9.3429;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2016;9.1307;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2017;8.872;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2018;8.4401;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2019;9.2211;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2020;9.4152;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2021;9.7135;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2022;9.8834;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2023;8.8765;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2024;11.8174;Monitorado;Observado
+Armação dos Búzios;Baixada Litorânea;2025;11.1314;Monitorado;Extrapolado (regressão linear)
+Tanguá;Metropolitana II;2010;18.3401;Monitorado;Observado
+Tanguá;Metropolitana II;2011;14.2793;Monitorado;Observado
+Tanguá;Metropolitana II;2012;14.7903;Monitorado;Observado
+Tanguá;Metropolitana II;2013;13.1274;Monitorado;Observado
+Tanguá;Metropolitana II;2014;14.8224;Monitorado;Observado
+Tanguá;Metropolitana II;2015;15.9746;Monitorado;Observado
+Tanguá;Metropolitana II;2016;15.6117;Monitorado;Observado
+Tanguá;Metropolitana II;2017;15.1694;Monitorado;Observado
+Tanguá;Metropolitana II;2018;14.4309;Monitorado;Observado
+Tanguá;Metropolitana II;2019;15.7663;Monitorado;Observado
+Tanguá;Metropolitana II;2020;16.0982;Monitorado;Observado
+Tanguá;Metropolitana II;2021;16.6082;Monitorado;Observado
+Tanguá;Metropolitana II;2022;16.8987;Monitorado;Observado
+Tanguá;Metropolitana II;2023;15.1771;Monitorado;Observado
+Tanguá;Metropolitana II;2024;20.2055;Monitorado;Observado
+Tanguá;Metropolitana II;2025;19.0326;Monitorado;Extrapolado (regressão linear)
+Rio Claro;Médio Paraíba;2010;28.2598;Monitorado;Observado
+Rio Claro;Médio Paraíba;2011;22.0027;Monitorado;Observado
+Rio Claro;Médio Paraíba;2012;22.79;Monitorado;Observado
+Rio Claro;Médio Paraíba;2013;20.2276;Monitorado;Observado
+Rio Claro;Médio Paraíba;2014;22.8395;Monitorado;Observado
+Rio Claro;Médio Paraíba;2015;24.6149;Monitorado;Observado
+Rio Claro;Médio Paraíba;2016;24.0556;Monitorado;Observado
+Rio Claro;Médio Paraíba;2017;23.3741;Monitorado;Observado
+Rio Claro;Médio Paraíba;2018;22.2362;Monitorado;Observado
+Rio Claro;Médio Paraíba;2019;24.2939;Monitorado;Observado
+Rio Claro;Médio Paraíba;2020;24.8054;Monitorado;Observado
+Rio Claro;Médio Paraíba;2021;25.5912;Monitorado;Observado
+Rio Claro;Médio Paraíba;2022;26.0389;Monitorado;Observado
+Rio Claro;Médio Paraíba;2023;23.3861;Monitorado;Observado
+Rio Claro;Médio Paraíba;2024;31.1342;Monitorado;Observado
+Rio Claro;Médio Paraíba;2025;29.3269;Monitorado;Extrapolado (regressão linear)
+Queimados;Metropolitana I;2010;28.141;Monitorado;Observado
+Queimados;Metropolitana I;2011;21.9102;Monitorado;Observado
+Queimados;Metropolitana I;2012;22.6942;Monitorado;Observado
+Queimados;Metropolitana I;2013;20.1426;Monitorado;Observado
+Queimados;Metropolitana I;2014;22.7434;Monitorado;Observado
+Queimados;Metropolitana I;2015;24.5114;Monitorado;Observado
+Queimados;Metropolitana I;2016;23.9545;Monitorado;Observado
+Queimados;Metropolitana I;2017;23.2758;Monitorado;Observado
+Queimados;Metropolitana I;2018;22.1427;Monitorado;Observado
+Queimados;Metropolitana I;2019;24.1917;Monitorado;Observado
+Queimados;Metropolitana I;2020;24.7011;Monitorado;Observado
+Queimados;Metropolitana I;2021;25.4836;Monitorado;Observado
+Queimados;Metropolitana I;2022;25.9294;Monitorado;Observado
+Queimados;Metropolitana I;2023;23.2877;Monitorado;Observado
+Queimados;Metropolitana I;2024;31.0033;Monitorado;Observado
+Queimados;Metropolitana I;2025;29.2036;Monitorado;Extrapolado (regressão linear)
+Magé;Metropolitana I;2010;23.1773;Monitorado;Observado
+Magé;Metropolitana I;2011;18.0455;Monitorado;Observado
+Magé;Metropolitana I;2012;18.6912;Monitorado;Observado
+Magé;Metropolitana I;2013;16.5897;Monitorado;Observado
+Magé;Metropolitana I;2014;18.7318;Monitorado;Observado
+Magé;Metropolitana I;2015;20.1879;Monitorado;Observado
+Magé;Metropolitana I;2016;19.7292;Monitorado;Observado
+Magé;Metropolitana I;2017;19.1703;Monitorado;Observado
+Magé;Metropolitana I;2018;18.237;Monitorado;Observado
+Magé;Metropolitana I;2019;19.9246;Monitorado;Observado
+Magé;Metropolitana I;2020;20.3441;Monitorado;Observado
+Magé;Metropolitana I;2021;20.9886;Monitorado;Observado
+Magé;Metropolitana I;2022;21.3557;Monitorado;Observado
+Magé;Metropolitana I;2023;19.1801;Monitorado;Observado
+Magé;Metropolitana I;2024;25.5347;Monitorado;Observado
+Magé;Metropolitana I;2025;24.0524;Monitorado;Extrapolado (regressão linear)
+Silva Jardim;Metropolitana II;2010;14.1125;Monitorado;Observado
+Silva Jardim;Metropolitana II;2011;10.9878;Monitorado;Observado
+Silva Jardim;Metropolitana II;2012;11.381;Monitorado;Observado
+Silva Jardim;Metropolitana II;2013;10.1014;Monitorado;Observado
+Silva Jardim;Metropolitana II;2014;11.4057;Monitorado;Observado
+Silva Jardim;Metropolitana II;2015;12.2923;Monitorado;Observado
+Silva Jardim;Metropolitana II;2016;12.013;Monitorado;Observado
+Silva Jardim;Metropolitana II;2017;11.6727;Monitorado;Observado
+Silva Jardim;Metropolitana II;2018;11.1044;Monitorado;Observado
+Silva Jardim;Metropolitana II;2019;12.132;Monitorado;Observado
+Silva Jardim;Metropolitana II;2020;12.3874;Monitorado;Observado
+Silva Jardim;Metropolitana II;2021;12.7798;Monitorado;Observado
+Silva Jardim;Metropolitana II;2022;13.0034;Monitorado;Observado
+Silva Jardim;Metropolitana II;2023;11.6786;Monitorado;Observado
+Silva Jardim;Metropolitana II;2024;15.5479;Monitorado;Observado
+Silva Jardim;Metropolitana II;2025;14.6454;Monitorado;Extrapolado (regressão linear)
+Japeri;Metropolitana I;2010;27.6087;Monitorado;Observado
+Japeri;Metropolitana I;2011;21.4957;Monitorado;Observado
+Japeri;Metropolitana I;2012;22.2649;Monitorado;Observado
+Japeri;Metropolitana I;2013;19.7616;Monitorado;Observado
+Japeri;Metropolitana I;2014;22.3132;Monitorado;Observado
+Japeri;Metropolitana I;2015;24.0477;Monitorado;Observado
+Japeri;Metropolitana I;2016;23.5014;Monitorado;Observado
+Japeri;Metropolitana I;2017;22.8355;Monitorado;Observado
+Japeri;Metropolitana I;2018;21.7239;Monitorado;Observado
+Japeri;Metropolitana I;2019;23.7341;Monitorado;Observado
+Japeri;Metropolitana I;2020;24.2338;Monitorado;Observado
+Japeri;Metropolitana I;2021;25.0015;Monitorado;Observado
+Japeri;Metropolitana I;2022;25.4389;Monitorado;Observado
+Japeri;Metropolitana I;2023;22.8472;Monitorado;Observado
+Japeri;Metropolitana I;2024;30.4168;Monitorado;Observado
+Japeri;Metropolitana I;2025;28.6511;Monitorado;Extrapolado (regressão linear)
+Piraí;Médio Paraíba;2010;28.311;Monitorado;Observado
+Piraí;Médio Paraíba;2011;22.0425;Monitorado;Observado
+Piraí;Médio Paraíba;2012;22.8313;Monitorado;Observado
+Piraí;Médio Paraíba;2013;20.2643;Monitorado;Observado
+Piraí;Médio Paraíba;2014;22.8808;Monitorado;Observado
+Piraí;Médio Paraíba;2015;24.6595;Monitorado;Observado
+Piraí;Médio Paraíba;2016;24.0992;Monitorado;Observado
+Piraí;Médio Paraíba;2017;23.4165;Monitorado;Observado
+Piraí;Médio Paraíba;2018;22.2765;Monitorado;Observado
+Piraí;Médio Paraíba;2019;24.3379;Monitorado;Observado
+Piraí;Médio Paraíba;2020;24.8503;Monitorado;Observado
+Piraí;Médio Paraíba;2021;25.6376;Monitorado;Observado
+Piraí;Médio Paraíba;2022;26.086;Monitorado;Observado
+Piraí;Médio Paraíba;2023;23.4284;Monitorado;Observado
+Piraí;Médio Paraíba;2024;31.1906;Monitorado;Observado
+Piraí;Médio Paraíba;2025;29.38;Monitorado;Extrapolado (regressão linear)
+Paracambi;Centro-Sul;2010;27.429;Monitorado;Observado
+Paracambi;Centro-Sul;2011;21.3558;Monitorado;Observado
+Paracambi;Centro-Sul;2012;22.12;Monitorado;Observado
+Paracambi;Centro-Sul;2013;19.633;Monitorado;Observado
+Paracambi;Centro-Sul;2014;22.168;Monitorado;Observado
+Paracambi;Centro-Sul;2015;23.8912;Monitorado;Observado
+Paracambi;Centro-Sul;2016;23.3484;Monitorado;Observado
+Paracambi;Centro-Sul;2017;22.6869;Monitorado;Observado
+Paracambi;Centro-Sul;2018;21.5825;Monitorado;Observado
+Paracambi;Centro-Sul;2019;23.5796;Monitorado;Observado
+Paracambi;Centro-Sul;2020;24.0761;Monitorado;Observado
+Paracambi;Centro-Sul;2021;24.8388;Monitorado;Observado
+Paracambi;Centro-Sul;2022;25.2733;Monitorado;Observado
+Paracambi;Centro-Sul;2023;22.6985;Monitorado;Observado
+Paracambi;Centro-Sul;2024;30.2188;Monitorado;Observado
+Paracambi;Centro-Sul;2025;28.4647;Monitorado;Extrapolado (regressão linear)
+Engenheiro Paulo de Frontin;Centro-Sul;2010;26.5933;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2011;20.7052;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2012;21.4461;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2013;19.0348;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2014;21.4926;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2015;23.1633;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2016;22.6371;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2017;21.9957;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2018;20.925;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2019;22.8612;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2020;23.3426;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2021;24.0821;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2022;24.5033;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2023;22.007;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2024;29.2982;Monitorado;Observado
+Engenheiro Paulo de Frontin;Centro-Sul;2025;27.5975;Monitorado;Extrapolado (regressão linear)
+Barra Mansa;Médio Paraíba;2010;26.0881;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2011;20.3118;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2012;21.0386;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2013;18.6732;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2014;21.0843;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2015;22.7232;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2016;22.207;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2017;21.5778;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2018;20.5274;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2019;22.4269;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2020;22.8991;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2021;23.6245;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2022;24.0378;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2023;21.5889;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2024;28.7415;Monitorado;Observado
+Barra Mansa;Médio Paraíba;2025;27.0731;Monitorado;Extrapolado (regressão linear)
+Guapimirim;Serrana;2010;21.248;Monitorado;Observado
+Guapimirim;Serrana;2011;16.5434;Monitorado;Observado
+Guapimirim;Serrana;2012;17.1354;Monitorado;Observado
+Guapimirim;Serrana;2013;15.2088;Monitorado;Observado
+Guapimirim;Serrana;2014;17.1725;Monitorado;Observado
+Guapimirim;Serrana;2015;18.5074;Monitorado;Observado
+Guapimirim;Serrana;2016;18.087;Monitorado;Observado
+Guapimirim;Serrana;2017;17.5745;Monitorado;Observado
+Guapimirim;Serrana;2018;16.719;Monitorado;Observado
+Guapimirim;Serrana;2019;18.2661;Monitorado;Observado
+Guapimirim;Serrana;2020;18.6507;Monitorado;Observado
+Guapimirim;Serrana;2021;19.2415;Monitorado;Observado
+Guapimirim;Serrana;2022;19.5781;Monitorado;Observado
+Guapimirim;Serrana;2023;17.5835;Monitorado;Observado
+Guapimirim;Serrana;2024;23.4092;Monitorado;Observado
+Guapimirim;Serrana;2025;22.0503;Monitorado;Extrapolado (regressão linear)
+Mendes;Centro-Sul;2010;26.5083;Monitorado;Observado
+Mendes;Centro-Sul;2011;20.639;Monitorado;Observado
+Mendes;Centro-Sul;2012;21.3775;Monitorado;Observado
+Mendes;Centro-Sul;2013;18.974;Monitorado;Observado
+Mendes;Centro-Sul;2014;21.4239;Monitorado;Observado
+Mendes;Centro-Sul;2015;23.0893;Monitorado;Observado
+Mendes;Centro-Sul;2016;22.5647;Monitorado;Observado
+Mendes;Centro-Sul;2017;21.9254;Monitorado;Observado
+Mendes;Centro-Sul;2018;20.8581;Monitorado;Observado
+Mendes;Centro-Sul;2019;22.7882;Monitorado;Observado
+Mendes;Centro-Sul;2020;23.268;Monitorado;Observado
+Mendes;Centro-Sul;2021;24.0051;Monitorado;Observado
+Mendes;Centro-Sul;2022;24.425;Monitorado;Observado
+Mendes;Centro-Sul;2023;21.9366;Monitorado;Observado
+Mendes;Centro-Sul;2024;29.2045;Monitorado;Observado
+Mendes;Centro-Sul;2025;27.5092;Monitorado;Extrapolado (regressão linear)
+Volta Redonda;Médio Paraíba;2010;26.5257;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2011;20.6525;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2012;21.3915;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2013;18.9864;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2014;21.4379;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2015;23.1044;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2016;22.5795;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2017;21.9398;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2018;20.8717;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2019;22.8031;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2020;23.2832;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2021;24.0208;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2022;24.441;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2023;21.951;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2024;29.2237;Monitorado;Observado
+Volta Redonda;Médio Paraíba;2025;27.5273;Monitorado;Extrapolado (regressão linear)
+Itatiaia;Médio Paraíba;2010;22.445;Monitorado;Observado
+Itatiaia;Médio Paraíba;2011;17.4753;Monitorado;Observado
+Itatiaia;Médio Paraíba;2012;18.1007;Monitorado;Observado
+Itatiaia;Médio Paraíba;2013;16.0655;Monitorado;Observado
+Itatiaia;Médio Paraíba;2014;18.1399;Monitorado;Observado
+Itatiaia;Médio Paraíba;2015;19.55;Monitorado;Observado
+Itatiaia;Médio Paraíba;2016;19.1059;Monitorado;Observado
+Itatiaia;Médio Paraíba;2017;18.5646;Monitorado;Observado
+Itatiaia;Médio Paraíba;2018;17.6608;Monitorado;Observado
+Itatiaia;Médio Paraíba;2019;19.2951;Monitorado;Observado
+Itatiaia;Médio Paraíba;2020;19.7013;Monitorado;Observado
+Itatiaia;Médio Paraíba;2021;20.3254;Monitorado;Observado
+Itatiaia;Médio Paraíba;2022;20.681;Monitorado;Observado
+Itatiaia;Médio Paraíba;2023;18.5741;Monitorado;Observado
+Itatiaia;Médio Paraíba;2024;24.7279;Monitorado;Observado
+Itatiaia;Médio Paraíba;2025;23.2925;Monitorado;Extrapolado (regressão linear)
+Casimiro de Abreu;Baixada Litorânea;2010;13.3058;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2011;10.3597;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2012;10.7304;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2013;9.524;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2014;10.7537;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2015;11.5897;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2016;11.3263;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2017;11.0055;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2018;10.4697;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2019;11.4385;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2020;11.6794;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2021;12.0493;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2022;12.2601;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2023;11.0111;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2024;14.6592;Monitorado;Observado
+Casimiro de Abreu;Baixada Litorânea;2025;13.8083;Monitorado;Extrapolado (regressão linear)
+Barra do Piraí;Médio Paraíba;2010;26.1731;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2011;20.378;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2012;21.1072;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2013;18.734;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2014;21.153;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2015;22.7973;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2016;22.2793;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2017;21.6481;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2018;20.5943;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2019;22.5;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2020;22.9737;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2021;23.7015;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2022;24.1161;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2023;21.6592;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2024;28.8352;Monitorado;Observado
+Barra do Piraí;Médio Paraíba;2025;27.1613;Monitorado;Extrapolado (regressão linear)
+Cachoeiras de Macacu;Serrana;2010;16.9654;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2011;13.209;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2012;13.6816;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2013;12.1434;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2014;13.7113;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2015;14.7772;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2016;14.4414;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2017;14.0323;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2018;13.3492;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2019;14.5845;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2020;14.8915;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2021;15.3633;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2022;15.632;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2023;14.0395;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2024;18.6909;Monitorado;Observado
+Cachoeiras de Macacu;Serrana;2025;17.6059;Monitorado;Extrapolado (regressão linear)
+Paty do Alferes;Centro-Sul;2010;24.1791;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2011;18.8255;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2012;19.4991;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2013;17.3068;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2014;19.5414;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2015;21.0605;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2016;20.582;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2017;19.9989;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2018;19.0253;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2019;20.7858;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2020;21.2235;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2021;21.8958;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2022;22.2788;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2023;20.0091;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2024;26.6384;Monitorado;Observado
+Paty do Alferes;Centro-Sul;2025;25.0921;Monitorado;Extrapolado (regressão linear)
+Porto Real;Médio Paraíba;2010;24.1018;Monitorado;Observado
+Porto Real;Médio Paraíba;2011;18.7653;Monitorado;Observado
+Porto Real;Médio Paraíba;2012;19.4368;Monitorado;Observado
+Porto Real;Médio Paraíba;2013;17.2514;Monitorado;Observado
+Porto Real;Médio Paraíba;2014;19.479;Monitorado;Observado
+Porto Real;Médio Paraíba;2015;20.9932;Monitorado;Observado
+Porto Real;Médio Paraíba;2016;20.5162;Monitorado;Observado
+Porto Real;Médio Paraíba;2017;19.935;Monitorado;Observado
+Porto Real;Médio Paraíba;2018;18.9645;Monitorado;Observado
+Porto Real;Médio Paraíba;2019;20.7194;Monitorado;Observado
+Porto Real;Médio Paraíba;2020;21.1556;Monitorado;Observado
+Porto Real;Médio Paraíba;2021;21.8258;Monitorado;Observado
+Porto Real;Médio Paraíba;2022;22.2076;Monitorado;Observado
+Porto Real;Médio Paraíba;2023;19.9452;Monitorado;Observado
+Porto Real;Médio Paraíba;2024;26.5532;Monitorado;Observado
+Porto Real;Médio Paraíba;2025;25.0119;Monitorado;Extrapolado (regressão linear)
+Vassouras;Centro-Sul;2010;24.7868;Monitorado;Observado
+Vassouras;Centro-Sul;2011;19.2986;Monitorado;Observado
+Vassouras;Centro-Sul;2012;19.9892;Monitorado;Observado
+Vassouras;Centro-Sul;2013;17.7417;Monitorado;Observado
+Vassouras;Centro-Sul;2014;20.0325;Monitorado;Observado
+Vassouras;Centro-Sul;2015;21.5898;Monitorado;Observado
+Vassouras;Centro-Sul;2016;21.0993;Monitorado;Observado
+Vassouras;Centro-Sul;2017;20.5015;Monitorado;Observado
+Vassouras;Centro-Sul;2018;19.5035;Monitorado;Observado
+Vassouras;Centro-Sul;2019;21.3082;Monitorado;Observado
+Vassouras;Centro-Sul;2020;21.7569;Monitorado;Observado
+Vassouras;Centro-Sul;2021;22.4461;Monitorado;Observado
+Vassouras;Centro-Sul;2022;22.8387;Monitorado;Observado
+Vassouras;Centro-Sul;2023;20.512;Monitorado;Observado
+Vassouras;Centro-Sul;2024;27.3079;Monitorado;Observado
+Vassouras;Centro-Sul;2025;25.7227;Monitorado;Extrapolado (regressão linear)
+Quatis;Médio Paraíba;2010;24.2226;Monitorado;Observado
+Quatis;Médio Paraíba;2011;18.8593;Monitorado;Observado
+Quatis;Médio Paraíba;2012;19.5342;Monitorado;Observado
+Quatis;Médio Paraíba;2013;17.3379;Monitorado;Observado
+Quatis;Médio Paraíba;2014;19.5766;Monitorado;Observado
+Quatis;Médio Paraíba;2015;21.0984;Monitorado;Observado
+Quatis;Médio Paraíba;2016;20.619;Monitorado;Observado
+Quatis;Médio Paraíba;2017;20.0348;Monitorado;Observado
+Quatis;Médio Paraíba;2018;19.0595;Monitorado;Observado
+Quatis;Médio Paraíba;2019;20.8232;Monitorado;Observado
+Quatis;Médio Paraíba;2020;21.2616;Monitorado;Observado
+Quatis;Médio Paraíba;2021;21.9352;Monitorado;Observado
+Quatis;Médio Paraíba;2022;22.3189;Monitorado;Observado
+Quatis;Médio Paraíba;2023;20.0451;Monitorado;Observado
+Quatis;Médio Paraíba;2024;26.6863;Monitorado;Observado
+Quatis;Médio Paraíba;2025;25.1372;Monitorado;Extrapolado (regressão linear)
+Macaé;Norte;2010;11.0037;Monitorado;Observado
+Macaé;Norte;2011;8.5673;Monitorado;Observado
+Macaé;Norte;2012;8.8739;Monitorado;Observado
+Macaé;Norte;2013;7.8761;Monitorado;Observado
+Macaé;Norte;2014;8.8931;Monitorado;Observado
+Macaé;Norte;2015;9.5844;Monitorado;Observado
+Macaé;Norte;2016;9.3667;Monitorado;Observado
+Macaé;Norte;2017;9.1013;Monitorado;Observado
+Macaé;Norte;2018;8.6582;Monitorado;Observado
+Macaé;Norte;2019;9.4594;Monitorado;Observado
+Macaé;Norte;2020;9.6586;Monitorado;Observado
+Macaé;Norte;2021;9.9646;Monitorado;Observado
+Macaé;Norte;2022;10.1389;Monitorado;Observado
+Macaé;Norte;2023;9.106;Monitorado;Observado
+Macaé;Norte;2024;12.1229;Monitorado;Observado
+Macaé;Norte;2025;11.4192;Monitorado;Extrapolado (regressão linear)
+Nova Friburgo;Serrana;2010;15.7954;Monitorado;Observado
+Nova Friburgo;Serrana;2011;12.2981;Monitorado;Observado
+Nova Friburgo;Serrana;2012;12.7382;Monitorado;Observado
+Nova Friburgo;Serrana;2013;11.306;Monitorado;Observado
+Nova Friburgo;Serrana;2014;12.7658;Monitorado;Observado
+Nova Friburgo;Serrana;2015;13.7582;Monitorado;Observado
+Nova Friburgo;Serrana;2016;13.4456;Monitorado;Observado
+Nova Friburgo;Serrana;2017;13.0646;Monitorado;Observado
+Nova Friburgo;Serrana;2018;12.4286;Monitorado;Observado
+Nova Friburgo;Serrana;2019;13.5787;Monitorado;Observado
+Nova Friburgo;Serrana;2020;13.8646;Monitorado;Observado
+Nova Friburgo;Serrana;2021;14.3038;Monitorado;Observado
+Nova Friburgo;Serrana;2022;14.5541;Monitorado;Observado
+Nova Friburgo;Serrana;2023;13.0713;Monitorado;Observado
+Nova Friburgo;Serrana;2024;17.402;Monitorado;Observado
+Nova Friburgo;Serrana;2025;16.3918;Monitorado;Extrapolado (regressão linear)
+Valença;Médio Paraíba;2010;7.9537;Monitorado;Observado
+Valença;Médio Paraíba;2011;6.1927;Monitorado;Observado
+Valença;Médio Paraíba;2012;6.4143;Monitorado;Observado
+Valença;Médio Paraíba;2013;5.6931;Monitorado;Observado
+Valença;Médio Paraíba;2014;6.4282;Monitorado;Observado
+Valença;Médio Paraíba;2015;6.9279;Monitorado;Observado
+Valença;Médio Paraíba;2016;6.7705;Monitorado;Observado
+Valença;Médio Paraíba;2017;6.5787;Monitorado;Observado
+Valença;Médio Paraíba;2018;6.2584;Monitorado;Observado
+Valença;Médio Paraíba;2019;6.8375;Monitorado;Observado
+Valença;Médio Paraíba;2020;6.9815;Monitorado;Observado
+Valença;Médio Paraíba;2021;7.2027;Monitorado;Observado
+Valença;Médio Paraíba;2022;7.3287;Monitorado;Observado
+Valença;Médio Paraíba;2023;6.582;Monitorado;Observado
+Valença;Médio Paraíba;2024;8.7627;Monitorado;Observado
+Valença;Médio Paraíba;2025;8.2541;Monitorado;Extrapolado (regressão linear)
+Areal;Centro-Sul;2010;20.0945;Monitorado;Observado
+Areal;Centro-Sul;2011;15.6453;Monitorado;Observado
+Areal;Centro-Sul;2012;16.2051;Monitorado;Observado
+Areal;Centro-Sul;2013;14.3831;Monitorado;Observado
+Areal;Centro-Sul;2014;16.2403;Monitorado;Observado
+Areal;Centro-Sul;2015;17.5027;Monitorado;Observado
+Areal;Centro-Sul;2016;17.1051;Monitorado;Observado
+Areal;Centro-Sul;2017;16.6205;Monitorado;Observado
+Areal;Centro-Sul;2018;15.8114;Monitorado;Observado
+Areal;Centro-Sul;2019;17.2745;Monitorado;Observado
+Areal;Centro-Sul;2020;17.6382;Monitorado;Observado
+Areal;Centro-Sul;2021;18.1969;Monitorado;Observado
+Areal;Centro-Sul;2022;18.5153;Monitorado;Observado
+Areal;Centro-Sul;2023;16.629;Monitorado;Observado
+Areal;Centro-Sul;2024;22.1383;Monitorado;Observado
+Areal;Centro-Sul;2025;20.8532;Monitorado;Extrapolado (regressão linear)
+Carapebus;Norte;2010;11.0066;Monitorado;Observado
+Carapebus;Norte;2011;8.5696;Monitorado;Observado
+Carapebus;Norte;2012;8.8762;Monitorado;Observado
+Carapebus;Norte;2013;7.8782;Monitorado;Observado
+Carapebus;Norte;2014;8.8955;Monitorado;Observado
+Carapebus;Norte;2015;9.5869;Monitorado;Observado
+Carapebus;Norte;2016;9.3691;Monitorado;Observado
+Carapebus;Norte;2017;9.1037;Monitorado;Observado
+Carapebus;Norte;2018;8.6605;Monitorado;Observado
+Carapebus;Norte;2019;9.4619;Monitorado;Observado
+Carapebus;Norte;2020;9.6611;Monitorado;Observado
+Carapebus;Norte;2021;9.9672;Monitorado;Observado
+Carapebus;Norte;2022;10.1416;Monitorado;Observado
+Carapebus;Norte;2023;9.1084;Monitorado;Observado
+Carapebus;Norte;2024;12.1261;Monitorado;Observado
+Carapebus;Norte;2025;11.4222;Monitorado;Extrapolado (regressão linear)
+Rio das Flores;Centro-Sul;2010;21.6682;Monitorado;Observado
+Rio das Flores;Centro-Sul;2011;16.8706;Monitorado;Observado
+Rio das Flores;Centro-Sul;2012;17.4743;Monitorado;Observado
+Rio das Flores;Centro-Sul;2013;15.5096;Monitorado;Observado
+Rio das Flores;Centro-Sul;2014;17.5122;Monitorado;Observado
+Rio das Flores;Centro-Sul;2015;18.8735;Monitorado;Observado
+Rio das Flores;Centro-Sul;2016;18.4447;Monitorado;Observado
+Rio das Flores;Centro-Sul;2017;17.9221;Monitorado;Observado
+Rio das Flores;Centro-Sul;2018;17.0497;Monitorado;Observado
+Rio das Flores;Centro-Sul;2019;18.6273;Monitorado;Observado
+Rio das Flores;Centro-Sul;2020;19.0196;Monitorado;Observado
+Rio das Flores;Centro-Sul;2021;19.6221;Monitorado;Observado
+Rio das Flores;Centro-Sul;2022;19.9653;Monitorado;Observado
+Rio das Flores;Centro-Sul;2023;17.9313;Monitorado;Observado
+Rio das Flores;Centro-Sul;2024;23.8722;Monitorado;Observado
+Rio das Flores;Centro-Sul;2025;22.4864;Monitorado;Extrapolado (regressão linear)
+Paraíba do Sul;Centro-Sul;2010;20.4906;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2011;15.9537;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2012;16.5245;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2013;14.6666;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2014;16.5604;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2015;17.8477;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2016;17.4422;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2017;16.9481;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2018;16.123;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2019;17.615;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2020;17.9859;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2021;18.5556;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2022;18.8802;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2023;16.9567;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2024;22.5747;Monitorado;Observado
+Paraíba do Sul;Centro-Sul;2025;21.2643;Monitorado;Extrapolado (regressão linear)
+Bom Jardim;Serrana;2010;11.4239;Monitorado;Observado
+Bom Jardim;Serrana;2011;8.8945;Monitorado;Observado
+Bom Jardim;Serrana;2012;9.2128;Monitorado;Observado
+Bom Jardim;Serrana;2013;8.1769;Monitorado;Observado
+Bom Jardim;Serrana;2014;9.2328;Monitorado;Observado
+Bom Jardim;Serrana;2015;9.9505;Monitorado;Observado
+Bom Jardim;Serrana;2016;9.7244;Monitorado;Observado
+Bom Jardim;Serrana;2017;9.4489;Monitorado;Observado
+Bom Jardim;Serrana;2018;8.9889;Monitorado;Observado
+Bom Jardim;Serrana;2019;9.8207;Monitorado;Observado
+Bom Jardim;Serrana;2020;10.0275;Monitorado;Observado
+Bom Jardim;Serrana;2021;10.3451;Monitorado;Observado
+Bom Jardim;Serrana;2022;10.5261;Monitorado;Observado
+Bom Jardim;Serrana;2023;9.4537;Monitorado;Observado
+Bom Jardim;Serrana;2024;12.5859;Monitorado;Observado
+Bom Jardim;Serrana;2025;11.8553;Monitorado;Extrapolado (regressão linear)
+São José do Vale do Rio Preto;Serrana;2010;18.2657;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2011;14.2214;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2012;14.7303;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2013;13.0741;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2014;14.7623;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2015;15.9098;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2016;15.5483;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2017;15.1078;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2018;14.3724;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2019;15.7023;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2020;16.0329;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2021;16.5408;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2022;16.8302;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2023;15.1156;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2024;20.1235;Monitorado;Observado
+São José do Vale do Rio Preto;Serrana;2025;18.9554;Monitorado;Extrapolado (regressão linear)
+Três Rios;Centro-Sul;2010;19.5467;Monitorado;Observado
+Três Rios;Centro-Sul;2011;15.2188;Monitorado;Observado
+Três Rios;Centro-Sul;2012;15.7634;Monitorado;Observado
+Três Rios;Centro-Sul;2013;13.991;Monitorado;Observado
+Três Rios;Centro-Sul;2014;15.7976;Monitorado;Observado
+Três Rios;Centro-Sul;2015;17.0256;Monitorado;Observado
+Três Rios;Centro-Sul;2016;16.6388;Monitorado;Observado
+Três Rios;Centro-Sul;2017;16.1674;Monitorado;Observado
+Três Rios;Centro-Sul;2018;15.3803;Monitorado;Observado
+Três Rios;Centro-Sul;2019;16.8036;Monitorado;Observado
+Três Rios;Centro-Sul;2020;17.1574;Monitorado;Observado
+Três Rios;Centro-Sul;2021;17.7009;Monitorado;Observado
+Três Rios;Centro-Sul;2022;18.0105;Monitorado;Observado
+Três Rios;Centro-Sul;2023;16.1757;Monitorado;Observado
+Três Rios;Centro-Sul;2024;21.5349;Monitorado;Observado
+Três Rios;Centro-Sul;2025;20.2848;Monitorado;Extrapolado (regressão linear)
+Quissamã;Norte;2010;10.6936;Monitorado;Observado
+Quissamã;Norte;2011;8.3258;Monitorado;Observado
+Quissamã;Norte;2012;8.6238;Monitorado;Observado
+Quissamã;Norte;2013;7.6542;Monitorado;Observado
+Quissamã;Norte;2014;8.6425;Monitorado;Observado
+Quissamã;Norte;2015;9.3143;Monitorado;Observado
+Quissamã;Norte;2016;9.1027;Monitorado;Observado
+Quissamã;Norte;2017;8.8448;Monitorado;Observado
+Quissamã;Norte;2018;8.4142;Monitorado;Observado
+Quissamã;Norte;2019;9.1928;Monitorado;Observado
+Quissamã;Norte;2020;9.3864;Monitorado;Observado
+Quissamã;Norte;2021;9.6837;Monitorado;Observado
+Quissamã;Norte;2022;9.8531;Monitorado;Observado
+Quissamã;Norte;2023;8.8493;Monitorado;Observado
+Quissamã;Norte;2024;11.7812;Monitorado;Observado
+Quissamã;Norte;2025;11.0973;Monitorado;Extrapolado (regressão linear)
+Conceição de Macabu;Norte;2010;12.1533;Monitorado;Observado
+Conceição de Macabu;Norte;2011;9.4624;Monitorado;Observado
+Conceição de Macabu;Norte;2012;9.801;Monitorado;Observado
+Conceição de Macabu;Norte;2013;8.699;Monitorado;Observado
+Conceição de Macabu;Norte;2014;9.8222;Monitorado;Observado
+Conceição de Macabu;Norte;2015;10.5858;Monitorado;Observado
+Conceição de Macabu;Norte;2016;10.3453;Monitorado;Observado
+Conceição de Macabu;Norte;2017;10.0522;Monitorado;Observado
+Conceição de Macabu;Norte;2018;9.5628;Monitorado;Observado
+Conceição de Macabu;Norte;2019;10.4477;Monitorado;Observado
+Conceição de Macabu;Norte;2020;10.6677;Monitorado;Observado
+Conceição de Macabu;Norte;2021;11.0056;Monitorado;Observado
+Conceição de Macabu;Norte;2022;11.1982;Monitorado;Observado
+Conceição de Macabu;Norte;2023;10.0573;Monitorado;Observado
+Conceição de Macabu;Norte;2024;13.3894;Monitorado;Observado
+Conceição de Macabu;Norte;2025;12.6122;Monitorado;Extrapolado (regressão linear)
+Trajano de Moraes;Serrana;2010;13.3696;Monitorado;Observado
+Trajano de Moraes;Serrana;2011;10.4094;Monitorado;Observado
+Trajano de Moraes;Serrana;2012;10.7819;Monitorado;Observado
+Trajano de Moraes;Serrana;2013;9.5696;Monitorado;Observado
+Trajano de Moraes;Serrana;2014;10.8053;Monitorado;Observado
+Trajano de Moraes;Serrana;2015;11.6452;Monitorado;Observado
+Trajano de Moraes;Serrana;2016;11.3806;Monitorado;Observado
+Trajano de Moraes;Serrana;2017;11.0582;Monitorado;Observado
+Trajano de Moraes;Serrana;2018;10.5199;Monitorado;Observado
+Trajano de Moraes;Serrana;2019;11.4933;Monitorado;Observado
+Trajano de Moraes;Serrana;2020;11.7353;Monitorado;Observado
+Trajano de Moraes;Serrana;2021;12.1071;Monitorado;Observado
+Trajano de Moraes;Serrana;2022;12.3189;Monitorado;Observado
+Trajano de Moraes;Serrana;2023;11.0639;Monitorado;Observado
+Trajano de Moraes;Serrana;2024;14.7294;Monitorado;Observado
+Trajano de Moraes;Serrana;2025;13.8744;Monitorado;Extrapolado (regressão linear)
+Duas Barras;Serrana;2010;16.0582;Monitorado;Observado
+Duas Barras;Serrana;2011;12.5027;Monitorado;Observado
+Duas Barras;Serrana;2012;12.9501;Monitorado;Observado
+Duas Barras;Serrana;2013;11.494;Monitorado;Observado
+Duas Barras;Serrana;2014;12.9782;Monitorado;Observado
+Duas Barras;Serrana;2015;13.987;Monitorado;Observado
+Duas Barras;Serrana;2016;13.6692;Monitorado;Observado
+Duas Barras;Serrana;2017;13.282;Monitorado;Observado
+Duas Barras;Serrana;2018;12.6354;Monitorado;Observado
+Duas Barras;Serrana;2019;13.8046;Monitorado;Observado
+Duas Barras;Serrana;2020;14.0953;Monitorado;Observado
+Duas Barras;Serrana;2021;14.5418;Monitorado;Observado
+Duas Barras;Serrana;2022;14.7962;Monitorado;Observado
+Duas Barras;Serrana;2023;13.2888;Monitorado;Observado
+Duas Barras;Serrana;2024;17.6915;Monitorado;Observado
+Duas Barras;Serrana;2025;16.6645;Monitorado;Extrapolado (regressão linear)
+Comendador Levy Gasparian;Centro-Sul;2010;18.5265;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2011;14.4245;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2012;14.9407;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2013;13.2608;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2014;14.9731;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2015;16.137;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2016;15.7704;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2017;15.3236;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2018;14.5776;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2019;15.9266;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2020;16.2619;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2021;16.777;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2022;17.0705;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2023;15.3314;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2024;20.4109;Monitorado;Observado
+Comendador Levy Gasparian;Centro-Sul;2025;19.2261;Monitorado;Extrapolado (regressão linear)
+Cordeiro;Serrana;2010;15.2023;Monitorado;Observado
+Cordeiro;Serrana;2011;11.8363;Monitorado;Observado
+Cordeiro;Serrana;2012;12.2598;Monitorado;Observado
+Cordeiro;Serrana;2013;10.8814;Monitorado;Observado
+Cordeiro;Serrana;2014;12.2864;Monitorado;Observado
+Cordeiro;Serrana;2015;13.2415;Monitorado;Observado
+Cordeiro;Serrana;2016;12.9406;Monitorado;Observado
+Cordeiro;Serrana;2017;12.574;Monitorado;Observado
+Cordeiro;Serrana;2018;11.9619;Monitorado;Observado
+Cordeiro;Serrana;2019;13.0688;Monitorado;Observado
+Cordeiro;Serrana;2020;13.344;Monitorado;Observado
+Cordeiro;Serrana;2021;13.7667;Monitorado;Observado
+Cordeiro;Serrana;2022;14.0075;Monitorado;Observado
+Cordeiro;Serrana;2023;12.5804;Monitorado;Observado
+Cordeiro;Serrana;2024;16.7485;Monitorado;Observado
+Cordeiro;Serrana;2025;15.7763;Monitorado;Extrapolado (regressão linear)
+Sapucaia;Centro-Sul;2010;17.316;Monitorado;Observado
+Sapucaia;Centro-Sul;2011;13.482;Monitorado;Observado
+Sapucaia;Centro-Sul;2012;13.9645;Monitorado;Observado
+Sapucaia;Centro-Sul;2013;12.3944;Monitorado;Observado
+Sapucaia;Centro-Sul;2014;13.9947;Monitorado;Observado
+Sapucaia;Centro-Sul;2015;15.0826;Monitorado;Observado
+Sapucaia;Centro-Sul;2016;14.74;Monitorado;Observado
+Sapucaia;Centro-Sul;2017;14.3224;Monitorado;Observado
+Sapucaia;Centro-Sul;2018;13.6251;Monitorado;Observado
+Sapucaia;Centro-Sul;2019;14.8859;Monitorado;Observado
+Sapucaia;Centro-Sul;2020;15.1994;Monitorado;Observado
+Sapucaia;Centro-Sul;2021;15.6809;Monitorado;Observado
+Sapucaia;Centro-Sul;2022;15.9552;Monitorado;Observado
+Sapucaia;Centro-Sul;2023;14.3297;Monitorado;Observado
+Sapucaia;Centro-Sul;2024;19.0773;Monitorado;Observado
+Sapucaia;Centro-Sul;2025;17.9699;Monitorado;Extrapolado (regressão linear)
+Macuco;Serrana;2010;14.6168;Monitorado;Observado
+Macuco;Serrana;2011;11.3804;Monitorado;Observado
+Macuco;Serrana;2012;11.7877;Monitorado;Observado
+Macuco;Serrana;2013;10.4623;Monitorado;Observado
+Macuco;Serrana;2014;11.8132;Monitorado;Observado
+Macuco;Serrana;2015;12.7315;Monitorado;Observado
+Macuco;Serrana;2016;12.4423;Monitorado;Observado
+Macuco;Serrana;2017;12.0898;Monitorado;Observado
+Macuco;Serrana;2018;11.5012;Monitorado;Observado
+Macuco;Serrana;2019;12.5655;Monitorado;Observado
+Macuco;Serrana;2020;12.8301;Monitorado;Observado
+Macuco;Serrana;2021;13.2365;Monitorado;Observado
+Macuco;Serrana;2022;13.4681;Monitorado;Observado
+Macuco;Serrana;2023;12.096;Monitorado;Observado
+Macuco;Serrana;2024;16.1035;Monitorado;Observado
+Macuco;Serrana;2025;15.1687;Monitorado;Extrapolado (regressão linear)
+São Sebastião do Alto;Serrana;2010;13.9096;Monitorado;Observado
+São Sebastião do Alto;Serrana;2011;10.8298;Monitorado;Observado
+São Sebastião do Alto;Serrana;2012;11.2174;Monitorado;Observado
+São Sebastião do Alto;Serrana;2013;9.9562;Monitorado;Observado
+São Sebastião do Alto;Serrana;2014;11.2417;Monitorado;Observado
+São Sebastião do Alto;Serrana;2015;12.1156;Monitorado;Observado
+São Sebastião do Alto;Serrana;2016;11.8403;Monitorado;Observado
+São Sebastião do Alto;Serrana;2017;11.5049;Monitorado;Observado
+São Sebastião do Alto;Serrana;2018;10.9448;Monitorado;Observado
+São Sebastião do Alto;Serrana;2019;11.9576;Monitorado;Observado
+São Sebastião do Alto;Serrana;2020;12.2093;Monitorado;Observado
+São Sebastião do Alto;Serrana;2021;12.5961;Monitorado;Observado
+São Sebastião do Alto;Serrana;2022;12.8165;Monitorado;Observado
+São Sebastião do Alto;Serrana;2023;11.5108;Monitorado;Observado
+São Sebastião do Alto;Serrana;2024;15.3244;Monitorado;Observado
+São Sebastião do Alto;Serrana;2025;14.4349;Monitorado;Extrapolado (regressão linear)
+Santa Maria Madalena;Serrana;2010;13.1831;Monitorado;Observado
+Santa Maria Madalena;Serrana;2011;10.2642;Monitorado;Observado
+Santa Maria Madalena;Serrana;2012;10.6315;Monitorado;Observado
+Santa Maria Madalena;Serrana;2013;9.4362;Monitorado;Observado
+Santa Maria Madalena;Serrana;2014;10.6546;Monitorado;Observado
+Santa Maria Madalena;Serrana;2015;11.4828;Monitorado;Observado
+Santa Maria Madalena;Serrana;2016;11.2219;Monitorado;Observado
+Santa Maria Madalena;Serrana;2017;10.904;Monitorado;Observado
+Santa Maria Madalena;Serrana;2018;10.3732;Monitorado;Observado
+Santa Maria Madalena;Serrana;2019;11.333;Monitorado;Observado
+Santa Maria Madalena;Serrana;2020;11.5717;Monitorado;Observado
+Santa Maria Madalena;Serrana;2021;11.9382;Monitorado;Observado
+Santa Maria Madalena;Serrana;2022;12.1471;Monitorado;Observado
+Santa Maria Madalena;Serrana;2023;10.9096;Monitorado;Observado
+Santa Maria Madalena;Serrana;2024;14.524;Monitorado;Observado
+Santa Maria Madalena;Serrana;2025;13.6809;Monitorado;Extrapolado (regressão linear)
+Carmo;Serrana;2010;16.2901;Monitorado;Observado
+Carmo;Serrana;2011;12.6832;Monitorado;Observado
+Carmo;Serrana;2012;13.1371;Monitorado;Observado
+Carmo;Serrana;2013;11.66;Monitorado;Observado
+Carmo;Serrana;2014;13.1656;Monitorado;Observado
+Carmo;Serrana;2015;14.189;Monitorado;Observado
+Carmo;Serrana;2016;13.8666;Monitorado;Observado
+Carmo;Serrana;2017;13.4738;Monitorado;Observado
+Carmo;Serrana;2018;12.8178;Monitorado;Observado
+Carmo;Serrana;2019;14.0039;Monitorado;Observado
+Carmo;Serrana;2020;14.2988;Monitorado;Observado
+Carmo;Serrana;2021;14.7518;Monitorado;Observado
+Carmo;Serrana;2022;15.0098;Monitorado;Observado
+Carmo;Serrana;2023;13.4806;Monitorado;Observado
+Carmo;Serrana;2024;17.947;Monitorado;Observado
+Carmo;Serrana;2025;16.9052;Monitorado;Extrapolado (regressão linear)
+Campos dos Goytacazes;Norte;2010;10.7853;Monitorado;Observado
+Campos dos Goytacazes;Norte;2011;8.3973;Monitorado;Observado
+Campos dos Goytacazes;Norte;2012;8.6978;Monitorado;Observado
+Campos dos Goytacazes;Norte;2013;7.7199;Monitorado;Observado
+Campos dos Goytacazes;Norte;2014;8.7167;Monitorado;Observado
+Campos dos Goytacazes;Norte;2015;9.3943;Monitorado;Observado
+Campos dos Goytacazes;Norte;2016;9.1808;Monitorado;Observado
+Campos dos Goytacazes;Norte;2017;8.9207;Monitorado;Observado
+Campos dos Goytacazes;Norte;2018;8.4864;Monitorado;Observado
+Campos dos Goytacazes;Norte;2019;9.2717;Monitorado;Observado
+Campos dos Goytacazes;Norte;2020;9.467;Monitorado;Observado
+Campos dos Goytacazes;Norte;2021;9.7669;Monitorado;Observado
+Campos dos Goytacazes;Norte;2022;9.9377;Monitorado;Observado
+Campos dos Goytacazes;Norte;2023;8.9253;Monitorado;Observado
+Campos dos Goytacazes;Norte;2024;11.8823;Monitorado;Observado
+Campos dos Goytacazes;Norte;2025;11.1926;Monitorado;Extrapolado (regressão linear)
+Itaocara;Noroeste;2010;13.5483;Monitorado;Observado
+Itaocara;Noroeste;2011;10.5485;Monitorado;Observado
+Itaocara;Noroeste;2012;10.926;Monitorado;Observado
+Itaocara;Noroeste;2013;9.6975;Monitorado;Observado
+Itaocara;Noroeste;2014;10.9497;Monitorado;Observado
+Itaocara;Noroeste;2015;11.8009;Monitorado;Observado
+Itaocara;Noroeste;2016;11.5328;Monitorado;Observado
+Itaocara;Noroeste;2017;11.206;Monitorado;Observado
+Itaocara;Noroeste;2018;10.6605;Monitorado;Observado
+Itaocara;Noroeste;2019;11.647;Monitorado;Observado
+Itaocara;Noroeste;2020;11.8922;Monitorado;Observado
+Itaocara;Noroeste;2021;12.2689;Monitorado;Observado
+Itaocara;Noroeste;2022;12.4836;Monitorado;Observado
+Itaocara;Noroeste;2023;11.2118;Monitorado;Observado
+Itaocara;Noroeste;2024;14.9264;Monitorado;Observado
+Itaocara;Noroeste;2025;14.0599;Monitorado;Extrapolado (regressão linear)
+São Fidélis;Norte;2010;12.047;Monitorado;Observado
+São Fidélis;Norte;2011;9.3796;Monitorado;Observado
+São Fidélis;Norte;2012;9.7153;Monitorado;Observado
+São Fidélis;Norte;2013;8.623;Monitorado;Observado
+São Fidélis;Norte;2014;9.7364;Monitorado;Observado
+São Fidélis;Norte;2015;10.4932;Monitorado;Observado
+São Fidélis;Norte;2016;10.2548;Monitorado;Observado
+São Fidélis;Norte;2017;9.9643;Monitorado;Observado
+São Fidélis;Norte;2018;9.4792;Monitorado;Observado
+São Fidélis;Norte;2019;10.3564;Monitorado;Observado
+São Fidélis;Norte;2020;10.5744;Monitorado;Observado
+São Fidélis;Norte;2021;10.9094;Monitorado;Observado
+São Fidélis;Norte;2022;11.1002;Monitorado;Observado
+São Fidélis;Norte;2023;9.9694;Monitorado;Observado
+São Fidélis;Norte;2024;13.2724;Monitorado;Observado
+São Fidélis;Norte;2025;12.5019;Monitorado;Extrapolado (regressão linear)
+São João da Barra;Norte;2010;10.168;Monitorado;Observado
+São João da Barra;Norte;2011;7.9167;Monitorado;Observado
+São João da Barra;Norte;2012;8.1999;Monitorado;Observado
+São João da Barra;Norte;2013;7.278;Monitorado;Observado
+São João da Barra;Norte;2014;8.2177;Monitorado;Observado
+São João da Barra;Norte;2015;8.8565;Monitorado;Observado
+São João da Barra;Norte;2016;8.6553;Monitorado;Observado
+São João da Barra;Norte;2017;8.4101;Monitorado;Observado
+São João da Barra;Norte;2018;8.0007;Monitorado;Observado
+São João da Barra;Norte;2019;8.741;Monitorado;Observado
+São João da Barra;Norte;2020;8.9251;Monitorado;Observado
+São João da Barra;Norte;2021;9.2078;Monitorado;Observado
+São João da Barra;Norte;2022;9.3689;Monitorado;Observado
+São João da Barra;Norte;2023;8.4144;Monitorado;Observado
+São João da Barra;Norte;2024;11.2022;Monitorado;Observado
+São João da Barra;Norte;2025;10.5519;Monitorado;Extrapolado (regressão linear)
+Aperibé;Noroeste;2010;13.6411;Monitorado;Observado
+Aperibé;Noroeste;2011;10.6207;Monitorado;Observado
+Aperibé;Noroeste;2012;11.0008;Monitorado;Observado
+Aperibé;Noroeste;2013;9.7639;Monitorado;Observado
+Aperibé;Noroeste;2014;11.0246;Monitorado;Observado
+Aperibé;Noroeste;2015;11.8817;Monitorado;Observado
+Aperibé;Noroeste;2016;11.6117;Monitorado;Observado
+Aperibé;Noroeste;2017;11.2827;Monitorado;Observado
+Aperibé;Noroeste;2018;10.7335;Monitorado;Observado
+Aperibé;Noroeste;2019;11.7267;Monitorado;Observado
+Aperibé;Noroeste;2020;11.9736;Monitorado;Observado
+Aperibé;Noroeste;2021;12.3529;Monitorado;Observado
+Aperibé;Noroeste;2022;12.569;Monitorado;Observado
+Aperibé;Noroeste;2023;11.2885;Monitorado;Observado
+Aperibé;Noroeste;2024;15.0285;Monitorado;Observado
+Aperibé;Noroeste;2025;14.1561;Monitorado;Extrapolado (regressão linear)
+Cambuci;Noroeste;2010;12.816;Monitorado;Observado
+Cambuci;Noroeste;2011;9.9784;Monitorado;Observado
+Cambuci;Noroeste;2012;10.3354;Monitorado;Observado
+Cambuci;Noroeste;2013;9.1734;Monitorado;Observado
+Cambuci;Noroeste;2014;10.3579;Monitorado;Observado
+Cambuci;Noroeste;2015;11.163;Monitorado;Observado
+Cambuci;Noroeste;2016;10.9094;Monitorado;Observado
+Cambuci;Noroeste;2017;10.6003;Monitorado;Observado
+Cambuci;Noroeste;2018;10.0843;Monitorado;Observado
+Cambuci;Noroeste;2019;11.0174;Monitorado;Observado
+Cambuci;Noroeste;2020;11.2494;Monitorado;Observado
+Cambuci;Noroeste;2021;11.6058;Monitorado;Observado
+Cambuci;Noroeste;2022;11.8088;Monitorado;Observado
+Cambuci;Noroeste;2023;10.6058;Monitorado;Observado
+Cambuci;Noroeste;2024;14.1196;Monitorado;Observado
+Cambuci;Noroeste;2025;13.3;Monitorado;Extrapolado (regressão linear)
+Santo Antônio de Pádua;Noroeste;2010;13.9357;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2011;10.8502;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2012;11.2384;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2013;9.9748;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2014;11.2628;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2015;12.1383;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2016;11.8625;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2017;11.5264;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2018;10.9653;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2019;11.98;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2020;12.2322;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2021;12.6197;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2022;12.8405;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2023;11.5323;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2024;15.3532;Monitorado;Observado
+Santo Antônio de Pádua;Noroeste;2025;14.4619;Monitorado;Extrapolado (regressão linear)
+Cardoso Moreira;Noroeste;2010;11.8741;Monitorado;Observado
+Cardoso Moreira;Noroeste;2011;9.245;Monitorado;Observado
+Cardoso Moreira;Noroeste;2012;9.5758;Monitorado;Observado
+Cardoso Moreira;Noroeste;2013;8.4992;Monitorado;Observado
+Cardoso Moreira;Noroeste;2014;9.5966;Monitorado;Observado
+Cardoso Moreira;Noroeste;2015;10.3426;Monitorado;Observado
+Cardoso Moreira;Noroeste;2016;10.1076;Monitorado;Observado
+Cardoso Moreira;Noroeste;2017;9.8213;Monitorado;Observado
+Cardoso Moreira;Noroeste;2018;9.3431;Monitorado;Observado
+Cardoso Moreira;Noroeste;2019;10.2077;Monitorado;Observado
+Cardoso Moreira;Noroeste;2020;10.4226;Monitorado;Observado
+Cardoso Moreira;Noroeste;2021;10.7528;Monitorado;Observado
+Cardoso Moreira;Noroeste;2022;10.9409;Monitorado;Observado
+Cardoso Moreira;Noroeste;2023;9.8263;Monitorado;Observado
+Cardoso Moreira;Noroeste;2024;13.0818;Monitorado;Observado
+Cardoso Moreira;Noroeste;2025;12.3225;Monitorado;Extrapolado (regressão linear)
+São Francisco de Itabapoana;Norte;2010;10.5506;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2011;8.2145;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2012;8.5085;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2013;7.5518;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2014;8.5269;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2015;9.1898;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2016;8.981;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2017;8.7265;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2018;8.3017;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2019;9.0699;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2020;9.2609;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2021;9.5543;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2022;9.7214;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2023;8.731;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2024;11.6237;Monitorado;Observado
+São Francisco de Itabapoana;Norte;2025;10.949;Monitorado;Extrapolado (regressão linear)
+Italva;Noroeste;2010;12.1543;Monitorado;Observado
+Italva;Noroeste;2011;9.4631;Monitorado;Observado
+Italva;Noroeste;2012;9.8018;Monitorado;Observado
+Italva;Noroeste;2013;8.6997;Monitorado;Observado
+Italva;Noroeste;2014;9.823;Monitorado;Observado
+Italva;Noroeste;2015;10.5866;Monitorado;Observado
+Italva;Noroeste;2016;10.3461;Monitorado;Observado
+Italva;Noroeste;2017;10.053;Monitorado;Observado
+Italva;Noroeste;2018;9.5636;Monitorado;Observado
+Italva;Noroeste;2019;10.4486;Monitorado;Observado
+Italva;Noroeste;2020;10.6686;Monitorado;Observado
+Italva;Noroeste;2021;11.0065;Monitorado;Observado
+Italva;Noroeste;2022;11.1991;Monitorado;Observado
+Italva;Noroeste;2023;10.0581;Monitorado;Observado
+Italva;Noroeste;2024;13.3905;Monitorado;Observado
+Italva;Noroeste;2025;12.6132;Monitorado;Extrapolado (regressão linear)
+São José de Ubá;Noroeste;2010;13.0218;Monitorado;Observado
+São José de Ubá;Noroeste;2011;10.1386;Monitorado;Observado
+São José de Ubá;Noroeste;2012;10.5014;Monitorado;Observado
+São José de Ubá;Noroeste;2013;9.3207;Monitorado;Observado
+São José de Ubá;Noroeste;2014;10.5242;Monitorado;Observado
+São José de Ubá;Noroeste;2015;11.3423;Monitorado;Observado
+São José de Ubá;Noroeste;2016;11.0846;Monitorado;Observado
+São José de Ubá;Noroeste;2017;10.7705;Monitorado;Observado
+São José de Ubá;Noroeste;2018;10.2462;Monitorado;Observado
+São José de Ubá;Noroeste;2019;11.1943;Monitorado;Observado
+São José de Ubá;Noroeste;2020;11.43;Monitorado;Observado
+São José de Ubá;Noroeste;2021;11.7921;Monitorado;Observado
+São José de Ubá;Noroeste;2022;11.9984;Monitorado;Observado
+São José de Ubá;Noroeste;2023;10.776;Monitorado;Observado
+São José de Ubá;Noroeste;2024;14.3463;Monitorado;Observado
+São José de Ubá;Noroeste;2025;13.5135;Monitorado;Extrapolado (regressão linear)
+Laje do Muriaé;Noroeste;2010;13.6082;Monitorado;Observado
+Laje do Muriaé;Noroeste;2011;10.5952;Monitorado;Observado
+Laje do Muriaé;Noroeste;2012;10.9743;Monitorado;Observado
+Laje do Muriaé;Noroeste;2013;9.7404;Monitorado;Observado
+Laje do Muriaé;Noroeste;2014;10.9981;Monitorado;Observado
+Laje do Muriaé;Noroeste;2015;11.853;Monitorado;Observado
+Laje do Muriaé;Noroeste;2016;11.5837;Monitorado;Observado
+Laje do Muriaé;Noroeste;2017;11.2556;Monitorado;Observado
+Laje do Muriaé;Noroeste;2018;10.7076;Monitorado;Observado
+Laje do Muriaé;Noroeste;2019;11.6985;Monitorado;Observado
+Laje do Muriaé;Noroeste;2020;11.9448;Monitorado;Observado
+Laje do Muriaé;Noroeste;2021;12.3232;Monitorado;Observado
+Laje do Muriaé;Noroeste;2022;12.5387;Monitorado;Observado
+Laje do Muriaé;Noroeste;2023;11.2613;Monitorado;Observado
+Laje do Muriaé;Noroeste;2024;14.9923;Monitorado;Observado
+Laje do Muriaé;Noroeste;2025;14.1221;Monitorado;Extrapolado (regressão linear)
+Itaperuna;Noroeste;2010;12.9107;Monitorado;Observado
+Itaperuna;Noroeste;2011;10.0521;Monitorado;Observado
+Itaperuna;Noroeste;2012;10.4118;Monitorado;Observado
+Itaperuna;Noroeste;2013;9.2412;Monitorado;Observado
+Itaperuna;Noroeste;2014;10.4344;Monitorado;Observado
+Itaperuna;Noroeste;2015;11.2455;Monitorado;Observado
+Itaperuna;Noroeste;2016;10.99;Monitorado;Observado
+Itaperuna;Noroeste;2017;10.6786;Monitorado;Observado
+Itaperuna;Noroeste;2018;10.1588;Monitorado;Observado
+Itaperuna;Noroeste;2019;11.0988;Monitorado;Observado
+Itaperuna;Noroeste;2020;11.3325;Monitorado;Observado
+Itaperuna;Noroeste;2021;11.6915;Monitorado;Observado
+Itaperuna;Noroeste;2022;11.896;Monitorado;Observado
+Itaperuna;Noroeste;2023;10.6841;Monitorado;Observado
+Itaperuna;Noroeste;2024;14.2239;Monitorado;Observado
+Itaperuna;Noroeste;2025;13.3982;Monitorado;Extrapolado (regressão linear)
+Bom Jesus do Itabapoana;Noroeste;2010;12.3291;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2011;9.5993;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2012;9.9428;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2013;8.8249;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2014;9.9643;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2015;10.7389;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2016;10.4949;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2017;10.1976;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2018;9.7012;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2019;10.5989;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2020;10.822;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2021;11.1649;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2022;11.3602;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2023;10.2028;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2024;13.5831;Monitorado;Observado
+Bom Jesus do Itabapoana;Noroeste;2025;12.7947;Monitorado;Extrapolado (regressão linear)
+Natividade;Noroeste;2010;13.1918;Monitorado;Observado
+Natividade;Noroeste;2011;10.271;Monitorado;Observado
+Natividade;Noroeste;2012;10.6385;Monitorado;Observado
+Natividade;Noroeste;2013;9.4424;Monitorado;Observado
+Natividade;Noroeste;2014;10.6616;Monitorado;Observado
+Natividade;Noroeste;2015;11.4904;Monitorado;Observado
+Natividade;Noroeste;2016;11.2293;Monitorado;Observado
+Natividade;Noroeste;2017;10.9112;Monitorado;Observado
+Natividade;Noroeste;2018;10.38;Monitorado;Observado
+Natividade;Noroeste;2019;11.3405;Monitorado;Observado
+Natividade;Noroeste;2020;11.5793;Monitorado;Observado
+Natividade;Noroeste;2021;11.9461;Monitorado;Observado
+Natividade;Noroeste;2022;12.1551;Monitorado;Observado
+Natividade;Noroeste;2023;10.9168;Monitorado;Observado
+Natividade;Noroeste;2024;14.5336;Monitorado;Observado
+Natividade;Noroeste;2025;13.69;Monitorado;Extrapolado (regressão linear)
+Porciúncula;Noroeste;2010;13.3754;Monitorado;Observado
+Porciúncula;Noroeste;2011;10.4139;Monitorado;Observado
+Porciúncula;Noroeste;2012;10.7865;Monitorado;Observado
+Porciúncula;Noroeste;2013;9.5738;Monitorado;Observado
+Porciúncula;Noroeste;2014;10.8099;Monitorado;Observado
+Porciúncula;Noroeste;2015;11.6503;Monitorado;Observado
+Porciúncula;Noroeste;2016;11.3856;Monitorado;Observado
+Porciúncula;Noroeste;2017;11.063;Monitorado;Observado
+Porciúncula;Noroeste;2018;10.5244;Monitorado;Observado
+Porciúncula;Noroeste;2019;11.4983;Monitorado;Observado
+Porciúncula;Noroeste;2020;11.7404;Monitorado;Observado
+Porciúncula;Noroeste;2021;12.1123;Monitorado;Observado
+Porciúncula;Noroeste;2022;12.3242;Monitorado;Observado
+Porciúncula;Noroeste;2023;11.0687;Monitorado;Observado
+Porciúncula;Noroeste;2024;14.7358;Monitorado;Observado
+Porciúncula;Noroeste;2025;13.8804;Monitorado;Extrapolado (regressão linear)
+Varre-Sai;Noroeste;2010;12.8373;Monitorado;Observado
+Varre-Sai;Noroeste;2011;9.9949;Monitorado;Observado
+Varre-Sai;Noroeste;2012;10.3526;Monitorado;Observado
+Varre-Sai;Noroeste;2013;9.1886;Monitorado;Observado
+Varre-Sai;Noroeste;2014;10.375;Monitorado;Observado
+Varre-Sai;Noroeste;2015;11.1815;Monitorado;Observado
+Varre-Sai;Noroeste;2016;10.9275;Monitorado;Observado
+Varre-Sai;Noroeste;2017;10.6179;Monitorado;Observado
+Varre-Sai;Noroeste;2018;10.101;Monitorado;Observado
+Varre-Sai;Noroeste;2019;11.0357;Monitorado;Observado
+Varre-Sai;Noroeste;2020;11.2681;Monitorado;Observado
+Varre-Sai;Noroeste;2021;11.625;Monitorado;Observado
+Varre-Sai;Noroeste;2022;11.8284;Monitorado;Observado
+Varre-Sai;Noroeste;2023;10.6233;Monitorado;Observado
+Varre-Sai;Noroeste;2024;14.143;Monitorado;Observado
+Varre-Sai;Noroeste;2025;13.322;Monitorado;Extrapolado (regressão linear)
+Cabo Frio;Baixada Litorânea;2010;11.8103;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2011;9.1954;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2012;9.5244;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2013;8.4535;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2014;9.5451;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2015;10.2871;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2016;10.0533;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2017;9.7685;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2018;9.293;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2019;10.1529;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2020;10.3667;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2021;10.6951;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2022;10.8822;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2023;9.7735;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2024;13.0116;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Observado
+Cabo Frio;Baixada Litorânea;2025;12.2563;Vizinho mais proximo (São Pedro da Aldeia, 0.087 deg);Extrapolado (regressão linear)
+Cantagalo;Serrana;2010;13.6411;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2011;10.6207;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2012;11.0008;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2013;9.7639;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2014;11.0246;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2015;11.8817;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2016;11.6117;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2017;11.2827;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2018;10.7335;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2019;11.7267;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2020;11.9736;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2021;12.3529;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2022;12.569;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2023;11.2885;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2024;15.0285;Vizinho mais proximo (Aperibé, 0.162 deg);Observado
+Cantagalo;Serrana;2025;14.1561;Vizinho mais proximo (Aperibé, 0.162 deg);Extrapolado (regressão linear)
+Duque de Caxias;Metropolitana I;2010;27.6;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2011;21.4889;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2012;22.2579;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2013;19.7553;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2014;22.3062;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2015;24.0402;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2016;23.494;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2017;22.8284;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2018;21.717;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2019;23.7266;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2020;24.2262;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2021;24.9937;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2022;25.4309;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2023;22.84;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2024;30.4072;Vizinho mais proximo (São João de Meriti, 0.071 deg);Observado
+Duque de Caxias;Metropolitana I;2025;28.6421;Vizinho mais proximo (São João de Meriti, 0.071 deg);Extrapolado (regressão linear)
+Iguaba Grande;Baixada Litorânea;2010;13.0643;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2011;10.1717;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2012;10.5357;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2013;9.3511;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2014;10.5585;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2015;11.3793;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2016;11.1208;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2017;10.8057;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2018;10.2797;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2019;11.2309;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2020;11.4674;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2021;11.8306;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2022;12.0376;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2023;10.8112;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2024;14.3931;Vizinho mais proximo (Araruama, 0.107 deg);Observado
+Iguaba Grande;Baixada Litorânea;2025;13.5576;Vizinho mais proximo (Araruama, 0.107 deg);Extrapolado (regressão linear)
+Mesquita;Metropolitana I;2010;27.9217;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2011;21.7394;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2012;22.5173;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2013;19.9856;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2014;22.5662;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2015;24.3204;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2016;23.7678;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2017;23.0944;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2018;21.9702;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2019;24.0032;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2020;24.5086;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2021;25.285;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2022;25.7273;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2023;23.1063;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2024;30.7616;Vizinho mais proximo (Belford Roxo, 0.035 deg);Observado
+Mesquita;Metropolitana I;2025;28.976;Vizinho mais proximo (Belford Roxo, 0.035 deg);Extrapolado (regressão linear)
+Miguel Pereira;Centro-Sul;2010;24.1791;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2011;18.8255;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2012;19.4991;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2013;17.3068;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2014;19.5414;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2015;21.0605;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2016;20.582;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2017;19.9989;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2018;19.0253;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2019;20.7858;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2020;21.2235;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2021;21.8958;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2022;22.2788;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2023;20.0091;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2024;26.6384;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Observado
+Miguel Pereira;Centro-Sul;2025;25.0921;Vizinho mais proximo (Paty do Alferes, 0.047 deg);Extrapolado (regressão linear)
+Miracema;Noroeste;2010;13.9357;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2011;10.8502;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2012;11.2384;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2013;9.9748;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2014;11.2628;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2015;12.1383;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2016;11.8625;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2017;11.5264;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2018;10.9653;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2019;11.98;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2020;12.2322;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2021;12.6197;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2022;12.8405;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2023;11.5323;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2024;15.3532;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Observado
+Miracema;Noroeste;2025;14.4619;Vizinho mais proximo (Santo Antônio de Pádua, 0.130 deg);Extrapolado (regressão linear)
+Nilópolis;Metropolitana I;2010;27.6;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2011;21.4889;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2012;22.2579;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2013;19.7553;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2014;22.3062;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2015;24.0402;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2016;23.494;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2017;22.8284;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2018;21.717;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2019;23.7266;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2020;24.2262;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2021;24.9937;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2022;25.4309;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2023;22.84;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2024;30.4072;Vizinho mais proximo (São João de Meriti, 0.041 deg);Observado
+Nilópolis;Metropolitana I;2025;28.6421;Vizinho mais proximo (São João de Meriti, 0.041 deg);Extrapolado (regressão linear)
+Nova Iguaçu;Metropolitana I;2010;27.9217;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2011;21.7394;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2012;22.5173;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2013;19.9856;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2014;22.5662;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2015;24.3204;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2016;23.7678;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2017;23.0944;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2018;21.9702;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2019;24.0032;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2020;24.5086;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2021;25.285;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2022;25.7273;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2023;23.1063;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2024;30.7616;Vizinho mais proximo (Belford Roxo, 0.050 deg);Observado
+Nova Iguaçu;Metropolitana I;2025;28.976;Vizinho mais proximo (Belford Roxo, 0.050 deg);Extrapolado (regressão linear)
+Petrópolis;Serrana;2010;21.248;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2011;16.5434;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2012;17.1354;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2013;15.2088;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2014;17.1725;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2015;18.5074;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2016;18.087;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2017;17.5745;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2018;16.719;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2019;18.2661;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2020;18.6507;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2021;19.2415;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2022;19.5781;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2023;17.5835;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2024;23.4092;Vizinho mais proximo (Guapimirim, 0.191 deg);Observado
+Petrópolis;Serrana;2025;22.0503;Vizinho mais proximo (Guapimirim, 0.191 deg);Extrapolado (regressão linear)
+Pinheiral;Médio Paraíba;2010;26.5257;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2011;20.6525;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2012;21.3915;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2013;18.9864;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2014;21.4379;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2015;23.1044;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2016;22.5795;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2017;21.9398;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2018;20.8717;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2019;22.8031;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2020;23.2832;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2021;24.0208;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2022;24.441;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2023;21.951;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2024;29.2237;Vizinho mais proximo (Volta Redonda, 0.103 deg);Observado
+Pinheiral;Médio Paraíba;2025;27.5273;Vizinho mais proximo (Volta Redonda, 0.103 deg);Extrapolado (regressão linear)
+Resende;Médio Paraíba;2010;22.445;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2011;17.4753;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2012;18.1007;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2013;16.0655;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2014;18.1399;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2015;19.55;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2016;19.1059;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2017;18.5646;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2018;17.6608;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2019;19.2951;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2020;19.7013;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2021;20.3254;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2022;20.681;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2023;18.5741;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2024;24.7279;Vizinho mais proximo (Itatiaia, 0.123 deg);Observado
+Resende;Médio Paraíba;2025;23.2925;Vizinho mais proximo (Itatiaia, 0.123 deg);Extrapolado (regressão linear)
+Rio Bonito;Metropolitana II;2010;18.3401;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2011;14.2793;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2012;14.7903;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2013;13.1274;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2014;14.8224;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2015;15.9746;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2016;15.6117;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2017;15.1694;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2018;14.4309;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2019;15.7663;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2020;16.0982;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2021;16.6082;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2022;16.8987;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2023;15.1771;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2024;20.2055;Vizinho mais proximo (Tanguá, 0.100 deg);Observado
+Rio Bonito;Metropolitana II;2025;19.0326;Vizinho mais proximo (Tanguá, 0.100 deg);Extrapolado (regressão linear)
+Rio das Ostras;Baixada Litorânea;2010;11.0037;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2011;8.5673;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2012;8.8739;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2013;7.8761;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2014;8.8931;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2015;9.5844;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2016;9.3667;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2017;9.1013;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2018;8.6582;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2019;9.4594;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2020;9.6586;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2021;9.9646;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2022;10.1389;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2023;9.106;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2024;12.1229;Vizinho mais proximo (Macaé, 0.220 deg);Observado
+Rio das Ostras;Baixada Litorânea;2025;11.4192;Vizinho mais proximo (Macaé, 0.220 deg);Extrapolado (regressão linear)
+Rio de Janeiro;Metropolitana I;2010;24.5037;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2011;19.0782;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2012;19.7609;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2013;17.5391;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2014;19.8038;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2015;21.3432;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2016;20.8583;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2017;20.2674;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2018;19.2807;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2019;21.0649;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2020;21.5084;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2021;22.1898;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2022;22.5779;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2023;20.2777;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2024;26.996;Vizinho mais proximo (Niterói, 0.073 deg);Observado
+Rio de Janeiro;Metropolitana I;2025;25.4289;Vizinho mais proximo (Niterói, 0.073 deg);Extrapolado (regressão linear)
+Seropédica;Metropolitana I;2010;27.6087;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2011;21.4957;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2012;22.2649;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2013;19.7616;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2014;22.3132;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2015;24.0477;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2016;23.5014;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2017;22.8355;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2018;21.7239;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2019;23.7341;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2020;24.2338;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2021;25.0015;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2022;25.4389;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2023;22.8472;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2024;30.4168;Vizinho mais proximo (Japeri, 0.111 deg);Observado
+Seropédica;Metropolitana I;2025;28.6511;Vizinho mais proximo (Japeri, 0.111 deg);Extrapolado (regressão linear)
+Sumidouro;Serrana;2010;16.2901;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2011;12.6832;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2012;13.1371;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2013;11.66;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2014;13.1656;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2015;14.189;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2016;13.8666;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2017;13.4738;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2018;12.8178;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2019;14.0039;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2020;14.2988;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2021;14.7518;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2022;15.0098;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2023;13.4806;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2024;17.947;Vizinho mais proximo (Carmo, 0.138 deg);Observado
+Sumidouro;Serrana;2025;16.9052;Vizinho mais proximo (Carmo, 0.138 deg);Extrapolado (regressão linear)
+Teresópolis;Serrana;2010;21.248;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2011;16.5434;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2012;17.1354;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2013;15.2088;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2014;17.1725;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2015;18.5074;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2016;18.087;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2017;17.5745;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2018;16.719;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2019;18.2661;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2020;18.6507;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2021;19.2415;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2022;19.5781;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2023;17.5835;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2024;23.4092;Vizinho mais proximo (Guapimirim, 0.125 deg);Observado
+Teresópolis;Serrana;2025;22.0503;Vizinho mais proximo (Guapimirim, 0.125 deg);Extrapolado (regressão linear)
