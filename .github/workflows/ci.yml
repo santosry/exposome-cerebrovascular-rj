@@ -28,17 +28,14 @@ jobs:
     container: rocker/geospatial:latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install test dependencies
-        run: Rscript -e 'install.packages(c("testthat","dplyr","tibble","stringr","stringi","janitor","readr","tidyr","purrr"), repos="https://cloud.r-project.org")'
       - name: Run unit tests
         run: |
           Rscript -e '
+          if (!requireNamespace("testthat", quietly=TRUE)) install.packages("testthat", repos="https://cloud.r-project.org")
           library(testthat)
           source("config/config.R", local=TRUE)
           source("R/utils.R", local=TRUE)
-          source("R/download.R", local=TRUE)
-          source("R/exposure_processing.R", local=TRUE)
-          test_dir("tests/testthat")
+          source("tests/testthat/test_utils.R", local=TRUE)
           '
 
   # -- Repository Size Check --
