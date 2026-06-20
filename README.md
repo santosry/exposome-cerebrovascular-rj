@@ -1,6 +1,6 @@
 # Climate Exposure and Cerebrovascular Outcomes in Rio de Janeiro (2010-2025)
 
-**Research Compendium** -- Epidemiologia Ambiental com DLNM e Inferencia Bayesiana Hierarquica
+**Research Compendium** -- Environmental Epidemiology with DLNM and Hierarchical Bayesian Inference
 
 ---
 
@@ -8,11 +8,11 @@
 
 This repository investigates non-linear and delayed associations between temperature, relative humidity, and hospital admissions/deaths from cerebrovascular diseases (ICD-10 I60-I69) across the nine health macroregions of Rio de Janeiro state, Brazil, from 2010 to 2025.
 
-**Study design:** Ecological daily time series  
-**Methods:** Distributed Lag Non-linear Models (DLNMs) with natural spline cross-bases, Quasi-Poisson/Negative Binomial regression, hierarchical Bayesian stabilization, and FDR-corrected prioritization  
-**Data:** DATASUS (SIH-RD, SIM-DO), INMET (BrazilMet), SIDRA/IBGE population denominators  
+**Study design:** Ecological daily time series
+**Methods:** Distributed Lag Non-linear Models (DLNMs) with natural spline cross-bases, Quasi-Poisson/Negative Binomial regression, PM2.5 air pollution adjustment, hierarchical Bayesian stabilization, Newey-West HAC standard errors with delta-method propagation, and FDR-corrected prioritization
+**Data:** DATASUS (SIH-RD, SIM-DO), INMET (BrazilMet), INEA/MonitorAr (PM2.5), SIDRA/IBGE population denominators
 
-> Note: This is an ecological study. No individual-level inferences are made.
+> Note: This is an ecological study. Associations are at the macroregional level. No individual-level inferences are made.
 
 ---
 
@@ -21,39 +21,25 @@ This repository investigates non-linear and delayed associations between tempera
 ### Option 1: Docker (recommended for reproducibility)
 
 ```bash
-# Build and run the full pipeline
 docker-compose -f docker/docker-compose.yml up dlnm-pipeline
-
-# Or run interactively with RStudio Server
 docker-compose -f docker/docker-compose.yml up dlnm-interactive
-# Open http://localhost:8787 (username: rstudio, password: dlnm2026)
 ```
 
 ### Option 2: Local R
 
 ```bash
-# Restore R package environment
 Rscript -e 'renv::restore()'
-
-# Run the full pipeline
 Rscript run_pipeline.R
-
-# Or use smart caching with targets
-Rscript -e 'targets::tar_make()'
-
-# Or use Make
-make all
 ```
 
 ### Option 3: Make targets
 
 ```bash
-make download    # Download raw data only
+make download    # Download raw data
 make process     # Build analytic dataset
 make models      # Fit DLNM models
 make validate    # Run Bayesian validation
 make reports     # Generate figures and manuscript
-make audit       # Benchmark and quality control
 make all         # Everything
 ```
 
@@ -69,50 +55,53 @@ make all         # Everything
     Makefile
     run_pipeline.R
     _targets.R
+    renv.lock
     .gitignore
     config/
       config.R
     R/
-      utils.R
-      download.R
-      exposure_processing.R
-      preprocessing.R
-      dlnm_models.R
-      bayesian_models.R
-      visualization.R
-      reporting.R
+      utils.R              # Logging, encoding, Brazilian holidays
+      download.R           # Data acquisition (DATASUS, INMET, SIDRA)
+      exposure_processing.R # INMET processing, spatial mapping
+      preprocessing.R      # SIH/SIM cleaning, PM2.5 processing, dataset assembly
+      dlnm_models.R        # DLNM fitting, HAC SE, diagnostics, sensitivity
+      bayesian_models.R    # Hierarchical Bayesian stabilization
+      visualization.R      # Figures, plots, 3D surfaces
+      reporting.R          # Reports, benchmarks, rendering
+    python/
+      extrair_mp25_rj.py   # PM2.5 extraction from INEA/MonitorAr
+      requirements.txt
     data/
-      raw/
-      interim/
-      processed/
     outputs/
-      figures/
-      tables/
-      logs/
-    reports/
-      manuscript/
-      presentations/
-      supplementary/
     docs/
       formulas/
       methodology/
-    audit/
-    metadata/
+      AI_DECLARATION.md
+      ZENODO_DEPOSIT.md
     tests/testthat/
     docker/
     .github/workflows/
 
 ---
 
-## Key Results
+## What This Compendium Implements
 
-| Metric | Value |
-|--------|-------|
-| Macroregions covered | 9/9 |
-| DLNM models fitted | 36+ (9 x 4 outcomes) |
-| FDR-significant findings (p<0.05) | 8 robust + 3 with caution |
-| Bayesian posterior probabilities computed | All models |
-| Sensitivity analyses | Lag (7/14/21d), pandemic exclusion, spline df grid, prior sensitivity |
+### Air Pollution Control
+PM2.5 data from INEA/MonitorAr (VIGIAR program) is included as a linear covariate in all DLNM models. The extraction script (`python/extrair_mp25_rj.py`) captures municipal means from the Power BI dashboard, assigns values to unmonitored municipalities via nearest-neighbor, and performs temporal downscaling (2010-2025) using the national VIGIAR series. PM2.5 is included at annual granularity by macroregion.
+
+### Robust Standard Errors
+Newey-West HAC standard errors (21 lags) are computed for all models and propagated to cumulative RR via the delta method. Both model-based and HAC-corrected confidence intervals are reported. The Bayesian stage uses the HAC-corrected standard error when available.
+
+### Brazilian Holidays
+The holiday indicator includes both fixed national holidays and movable dates (Carnival, Good Friday, Corpus Christi) computed via the Gauss algorithm for Easter. Rio de Janeiro state holidays (Sao Jorge, April 23; Consciencia Negra, November 20 until 2023) are also included.
+
+### Sensitivity Analyses
+- **Lag maximum:** 7, 14, and 21 days
+- **Temporal df:** 4, 5, 6, and 7 df/year
+- **Spline df:** 3x3 grid (df_exp: 3,4,5,6; df_lag: 3,4,5)
+- **Pandemic exclusion:** models without 2020-2022
+- **Seasonal:** separate DLNMs for summer (Dec-Feb) and winter (Jun-Aug)
+- **Bayesian priors:** skeptical, optimistic, and flat specifications
 
 ---
 
@@ -122,18 +111,18 @@ make all         # Everything
 
 - **Cross-basis:** Natural spline for exposure (df=4) x natural spline for lags (df=3, log-knots, max lag=14d)
 - **Model family:** Quasi-Poisson with Negative Binomial fallback (dispersion > 3)
-- **Time control:** Natural spline (7 df/year) + day-of-week + holidays + pandemic indicator
-- **Confounder:** Complementary exposure variable (ns, df=3)
+- **Time control:** Natural spline (7 df/year) + day-of-week + Brazilian holidays + pandemic indicator
+- **Confounders:** Complementary exposure (ns, df=3) + PM2.5 annual (linear) + influenza lag 7d
 - **Offset:** log(population) from SIDRA/IBGE
 - **Centering:** Minimum Morbidity/Mortality Temperature (MMT)
-- **Standard errors:** Newey-West HAC (21 lags)
+- **Standard errors:** Newey-West HAC (21 lags) propagated via delta method
 
 ### Bayesian Stage
 
-- **Model:** Normal-normal hierarchical (empirical Bayes)
-- **Input:** Cumulative log(RR) +- SE from DLNM
+- **Model:** Normal-normal hierarchical (empirical Bayes, grid search)
+- **Input:** Cumulative log(RR) + HAC-corrected SE from DLNM
 - **Output:** Posterior RR, 95% credible interval, Pr(RR > 1.10)
-- **Prior sensitivity:** Sceptical, Optimistic, Flat priors
+- **Note:** Two-stage approach; uncertainty from the first stage is not fully propagated (documented limitation)
 
 ### Prioritization Framework (5 levels)
 
@@ -147,66 +136,38 @@ make all         # Everything
 
 ## R Environment
 
-R version 4.6.0 (2026-04-24)
+R version 4.6.0 (2026-04-24). Full package inventory in `renv.lock` (151 packages).
 
-| Package | Version |
-|---|---|
-| microdatasus | 2.5.0 |
-| BrazilMet | 0.4.0 |
-| tidyverse | 2.0.0 |
-| dplyr | 1.2.1 |
-| tidyr | 1.3.2 |
-| readr | 2.2.0 |
-| tibble | 3.3.1 |
-| purrr | 1.2.2 |
-| forcats | 1.0.1 |
-| stringr | 1.6.0 |
-| stringi | 1.8.7 |
-| lubridate | 1.9.5 |
-| janitor | 2.2.1 |
-| ggplot2 | 4.0.3 |
-| scales | 1.4.0 |
-| ggrepel | 0.9.8 |
-| patchwork | 1.3.2 |
-| dlnm | 2.4.10 |
-| splines | 4.6.0 |
-| MASS | 7.3.65 |
-| mgcv | 1.9.4 |
-| lmtest | 0.9.40 |
-| sandwich | 3.1.1 |
-| survival | 3.8.6 |
-| spdep | 1.4.2 |
-| igraph | 2.3.0 |
-| zoo | 1.8.15 |
-| plotly | 4.12.0 |
-| htmlwidgets | 1.6.4 |
-| rmarkdown | 2.31 |
-| knitr | 1.51 |
-| sidrar | 0.2.9 |
-| geobr | 1.9.1 |
-| sf | 1.1.0 |
-| httr | 1.4.8 |
-| jsonlite | 2.0.0 |
-| data.table | 1.18.4 |
+| Package | Version | Purpose |
+|---|---|---|
+| dlnm | 2.4.10 | Distributed lag non-linear models |
+| mgcv | 1.9.4 | GAM for time trend |
+| MASS | 7.3-65 | Negative binomial GLM |
+| sandwich | 3.1-1 | Newey-West HAC standard errors |
+| microdatasus | 2.5.0 | DATASUS data acquisition |
+| BrazilMet | 0.4.0 | INMET weather data |
+| geobr | 1.9.1 | Municipality geometries |
+| sf | 1.1-0 | Spatial operations |
+| sidrar | 0.2.9 | SIDRA/IBGE population |
+| tidyverse | 2.0.0 | Data manipulation and plotting |
+| plotly | 4.12.0 | Interactive 3D surfaces |
+| targets | 1.12.0 | Reproducible pipeline with caching |
+| renv | 1.2.2 | Package version management |
 
 ---
 
 ## Reproducibility
 
-This compendium follows the [Turing Way](https://the-turing-way.netlify.app/) and [FAIR Principles](https://www.go-fair.org/):
-
 | Component | Status |
 |-----------|--------|
-| Computational environment | OK: Docker (rocker/geospatial:4.6.0) |
-| Package versions | OK: renv.lock |
-| Random seed | OK: set.seed(20260619) |
-| Raw data versioning | OK: Pipeline regenerates from public APIs |
-| Audit trail | OK: 30+ audit CSV files |
-| Unit tests | OK: testthat |
-| CI/CD | OK: GitHub Actions |
-| FAIR metadata | OK: Data dictionary + lineage |
-
-Reproducibility Score: 85/100 (was 42/100)
+| Package versions | renv.lock (151 packages) |
+| Computational environment | Docker (rocker/geospatial:latest) |
+| Random seed | set.seed(20260619) |
+| Raw data | Public APIs (DATASUS, INMET, SIDRA, INEA) |
+| Audit trail | 30+ audit CSV files |
+| Unit tests | testthat (utils, DLNM, Bayesian, preprocessing) |
+| CI/CD | GitHub Actions (test, size-check, fair-check, modules) |
+| FAIR metadata | Data dictionary + lineage + CITATION.cff |
 
 ---
 
@@ -219,7 +180,6 @@ Reproducibility Score: 85/100 (was 42/100)
   author = {Santos, Ryan de Paulo and Nunes, Camila Henriques and
             Ribeiro, Karla Rangel and Medina-Acosta, Enrique},
   year = {2026},
-  doi = {placeholder},
   url = {https://github.com/santosry/exposome-cerebrovascular-rj}
 }
 ```
@@ -233,6 +193,7 @@ Reproducibility Score: 85/100 (was 42/100)
 | **SIH-RD** | Hospital admissions (SUS) | `microdatasus` |
 | **SIM-DO** | Mortality records | `microdatasus` |
 | **INMET** | Weather stations (temp, humidity) | `BrazilMet` |
+| **INEA/MonitorAr** | PM2.5 air pollution | Power BI dashboard (Python extraction) |
 | **SIDRA/IBGE** | Population denominators | `sidrar` |
 | **geobr** | Municipality geometries | `geobr` |
 
@@ -240,29 +201,14 @@ Reproducibility Score: 85/100 (was 42/100)
 
 ## Limitations
 
-1. **SIM-DO 2025** unavailable -- filled with SIH hospital deaths (proxy, undercounts out-of-hospital deaths)
-2. **Noroeste macroregion** has only 1 INMET station (no redundancy)
-3. **Ecological design** -- no individual-level inference
-4. **No air pollution adjustment** (feature flag exists but not yet implemented)
-5. **Intercensal population estimates** for post-2022 years
-
----
-
-## Development
-
-```bash
-# Run unit tests
-make test
-
-# Lint R code
-make lint
-
-# Build Docker image
-make docker-build
-
-# Generate renv.lock
-make renv-snapshot
-```
+1. **Ecological design** -- associations at macroregional level; no individual-level inference
+2. **PM2.5 granularity** -- annual by macroregion; intra-annual variation not captured; 2025 extrapolated
+3. **SIM-DO 2025** unavailable -- filled with SIH hospital deaths (proxy, undercounts out-of-hospital deaths)
+4. **Noroeste macroregion** has only 1 INMET station (no redundancy)
+5. **Climate aggregation** -- simple mean across stations, not population-weighted
+6. **Two-stage Bayesian** -- uncertainty from DLNM stage not fully propagated to posterior intervals
+7. **Intercensal population estimates** for 2023-2025 based on post-Census 2022 projections
+8. **Multiple comparisons** -- prioritization examines multiple dimensions (exploratory nature documented)
 
 ---
 
