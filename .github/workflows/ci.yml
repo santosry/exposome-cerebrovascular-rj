@@ -17,9 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install lintr
-        run: Rscript -e 'install.packages(c("lintr","styler"), repos="https://cloud.r-project.org")'
+        run: Rscript -e 'install.packages("lintr", repos="https://cloud.r-project.org")'
       - name: Lint R code
-        run: Rscript -e 'lintr::lint_dir("R/")'
+        run: Rscript -e 'library(lintr); lint_dir("R/")'
         continue-on-error: true
 
   # -- Unit Tests --
@@ -28,16 +28,17 @@ jobs:
     container: rocker/geospatial:latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install testthat
-        run: Rscript -e 'install.packages("testthat", repos="https://cloud.r-project.org")'
+      - name: Install test dependencies
+        run: Rscript -e 'install.packages(c("testthat","dplyr","tibble","stringr","stringi","janitor","readr","tidyr","purrr"), repos="https://cloud.r-project.org")'
       - name: Run unit tests
         run: |
           Rscript -e '
+          library(testthat)
           source("config/config.R", local=TRUE)
           source("R/utils.R", local=TRUE)
           source("R/download.R", local=TRUE)
           source("R/exposure_processing.R", local=TRUE)
-          testthat::test_dir("tests/testthat")
+          test_dir("tests/testthat")
           '
 
   # -- Repository Size Check --
@@ -102,9 +103,11 @@ jobs:
   reproducibility-smoke:
     runs-on: ubuntu-latest
     container: rocker/geospatial:latest
-    needs: [lint, test, size-check]
+    needs: [size-check]
     steps:
       - uses: actions/checkout@v4
+      - name: Install core dependencies
+        run: Rscript -e 'install.packages(c("dplyr","tibble","stringr","stringi","janitor","readr","tidyr","purrr","lubridate","MASS","mgcv","dlnm","splines","sandwich","survival","ggplot2","scales","testthat"), repos="https://cloud.r-project.org")'
       - name: Test config and modules load
         run: |
           Rscript -e "
