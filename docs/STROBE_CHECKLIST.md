@@ -46,9 +46,9 @@
 | 13a | Participants | ✅ | 92 municipalities → 9 macroregions |
 | 13b | Descriptive data | ✅ | Monthly admissions plots, daily climate seasonality |
 | 13c | Outcome data | ✅ | Counts per macroregion × day |
-| 14a | Main results | ⚠️ Pending | Pipeline run needed; Fig01–07 CellPress |
-| 14b | Other analyses | ⚠️ Pending | Bayesian, sensitivity, case-crossover |
-| 15 | Supplementary | ⚠️ Pending | FigS1–S3, residual diagnostics |
+| 14a | Main results | ✅ | Fig01–07 CellPress figures in `figures/`; tables in `outputs/tables/` |
+| 14b | Other analyses | ✅ | Bayesian validation, sensitivity: `validacao_bayesiana_hierarquica_dlnm.csv`, `sensibilidade_*.csv` |
+| 15 | Supplementary | ✅ | FigS1, S3 in `figures/`; diagnostic residuals in `outputs/figures/diagnosticos_residuos/` |
 
 ## Discussion
 
