@@ -5,7 +5,7 @@
 #
 # Uses rocker/geospatial for sf/geobr/spdep support.
 
-FROM rocker/geospatial:4.6.0
+FROM rocker/geospatial:latest
 
 LABEL maintainer="Ryan de Paulo Santos <ryan.paulo@gsuite.iff.edu.br>"
 LABEL description="DLNM Cerebrovascular RJ (2010–2025) — Reproducible Research Compendium"
