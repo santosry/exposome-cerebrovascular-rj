@@ -29,9 +29,8 @@ data/processed/*
 data/external/*
 !data/external/.gitkeep
 
-# Large model objects (> 50 MB)
-*.rds
-!data/README.md
+# Large model objects (> 50 MB) — tracked via Git LFS when needed
+# *.rds  # Comentado: dados raw são rastreados via Git LFS; outputs são regenerados
 
 # Download caches
 cache/
@@ -75,16 +74,12 @@ audit/*.log
 01_DLNMs_RJ_cerebrovascular/data_interim/
 01_DLNMs_RJ_cerebrovascular/data_processed/
 01_DLNMs_RJ_cerebrovascular/outputs/
-02_RELATORIO_BSB2026/*_files/
-03_AUDITORIA/logs/
-03_AUDITORIA/benchmark/
-03_AUDITORIA/arquivos_centralizados/
-04_publicacao_github/data_raw/
-04_publicacao_github/data_interim/
-04_publicacao_github/data_processed/
-04_publicacao_github/outputs/
-04_publicacao_github/figures/
-04_publicacao_github/results/
+02_MP25_RJ_exposicao/data_raw/
+02_MP25_RJ_exposicao/data_processed/
+03_RELATORIO_BSB2026/*_files/
+04_AUDITORIA/logs/
+04_AUDITORIA/benchmark/
+04_AUDITORIA/arquivos_centralizados/
 
 # OS files
 Thumbs.db

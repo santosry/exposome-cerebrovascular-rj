@@ -6,6 +6,10 @@
 #' Fit one DLNM for a single macroregion-outcome-exposure combination
 fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
                           use_mmt = TRUE) {
+  # [S-006] Defensive: create 'tempo' if missing (e.g., stratified datasets built on-the-fly)
+  if (!"tempo" %in% names(dat)) {
+    dat$tempo <- as.integer(dat$data - min(dat$data, na.rm = TRUE)) + 1L
+  }
   model_warnings <- character()
   capture_model_warnings <- function(expr) {
     withCallingHandlers(expr,
