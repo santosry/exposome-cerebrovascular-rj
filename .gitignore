@@ -56,8 +56,10 @@ outputs/logs/*
 outputs/audits/*
 outputs/reports/*
 !outputs/**/.gitkeep
-reports/manuscript/*.pdf
-reports/presentations/*.pdf
+reports/manuscript/*
+reports/presentations/*
+!reports/manuscript/.gitkeep
+!reports/presentations/.gitkeep
 
 # Logs
 logs/*.log
