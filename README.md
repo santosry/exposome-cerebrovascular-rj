@@ -61,56 +61,46 @@ make all         # Everything
 
 ## Repository Structure
 
-```
-dlnm-cerebrovascular-rj/
-├── README.md
-├── LICENSE
-├── CITATION.cff
-├── COMPENDIUM_MANIFEST.yml
-├── REPRODUCIBILITY_CHECKLIST.md
-├── Makefile
-├── run_pipeline.R
-├── _targets.R
-├── .gitignore
-│
-├── config/
-│   └── config.R
-│
-├── R/
-│   ├── utils.R
-│   ├── download.R
-│   ├── exposure_processing.R
-│   ├── preprocessing.R
-│   ├── dlnm_models.R
-│   ├── bayesian_models.R
-│   ├── visualization.R
-│   └── reporting.R
-│
-├── data/
-│   ├── raw/
-│   ├── interim/
-│   └── processed/
-│
-├── outputs/
-│   ├── figures/
-│   ├── tables/
-│   └── logs/
-│
-├── reports/
-│   ├── manuscript/
-│   ├── presentations/
-│   └── supplementary/
-│
-├── docs/
-│   ├── formulas/
-│   └── methodology/
-│
-├── audit/
-├── metadata/
-├── tests/testthat/
-├── docker/
-└── .github/workflows/
-```
+    README.md
+    LICENSE
+    CITATION.cff
+    COMPENDIUM_MANIFEST.yml
+    REPRODUCIBILITY_CHECKLIST.md
+    Makefile
+    run_pipeline.R
+    _targets.R
+    .gitignore
+    config/
+      config.R
+    R/
+      utils.R
+      download.R
+      exposure_processing.R
+      preprocessing.R
+      dlnm_models.R
+      bayesian_models.R
+      visualization.R
+      reporting.R
+    data/
+      raw/
+      interim/
+      processed/
+    outputs/
+      figures/
+      tables/
+      logs/
+    reports/
+      manuscript/
+      presentations/
+      supplementary/
+    docs/
+      formulas/
+      methodology/
+    audit/
+    metadata/
+    tests/testthat/
+    docker/
+    .github/workflows/
 
 ---
 
