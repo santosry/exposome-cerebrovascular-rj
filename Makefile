@@ -1,8 +1,9 @@
 # Makefile — Automated workflow orchestration for the DLNM compendium
 # =============================================================================
 # Usage:
+#   make setup       — First-time setup (renv + Python + Playwright)
 #   make all          — Run the complete pipeline
-#   make download     — Download all raw data
+#   make download     — Download all raw data (SIH, SIM, INMET, PM2.5)
 #   make process      — Process and build analytic dataset
 #   make models       — Fit DLNM models
 #   make validate     — Run Bayesian validation
@@ -13,15 +14,29 @@
 #   make clean        — Remove derived outputs
 #   make clean-all    — Remove everything including raw data
 
-.PHONY: all download process models validate reports audit clean clean-all \
+.PHONY: all setup download process models validate reports audit clean clean-all \
         docker-build docker-run test lint
 
 RSCRIPT = Rscript --vanilla
+PYTHON = python3
+
+# ── First-time setup ──
+setup:
+	@echo "=== Setting up R environment (renv) ==="
+	$(RSCRIPT) -e "install.packages('renv', repos='https://cloud.r-project.org')"
+	$(RSCRIPT) -e "renv::restore()"
+	@echo "=== Setting up Python environment ==="
+	$(PYTHON) -m pip install -r python/requirements.txt
+	$(PYTHON) -m playwright install chromium
+	@echo "=== Setup complete! ==="
 
 # ── Main targets ──
 all: download process models validate reports audit
 
 # ── Data acquisition ──
+download-pm25:
+	$(PYTHON) python/extrair_mp25_rj.py
+
 download:
 	$(RSCRIPT) -e "source('config/config.R'); source('R/download.R'); download_sih(); download_sim(); download_inmet()"
 
