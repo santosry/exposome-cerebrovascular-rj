@@ -22,7 +22,7 @@ test_that("clean_cid3 formats ICD codes correctly", {
   expect_equal(clean_cid3("I609"), "I60")
   expect_equal(clean_cid3("i61.0"), "I61")
   expect_equal(clean_cid3("I 63"), "I63")
-  expect_equal(clean_cid3(NA_character_), "")
+  expect_equal(clean_cid3(NA_character_), NA_character_)
 })
 
 test_that("haversine_km computes correct distances", {
