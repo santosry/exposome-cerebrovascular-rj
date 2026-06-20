@@ -282,4 +282,4 @@ Full declaration: [docs/AI_DECLARATION.md](docs/AI_DECLARATION.md)
 
 ---
 
-Languages: R, HTML
+Languages: R, Python, HTML
