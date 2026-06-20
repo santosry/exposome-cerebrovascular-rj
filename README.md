@@ -1,11 +1,4 @@
 # 🌡️ Climate Exposure and Cerebrovascular Outcomes in Rio de Janeiro (2010–2025)
-
-[![CI](https://github.com/santosry/exposome-cerebrovascular-rj/actions/workflows/ci.yml/badge.svg)](https://github.com/santosry/exposome-cerebrovascular-rj/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![FAIR](https://img.shields.io/badge/FAIR-Principles-green.svg)](https://www.go-fair.org/fair-principles/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](docker/)
-[![AI Used](https://img.shields.io/badge/AI_Declared-CNPq_2664%2F2026-purple.svg)](docs/AI_DECLARATION.md)
-[![FAIR](https://img.shields.io/badge/FAIR-Principles-green.svg)](https://www.go-fair.org/fair-principles/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](docker/)
 
 **Research Compendium** — Epidemiologia Ambiental com DLNM e Inferência Bayesiana Hierárquica
@@ -254,5 +247,4 @@ This project used AI technologies as technical assistants in compliance with **C
 
 ---
 
-**Status:** 🟢 Production-ready for journal submission  
-**Target journals:** *Environmental Health Perspectives*, *International Journal of Epidemiology*, *Lancet Planetary Health*
+**Status:** 🟢 Production-ready for journal submission
