@@ -1,0 +1,5 @@
+station_code,station_municipality,station_mun_nome_norm,station_mun_nome_norm_alias,motivo_alias
+A610,Pico Do Couto,PICO DO COUTO,PETROPOLIS,toponimo_da_estacao_inmet_em_area_serrana
+A602,Rio De Janeiro-Marambaia,RIO DE JANEIRO MARAMBAIA,RIO DE JANEIRO,estacao_marambaia_vinculada_ao_municipio_rio_de_janeiro
+A601,Seropedica-Ecologia Agricola,SEROPEDICA ECOLOGIA AGRICOLA,SEROPEDICA,sufixo_operacional_da_estacao_removido_para_lookup
+A618,Teresopolis-Parque Nacional,TERESOPOLIS PARQUE NACIONAL,TERESOPOLIS,sufixo_operacional_da_estacao_removido_para_lookup

@@ -1,0 +1,8 @@
+validacao,status,resultado
+colunas_essenciais_presentes,TRUE,ok
+ha_modelos_i60_i69,TRUE,ok
+rr_positivo,TRUE,ok
+p_valores_entre_0_e_1,TRUE,ok
+sem_duplicatas_chave,TRUE,ok
+modelos_rr_absurdamente_alto,FALSE,verificar
+principal_sem_fdr_significativo,TRUE,ok

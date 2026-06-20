@@ -1,0 +1,145 @@
+ano,macro_regiao,populacao,fonte_populacao,observacao_populacao
+2010,Baia da Ilha Grande,248860,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2010,Baixada Litoranea,697798,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2010,Centro-Sul,321258,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2010,Medio Paraiba,860572,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2010,Metropolitana I,9929157,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2010,Metropolitana II,1957940,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2010,Noroeste,331621,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2010,Norte,848488,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2010,Serrana,916984,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2011,Baia da Ilha Grande,248860,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2011,Baixada Litoranea,697798,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2011,Centro-Sul,321258,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2011,Medio Paraiba,860572,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2011,Metropolitana I,9929157,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2011,Metropolitana II,1957940,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2011,Noroeste,331621,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2011,Norte,848488,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2011,Serrana,916984,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2012,Baia da Ilha Grande,254042,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2012,Baixada Litoranea,715500,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2012,Centro-Sul,323097,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2012,Medio Paraiba,865769,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2012,Metropolitana I,9982883,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2012,Metropolitana II,1974910,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2012,Noroeste,333091,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2012,Norte,859677,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2012,Serrana,922396,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2013,Baia da Ilha Grande,260130,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2013,Baixada Litoranea,736317,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2013,Centro-Sul,325218,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2013,Medio Paraiba,871775,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2013,Metropolitana I,10044881,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2013,Metropolitana II,1994674,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2013,Noroeste,334768,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2013,Norte,872773,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2013,Serrana,928643,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2014,Baia da Ilha Grande,264913,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2014,Baixada Litoranea,752911,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2014,Centro-Sul,326523,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2014,Medio Paraiba,875542,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2014,Metropolitana I,10082078,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2014,Metropolitana II,2008412,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2014,Noroeste,335686,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2014,Norte,882578,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2014,Serrana,932530,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2015,Baia da Ilha Grande,269533,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2015,Baixada Litoranea,768941,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2015,Centro-Sul,327784,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2015,Medio Paraiba,879181,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2015,Metropolitana I,10118003,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2015,Metropolitana II,2021681,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2015,Noroeste,336571,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2015,Norte,892046,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2015,Serrana,936284,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2016,Baia da Ilha Grande,274036,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2016,Baixada Litoranea,784423,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2016,Centro-Sul,329003,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2016,Medio Paraiba,882668,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2016,Metropolitana I,10153138,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2016,Metropolitana II,2034548,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2016,Noroeste,337428,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2016,Norte,901210,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2016,Serrana,939542,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2017,Baia da Ilha Grande,278488,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2017,Baixada Litoranea,799469,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2017,Centro-Sul,330344,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2017,Medio Paraiba,886065,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2017,Metropolitana I,10186591,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2017,Metropolitana II,2046751,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2017,Noroeste,338255,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2017,Norte,910045,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2017,Serrana,942948,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2018,Baia da Ilha Grande,286726,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2018,Baixada Litoranea,823899,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2018,Centro-Sul,338913,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2018,Medio Paraiba,909136,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2018,Metropolitana I,10450114,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2018,Metropolitana II,2101414,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2018,Noroeste,346923,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2018,Norte,935369,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2018,Serrana,967466,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2019,Baia da Ilha Grande,291418,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2019,Baixada Litoranea,839958,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2019,Centro-Sul,340526,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2019,Medio Paraiba,913698,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2019,Metropolitana I,10497016,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2019,Metropolitana II,2116506,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2019,Noroeste,348191,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2019,Norte,945425,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2019,Serrana,972205,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2020,Baia da Ilha Grande,295944,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2020,Baixada Litoranea,855444,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2020,Centro-Sul,342078,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2020,Medio Paraiba,918097,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2020,Metropolitana I,10542254,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2020,Metropolitana II,2131058,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2020,Noroeste,349417,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2020,Norte,955122,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2020,Serrana,976775,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2021,Baia da Ilha Grande,300287,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2021,Baixada Litoranea,870304,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2021,Centro-Sul,343570,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2021,Medio Paraiba,922318,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2021,Metropolitana I,10585667,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2021,Metropolitana II,2145025,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2021,Noroeste,350591,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2021,Norte,964428,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2021,Serrana,981159,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2022,Baia da Ilha Grande,253897,"SIDRA 4714 v93 - Censo Demografico 2022, Populacao residente",censo_2022_oficial_sidra
+2022,Baixada Litoranea,846933,"SIDRA 4714 v93 - Censo Demografico 2022, Populacao residente",censo_2022_oficial_sidra
+2022,Centro-Sul,320003,"SIDRA 4714 v93 - Censo Demografico 2022, Populacao residente",censo_2022_oficial_sidra
+2022,Medio Paraiba,865130,"SIDRA 4714 v93 - Censo Demografico 2022, Populacao residente",censo_2022_oficial_sidra
+2022,Metropolitana I,9705577,"SIDRA 4714 v93 - Censo Demografico 2022, Populacao residente",censo_2022_oficial_sidra
+2022,Metropolitana II,1908751,"SIDRA 4714 v93 - Censo Demografico 2022, Populacao residente",censo_2022_oficial_sidra
+2022,Noroeste,336995,"SIDRA 4714 v93 - Censo Demografico 2022, Populacao residente",censo_2022_oficial_sidra
+2022,Norte,907868,"SIDRA 4714 v93 - Censo Demografico 2022, Populacao residente",censo_2022_oficial_sidra
+2022,Serrana,910020,"SIDRA 4714 v93 - Censo Demografico 2022, Populacao residente",censo_2022_oficial_sidra
+2023,Baia da Ilha Grande,262127.5,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2023,Baixada Litoranea,875052,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2023,Centro-Sul,328032,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2023,Medio Paraiba,891780,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2023,Metropolitana I,10084030.5,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2023,Metropolitana II,1976073,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2023,Noroeste,345201.5,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2023,Norte,938755,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2023,Serrana,936375,Interpolacao linear entre observacoes oficiais SIDRA disponiveis,interpolado_por_falta_de_observacao_sidra_no_ano
+2024,Baia da Ilha Grande,270358,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2024,Baixada Litoranea,903171,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2024,Centro-Sul,336061,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2024,Medio Paraiba,918430,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2024,Metropolitana I,10462484,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2024,Metropolitana II,2043395,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2024,Noroeste,353408,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2024,Norte,969642,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2024,Serrana,962730,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2025,Baia da Ilha Grande,270470,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2025,Baixada Litoranea,904392,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2025,Centro-Sul,336114,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2025,Medio Paraiba,918649,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2025,Metropolitana I,10463654,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2025,Metropolitana II,2043599,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2025,Noroeste,353499,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2025,Norte,970288,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra
+2025,Serrana,962882,SIDRA 6579 v9324 - Populacao residente estimada,estimativa_oficial_sidra

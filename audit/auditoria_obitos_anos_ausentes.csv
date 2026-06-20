@@ -1,0 +1,3 @@
+variavel,anos_substituidos_por_sih_aih,criterio,motivo
+obitos_i60_i69,2025,"MORTE == 1 nas AIHs SIH-RD, restrito aos CIDs e municipios filtrados.","SIM-DO indisponivel ou nao baixado pelo microdatasus; anos ausentes foram preenchidos com obitos hospitalares observados nas AIHs, nao com zeros."
+obitos_i60_i64,2025,"MORTE == 1 nas AIHs SIH-RD, restrito aos CIDs e municipios filtrados.","SIM-DO indisponivel ou nao baixado pelo microdatasus; anos ausentes foram preenchidos com obitos hospitalares observados nas AIHs, nao com zeros."

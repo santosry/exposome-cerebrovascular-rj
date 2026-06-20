@@ -1,0 +1,6 @@
+eixo,regra_curadoria,status
+DLNM,"Comunicar RR, IC95% e AUC; nao promover curva apenas por valor de significancia.",aplicado
+Bayes hierarquico,Usar como estabilizacao posterior dos efeitos acumulados; nao apresentar como novo modelo causal.,aplicado
+Residuo/ACF,Registrar diagnostico residual; modelos com autocorrelacao detectavel dependem de sensibilidade e validacao complementar.,aplicado
+Pandemia,2017-2025 permanece na analise principal; 2020-2022 e apenas sensibilidade de exclusao.,aplicado
+Populacao,"Offset por populacao SIDRA/IBGE; 2023 interpolado linearmente apenas para denominador, com auditoria.",aplicado

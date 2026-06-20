@@ -1,0 +1,2 @@
+etapa,criterio_geografico,campos_usados,justificativa,implicacao
+desfechos_sih_sim,municipio_de_residencia,SIH: MUNIC_RES/MUN_RES; SIM: CODMUNRES/MUNRES,"A exposicao climatica e atribuida ao territorio de vida; por isso, residencia e mais coerente que municipio de internacao para inferencia ambiental.",Internacoes fora do municipio de residencia permanecem vinculadas ao municipio/macrorregiao de residencia do paciente.

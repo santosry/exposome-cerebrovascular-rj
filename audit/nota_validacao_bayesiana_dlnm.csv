@@ -1,0 +1,5 @@
+item,valor
+criterio_modelos,"RR, IC95%, AUC, diagnostico residual e probabilidade posterior"
+limiar_posterior,"probabilidade posterior de RR > 1.1 >= 0,80 para efeito epidemiologicamente relevante"
+uso_pvalor_dlnm,testes de significancia nao entram nos graficos/tabelas principais de priorizacao
+leitura,Bayes estabiliza estimativas regionais apos o DLNM; nao substitui a modelagem exposicao-lag

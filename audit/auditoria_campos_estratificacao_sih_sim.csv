@@ -1,0 +1,3 @@
+fonte,desfecho,registros,sexo_ignorado_pct,idade_invalida_pct,municipios,anos,leitura
+SIH,internacoes,288395,0,0,92,"2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025",Campos individuais consistentes para contagens estratificadas
+SIM,obitos,147551,8.132781207853556e-5,0.005089765572581684,93,"2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024",Campos individuais consistentes para contagens estratificadas

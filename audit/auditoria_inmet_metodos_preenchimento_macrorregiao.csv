@@ -1,0 +1,16 @@
+macro_regiao,metodo_preenchimento,dias,n_estacoes_medio,distancia_media_preenchimento_km
+Baia da Ilha Grande,estacao_mais_proxima_com_dado_no_dia,74,1,71.53907511404114
+Baia da Ilha Grande,media_estacoes_proprias_macrorregiao,5770,1.5285961871750433,
+Baixada Litoranea,estacao_mais_proxima_com_dado_no_dia,229,1,59.91057503171027
+Baixada Litoranea,media_estacoes_proprias_macrorregiao,5615,1.6721282279608192,
+Centro-Sul,estacao_mais_proxima_com_dado_no_dia,2416,1,21.746886785049334
+Centro-Sul,media_estacoes_proprias_macrorregiao,3428,1.3348891481913652,
+Medio Paraiba,estacao_mais_proxima_com_dado_no_dia,11,1,52.212764556364355
+Medio Paraiba,media_estacoes_proprias_macrorregiao,5833,2.5998628493056746,
+Metropolitana I,media_estacoes_proprias_macrorregiao,5844,5.524640657084189,
+Metropolitana II,estacao_mais_proxima_com_dado_no_dia,2071,1,41.526417833139924
+Metropolitana II,media_estacoes_proprias_macrorregiao,3773,1.723297111052213,
+Noroeste,estacao_mais_proxima_com_dado_no_dia,497,1,65.84682362940208
+Noroeste,media_estacoes_proprias_macrorregiao,5347,1,
+Norte,media_estacoes_proprias_macrorregiao,5844,3,
+Serrana,media_estacoes_proprias_macrorregiao,5844,3.857973990417522,

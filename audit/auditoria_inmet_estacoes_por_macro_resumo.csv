@@ -1,0 +1,10 @@
+macro_regiao,estacoes,codigos_estacoes,municipios_estacoes
+Baia da Ilha Grande,2,A619; A628,Angra Dos Reis; Paraty
+Baixada Litoranea,2,A606; A667,Arraial Do Cabo; Saquarema
+Centro-Sul,2,A625; A637,Paty Do Alferes; Tres Rios
+Medio Paraiba,3,A609; A611; A626,Resende; Rio Claro; Valenca
+Metropolitana I,6,A601; A602; A603; A621; A636; A652,Duque De Caxias; Rio De Janeiro; Rio De Janeiro-Marambaia; Seropedica-Ecologia Agricola
+Metropolitana II,2,A627; A659,Niteroi; Silva Jardim
+Noroeste,1,A604,Cambuci
+Norte,3,A607; A608; A620,Campos Dos Goytacazes; Macae
+Serrana,5,A610; A618; A624; A629; A630,Carmo; Nova Friburgo; Pico Do Couto; Santa Maria Madalena; Teresopolis-Parque Nacional

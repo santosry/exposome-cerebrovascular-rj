@@ -1,0 +1,14 @@
+item,descricao
+familia_principal,"GLM Quasi-Poisson com link log para contagens diarias por macrorregiao, desfecho e exposicao; essa e a especificacao inicial."
+fallback_sobredispersao,"Quando a dispersao do Quasi-Poisson excede 3, o pipeline tenta binomial negativa com link log; a familia efetivamente usada fica registrada por modelo."
+base_cruzada,crossbasis da exposicao principal com spline natural na dimensao da exposicao e spline natural em lags com logknots.
+controle_temporal,"Spline natural de tempo com 7 graus de liberdade por ano observado, alem de dia da semana, feriado e indicador de pandemia."
+exposicao_complementar,"Quando X e temperatura media, ajusta-se ns(umidade relativa media, df=3); quando X e umidade, ajusta-se ns(temperatura media, df=3)."
+offset_populacional,Os modelos usam offset(log(populacao)) com populacao municipal SIDRA/IBGE agregada por macrorregiao e ano; 2022 usa Censo SIDRA 4714.
+periodo_pandemico,A analise principal inclui 2020-2022 com indicador de pandemia; a exclusao desse intervalo e apenas sensibilidade.
+predicao_rr,"RRs preditos entre os percentis 1 e 99 da exposicao principal, centrados no MMT empirico (vs. P50 como fallback de sensibilidade)."
+mmt,MMT empirico: valor da exposicao que minimiza o RR cumulativo predito com centro no P50; replace P50 como centro de referencia.
+newey_west,Erros-padrao HAC de Newey-West (lag=21) calculados via sandwich::NeweyWest; p-valor global recalculado com matriz HAC.
+fdr_global,"FDR de Benjamini-Hochberg aplicado sobre p_associacao (teste global do DLNM: F-test ou LRT), nao sobre p_curva_auc."
+heat_index,Temperatura aparente (heat index de Rothfusz) calculada e modelada como exposicao terciaria; captura sinergia temperatura-umidade.
+influenza_control,Internacoes por influenza/pneumonia (J09-J18) incluidas como media movel de 7 dias com spline df=2.

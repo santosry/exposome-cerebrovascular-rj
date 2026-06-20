@@ -1,0 +1,3 @@
+situation_operation,n_estacoes,periodo,criterio
+breakdown,6,2010-2025,"Incluidas estacoes RJ com inicio de operacao ate o fim do periodo, mesmo se hoje estiverem inoperantes, para preservar a serie historica."
+operating,20,2010-2025,"Incluidas estacoes RJ com inicio de operacao ate o fim do periodo, mesmo se hoje estiverem inoperantes, para preservar a serie historica."

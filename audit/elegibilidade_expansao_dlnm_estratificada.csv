@@ -1,0 +1,5 @@
+estratificacao,status_modelagem,motivo
+CID,viavel_com_offset_total,"CID subdivide o desfecho; pode ser modelado como serie especifica, mantendo offset populacional total da macrorregiao."
+sexo,nao_promover_sem_denominador_especifico,"Eventos por sexo existem, mas a taxa estratificada requer populacao por sexo, ano e macrorregiao."
+faixa_etaria,nao_promover_sem_denominador_especifico,"Eventos por idade existem, mas a taxa estratificada requer populacao por faixa etaria, ano e macrorregiao."
+vulnerabilidade_territorial,requer_base_externa_validada,"Urbanizacao, densidade, envelhecimento e cobertura assistencial exigem fonte territorial padronizada antes de entrar no modelo."

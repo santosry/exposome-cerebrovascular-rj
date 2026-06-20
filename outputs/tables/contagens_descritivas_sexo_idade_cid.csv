@@ -1,0 +1,657 @@
+desfecho,macro_regiao,sexo_padronizado,faixa_etaria,cid_grupo,eventos
+internacoes,Baia da Ilha Grande,Masculino,65-79,I64 AVC nao especificado,879
+internacoes,Baia da Ilha Grande,Masculino,50-64,I64 AVC nao especificado,669
+internacoes,Baia da Ilha Grande,Feminino,65-79,I64 AVC nao especificado,614
+internacoes,Baia da Ilha Grande,Feminino,50-64,I64 AVC nao especificado,434
+internacoes,Baia da Ilha Grande,Feminino,80+,I64 AVC nao especificado,332
+internacoes,Baia da Ilha Grande,Masculino,80+,I64 AVC nao especificado,255
+internacoes,Baia da Ilha Grande,Masculino,0-49,I64 AVC nao especificado,222
+internacoes,Baia da Ilha Grande,Feminino,0-49,I64 AVC nao especificado,203
+internacoes,Baia da Ilha Grande,Masculino,0-49,I60-I62 hemorragicas,136
+internacoes,Baia da Ilha Grande,Masculino,50-64,I60-I62 hemorragicas,122
+internacoes,Baia da Ilha Grande,Feminino,50-64,I60-I62 hemorragicas,112
+internacoes,Baia da Ilha Grande,Feminino,0-49,I60-I62 hemorragicas,95
+internacoes,Baia da Ilha Grande,Masculino,65-79,I63 isquemico,86
+internacoes,Baia da Ilha Grande,Masculino,65-79,I60-I62 hemorragicas,83
+internacoes,Baia da Ilha Grande,Feminino,65-79,I60-I62 hemorragicas,79
+internacoes,Baia da Ilha Grande,Masculino,65-79,I65-I69 outras/sequelas,75
+internacoes,Baia da Ilha Grande,Masculino,50-64,I63 isquemico,59
+internacoes,Baia da Ilha Grande,Feminino,65-79,I63 isquemico,58
+internacoes,Baia da Ilha Grande,Feminino,50-64,I63 isquemico,50
+internacoes,Baia da Ilha Grande,Feminino,50-64,I65-I69 outras/sequelas,44
+internacoes,Baia da Ilha Grande,Feminino,65-79,I65-I69 outras/sequelas,42
+internacoes,Baia da Ilha Grande,Masculino,50-64,I65-I69 outras/sequelas,34
+internacoes,Baia da Ilha Grande,Feminino,80+,I60-I62 hemorragicas,30
+internacoes,Baia da Ilha Grande,Masculino,80+,I60-I62 hemorragicas,30
+internacoes,Baia da Ilha Grande,Feminino,0-49,I63 isquemico,28
+internacoes,Baia da Ilha Grande,Feminino,0-49,I65-I69 outras/sequelas,22
+internacoes,Baia da Ilha Grande,Masculino,80+,I63 isquemico,22
+internacoes,Baia da Ilha Grande,Feminino,80+,I65-I69 outras/sequelas,21
+internacoes,Baia da Ilha Grande,Masculino,0-49,I63 isquemico,20
+internacoes,Baia da Ilha Grande,Masculino,0-49,I65-I69 outras/sequelas,18
+internacoes,Baia da Ilha Grande,Masculino,80+,I65-I69 outras/sequelas,18
+internacoes,Baia da Ilha Grande,Feminino,80+,I63 isquemico,14
+internacoes,Baixada Litoranea,Masculino,65-79,I64 AVC nao especificado,1469
+internacoes,Baixada Litoranea,Feminino,65-79,I64 AVC nao especificado,1256
+internacoes,Baixada Litoranea,Masculino,50-64,I64 AVC nao especificado,1225
+internacoes,Baixada Litoranea,Feminino,50-64,I64 AVC nao especificado,832
+internacoes,Baixada Litoranea,Feminino,80+,I64 AVC nao especificado,706
+internacoes,Baixada Litoranea,Masculino,80+,I64 AVC nao especificado,471
+internacoes,Baixada Litoranea,Feminino,0-49,I64 AVC nao especificado,429
+internacoes,Baixada Litoranea,Masculino,0-49,I64 AVC nao especificado,375
+internacoes,Baixada Litoranea,Feminino,50-64,I60-I62 hemorragicas,297
+internacoes,Baixada Litoranea,Feminino,0-49,I60-I62 hemorragicas,274
+internacoes,Baixada Litoranea,Masculino,50-64,I60-I62 hemorragicas,258
+internacoes,Baixada Litoranea,Masculino,0-49,I60-I62 hemorragicas,235
+internacoes,Baixada Litoranea,Masculino,65-79,I60-I62 hemorragicas,211
+internacoes,Baixada Litoranea,Feminino,65-79,I60-I62 hemorragicas,151
+internacoes,Baixada Litoranea,Masculino,65-79,I65-I69 outras/sequelas,110
+internacoes,Baixada Litoranea,Masculino,65-79,I63 isquemico,88
+internacoes,Baixada Litoranea,Feminino,50-64,I65-I69 outras/sequelas,87
+internacoes,Baixada Litoranea,Masculino,50-64,I65-I69 outras/sequelas,83
+internacoes,Baixada Litoranea,Feminino,65-79,I65-I69 outras/sequelas,79
+internacoes,Baixada Litoranea,Masculino,50-64,I63 isquemico,76
+internacoes,Baixada Litoranea,Feminino,65-79,I63 isquemico,70
+internacoes,Baixada Litoranea,Feminino,0-49,I65-I69 outras/sequelas,60
+internacoes,Baixada Litoranea,Feminino,80+,I60-I62 hemorragicas,57
+internacoes,Baixada Litoranea,Feminino,50-64,I63 isquemico,50
+internacoes,Baixada Litoranea,Masculino,0-49,I65-I69 outras/sequelas,43
+internacoes,Baixada Litoranea,Masculino,80+,I60-I62 hemorragicas,43
+internacoes,Baixada Litoranea,Feminino,0-49,I63 isquemico,34
+internacoes,Baixada Litoranea,Feminino,80+,I63 isquemico,33
+internacoes,Baixada Litoranea,Feminino,80+,I65-I69 outras/sequelas,30
+internacoes,Baixada Litoranea,Masculino,0-49,I63 isquemico,29
+internacoes,Baixada Litoranea,Masculino,80+,I63 isquemico,26
+internacoes,Baixada Litoranea,Masculino,80+,I65-I69 outras/sequelas,22
+internacoes,Centro-Sul,Masculino,65-79,I64 AVC nao especificado,1751
+internacoes,Centro-Sul,Feminino,65-79,I64 AVC nao especificado,1580
+internacoes,Centro-Sul,Masculino,50-64,I64 AVC nao especificado,1358
+internacoes,Centro-Sul,Feminino,80+,I64 AVC nao especificado,1084
+internacoes,Centro-Sul,Feminino,50-64,I64 AVC nao especificado,1049
+internacoes,Centro-Sul,Masculino,80+,I64 AVC nao especificado,703
+internacoes,Centro-Sul,Feminino,0-49,I64 AVC nao especificado,593
+internacoes,Centro-Sul,Masculino,0-49,I64 AVC nao especificado,468
+internacoes,Centro-Sul,Masculino,65-79,I65-I69 outras/sequelas,336
+internacoes,Centro-Sul,Masculino,50-64,I65-I69 outras/sequelas,316
+internacoes,Centro-Sul,Feminino,50-64,I60-I62 hemorragicas,198
+internacoes,Centro-Sul,Masculino,50-64,I60-I62 hemorragicas,198
+internacoes,Centro-Sul,Feminino,0-49,I60-I62 hemorragicas,187
+internacoes,Centro-Sul,Masculino,65-79,I60-I62 hemorragicas,179
+internacoes,Centro-Sul,Feminino,65-79,I60-I62 hemorragicas,152
+internacoes,Centro-Sul,Masculino,0-49,I60-I62 hemorragicas,139
+internacoes,Centro-Sul,Feminino,65-79,I65-I69 outras/sequelas,123
+internacoes,Centro-Sul,Feminino,50-64,I65-I69 outras/sequelas,96
+internacoes,Centro-Sul,Masculino,80+,I65-I69 outras/sequelas,93
+internacoes,Centro-Sul,Feminino,0-49,I65-I69 outras/sequelas,65
+internacoes,Centro-Sul,Feminino,80+,I65-I69 outras/sequelas,64
+internacoes,Centro-Sul,Masculino,80+,I60-I62 hemorragicas,64
+internacoes,Centro-Sul,Feminino,80+,I60-I62 hemorragicas,57
+internacoes,Centro-Sul,Masculino,65-79,I63 isquemico,52
+internacoes,Centro-Sul,Masculino,0-49,I65-I69 outras/sequelas,44
+internacoes,Centro-Sul,Feminino,65-79,I63 isquemico,40
+internacoes,Centro-Sul,Masculino,50-64,I63 isquemico,31
+internacoes,Centro-Sul,Feminino,50-64,I63 isquemico,27
+internacoes,Centro-Sul,Feminino,80+,I63 isquemico,27
+internacoes,Centro-Sul,Feminino,0-49,I63 isquemico,17
+internacoes,Centro-Sul,Masculino,80+,I63 isquemico,15
+internacoes,Centro-Sul,Masculino,0-49,I63 isquemico,11
+internacoes,Medio Paraiba,Masculino,65-79,I64 AVC nao especificado,3606
+internacoes,Medio Paraiba,Feminino,65-79,I64 AVC nao especificado,3101
+internacoes,Medio Paraiba,Masculino,50-64,I64 AVC nao especificado,2730
+internacoes,Medio Paraiba,Feminino,50-64,I64 AVC nao especificado,2046
+internacoes,Medio Paraiba,Masculino,65-79,I65-I69 outras/sequelas,1860
+internacoes,Medio Paraiba,Feminino,80+,I64 AVC nao especificado,1635
+internacoes,Medio Paraiba,Feminino,80+,I65-I69 outras/sequelas,1403
+internacoes,Medio Paraiba,Masculino,80+,I64 AVC nao especificado,1067
+internacoes,Medio Paraiba,Masculino,50-64,I65-I69 outras/sequelas,948
+internacoes,Medio Paraiba,Feminino,65-79,I65-I69 outras/sequelas,946
+internacoes,Medio Paraiba,Masculino,80+,I65-I69 outras/sequelas,909
+internacoes,Medio Paraiba,Feminino,0-49,I64 AVC nao especificado,890
+internacoes,Medio Paraiba,Masculino,0-49,I64 AVC nao especificado,791
+internacoes,Medio Paraiba,Feminino,50-64,I65-I69 outras/sequelas,784
+internacoes,Medio Paraiba,Masculino,65-79,I60-I62 hemorragicas,621
+internacoes,Medio Paraiba,Masculino,50-64,I60-I62 hemorragicas,587
+internacoes,Medio Paraiba,Feminino,50-64,I60-I62 hemorragicas,565
+internacoes,Medio Paraiba,Feminino,65-79,I60-I62 hemorragicas,560
+internacoes,Medio Paraiba,Feminino,0-49,I60-I62 hemorragicas,444
+internacoes,Medio Paraiba,Masculino,0-49,I60-I62 hemorragicas,369
+internacoes,Medio Paraiba,Feminino,80+,I60-I62 hemorragicas,319
+internacoes,Medio Paraiba,Feminino,0-49,I65-I69 outras/sequelas,269
+internacoes,Medio Paraiba,Masculino,0-49,I65-I69 outras/sequelas,230
+internacoes,Medio Paraiba,Masculino,80+,I60-I62 hemorragicas,229
+internacoes,Medio Paraiba,Masculino,50-64,I63 isquemico,90
+internacoes,Medio Paraiba,Masculino,65-79,I63 isquemico,87
+internacoes,Medio Paraiba,Feminino,65-79,I63 isquemico,76
+internacoes,Medio Paraiba,Feminino,50-64,I63 isquemico,63
+internacoes,Medio Paraiba,Feminino,80+,I63 isquemico,47
+internacoes,Medio Paraiba,Feminino,0-49,I63 isquemico,43
+internacoes,Medio Paraiba,Masculino,80+,I63 isquemico,43
+internacoes,Medio Paraiba,Masculino,0-49,I63 isquemico,28
+internacoes,Metropolitana I,Masculino,65-79,I64 AVC nao especificado,18326
+internacoes,Metropolitana I,Feminino,65-79,I64 AVC nao especificado,17400
+internacoes,Metropolitana I,Masculino,50-64,I64 AVC nao especificado,15340
+internacoes,Metropolitana I,Feminino,50-64,I64 AVC nao especificado,11509
+internacoes,Metropolitana I,Feminino,80+,I64 AVC nao especificado,10015
+internacoes,Metropolitana I,Masculino,50-64,I65-I69 outras/sequelas,5565
+internacoes,Metropolitana I,Masculino,80+,I64 AVC nao especificado,5517
+internacoes,Metropolitana I,Feminino,0-49,I64 AVC nao especificado,5515
+internacoes,Metropolitana I,Masculino,0-49,I64 AVC nao especificado,4800
+internacoes,Metropolitana I,Masculino,65-79,I65-I69 outras/sequelas,4761
+internacoes,Metropolitana I,Feminino,65-79,I65-I69 outras/sequelas,3571
+internacoes,Metropolitana I,Masculino,50-64,I60-I62 hemorragicas,3168
+internacoes,Metropolitana I,Feminino,50-64,I60-I62 hemorragicas,2878
+internacoes,Metropolitana I,Masculino,0-49,I60-I62 hemorragicas,2699
+internacoes,Metropolitana I,Feminino,50-64,I65-I69 outras/sequelas,2654
+internacoes,Metropolitana I,Feminino,0-49,I60-I62 hemorragicas,2493
+internacoes,Metropolitana I,Masculino,65-79,I60-I62 hemorragicas,2445
+internacoes,Metropolitana I,Feminino,65-79,I60-I62 hemorragicas,2296
+internacoes,Metropolitana I,Feminino,80+,I65-I69 outras/sequelas,1982
+internacoes,Metropolitana I,Masculino,65-79,I63 isquemico,1862
+internacoes,Metropolitana I,Feminino,65-79,I63 isquemico,1805
+internacoes,Metropolitana I,Masculino,50-64,I63 isquemico,1723
+internacoes,Metropolitana I,Feminino,50-64,I63 isquemico,1252
+internacoes,Metropolitana I,Masculino,0-49,I65-I69 outras/sequelas,1249
+internacoes,Metropolitana I,Feminino,0-49,I65-I69 outras/sequelas,1231
+internacoes,Metropolitana I,Masculino,80+,I65-I69 outras/sequelas,1062
+internacoes,Metropolitana I,Feminino,80+,I60-I62 hemorragicas,1039
+internacoes,Metropolitana I,Feminino,80+,I63 isquemico,1023
+internacoes,Metropolitana I,Masculino,80+,I60-I62 hemorragicas,740
+internacoes,Metropolitana I,Feminino,0-49,I63 isquemico,706
+internacoes,Metropolitana I,Masculino,0-49,I63 isquemico,643
+internacoes,Metropolitana I,Masculino,80+,I63 isquemico,587
+internacoes,Metropolitana II,Masculino,65-79,I64 AVC nao especificado,6625
+internacoes,Metropolitana II,Feminino,65-79,I64 AVC nao especificado,5596
+internacoes,Metropolitana II,Masculino,50-64,I64 AVC nao especificado,5182
+internacoes,Metropolitana II,Feminino,50-64,I64 AVC nao especificado,3584
+internacoes,Metropolitana II,Feminino,80+,I64 AVC nao especificado,3348
+internacoes,Metropolitana II,Masculino,80+,I64 AVC nao especificado,1975
+internacoes,Metropolitana II,Feminino,0-49,I64 AVC nao especificado,1431
+internacoes,Metropolitana II,Masculino,0-49,I64 AVC nao especificado,1416
+internacoes,Metropolitana II,Masculino,50-64,I60-I62 hemorragicas,897
+internacoes,Metropolitana II,Masculino,65-79,I63 isquemico,863
+internacoes,Metropolitana II,Feminino,65-79,I63 isquemico,754
+internacoes,Metropolitana II,Feminino,50-64,I60-I62 hemorragicas,741
+internacoes,Metropolitana II,Masculino,50-64,I63 isquemico,713
+internacoes,Metropolitana II,Masculino,0-49,I60-I62 hemorragicas,703
+internacoes,Metropolitana II,Feminino,65-79,I60-I62 hemorragicas,691
+internacoes,Metropolitana II,Masculino,65-79,I60-I62 hemorragicas,646
+internacoes,Metropolitana II,Feminino,0-49,I60-I62 hemorragicas,620
+internacoes,Metropolitana II,Feminino,50-64,I63 isquemico,484
+internacoes,Metropolitana II,Feminino,80+,I63 isquemico,417
+internacoes,Metropolitana II,Masculino,50-64,I65-I69 outras/sequelas,322
+internacoes,Metropolitana II,Feminino,80+,I60-I62 hemorragicas,281
+internacoes,Metropolitana II,Feminino,65-79,I65-I69 outras/sequelas,273
+internacoes,Metropolitana II,Masculino,65-79,I65-I69 outras/sequelas,267
+internacoes,Metropolitana II,Feminino,50-64,I65-I69 outras/sequelas,262
+internacoes,Metropolitana II,Masculino,80+,I63 isquemico,254
+internacoes,Metropolitana II,Feminino,0-49,I63 isquemico,210
+internacoes,Metropolitana II,Masculino,0-49,I63 isquemico,179
+internacoes,Metropolitana II,Masculino,80+,I60-I62 hemorragicas,175
+internacoes,Metropolitana II,Feminino,0-49,I65-I69 outras/sequelas,144
+internacoes,Metropolitana II,Feminino,80+,I65-I69 outras/sequelas,121
+internacoes,Metropolitana II,Masculino,0-49,I65-I69 outras/sequelas,97
+internacoes,Metropolitana II,Masculino,80+,I65-I69 outras/sequelas,86
+internacoes,Noroeste,Masculino,65-79,I64 AVC nao especificado,1737
+internacoes,Noroeste,Masculino,50-64,I64 AVC nao especificado,1277
+internacoes,Noroeste,Feminino,65-79,I64 AVC nao especificado,1234
+internacoes,Noroeste,Feminino,80+,I64 AVC nao especificado,853
+internacoes,Noroeste,Feminino,50-64,I64 AVC nao especificado,796
+internacoes,Noroeste,Masculino,80+,I64 AVC nao especificado,724
+internacoes,Noroeste,Feminino,0-49,I64 AVC nao especificado,378
+internacoes,Noroeste,Masculino,65-79,I65-I69 outras/sequelas,377
+internacoes,Noroeste,Masculino,0-49,I64 AVC nao especificado,348
+internacoes,Noroeste,Feminino,65-79,I65-I69 outras/sequelas,313
+internacoes,Noroeste,Masculino,50-64,I60-I62 hemorragicas,294
+internacoes,Noroeste,Feminino,0-49,I60-I62 hemorragicas,285
+internacoes,Noroeste,Feminino,50-64,I60-I62 hemorragicas,279
+internacoes,Noroeste,Feminino,65-79,I60-I62 hemorragicas,252
+internacoes,Noroeste,Masculino,65-79,I60-I62 hemorragicas,241
+internacoes,Noroeste,Masculino,0-49,I60-I62 hemorragicas,233
+internacoes,Noroeste,Masculino,50-64,I65-I69 outras/sequelas,206
+internacoes,Noroeste,Feminino,80+,I65-I69 outras/sequelas,176
+internacoes,Noroeste,Feminino,50-64,I65-I69 outras/sequelas,138
+internacoes,Noroeste,Feminino,0-49,I65-I69 outras/sequelas,132
+internacoes,Noroeste,Masculino,80+,I60-I62 hemorragicas,108
+internacoes,Noroeste,Masculino,80+,I65-I69 outras/sequelas,100
+internacoes,Noroeste,Feminino,80+,I60-I62 hemorragicas,69
+internacoes,Noroeste,Masculino,0-49,I65-I69 outras/sequelas,56
+internacoes,Noroeste,Masculino,50-64,I63 isquemico,33
+internacoes,Noroeste,Feminino,65-79,I63 isquemico,30
+internacoes,Noroeste,Masculino,65-79,I63 isquemico,22
+internacoes,Noroeste,Feminino,80+,I63 isquemico,17
+internacoes,Noroeste,Masculino,80+,I63 isquemico,17
+internacoes,Noroeste,Feminino,50-64,I63 isquemico,12
+internacoes,Noroeste,Feminino,0-49,I63 isquemico,11
+internacoes,Noroeste,Masculino,0-49,I63 isquemico,8
+internacoes,Norte,Masculino,65-79,I64 AVC nao especificado,1705
+internacoes,Norte,Feminino,65-79,I64 AVC nao especificado,1304
+internacoes,Norte,Masculino,50-64,I64 AVC nao especificado,1195
+internacoes,Norte,Feminino,50-64,I64 AVC nao especificado,922
+internacoes,Norte,Feminino,80+,I64 AVC nao especificado,826
+internacoes,Norte,Masculino,50-64,I60-I62 hemorragicas,801
+internacoes,Norte,Feminino,50-64,I60-I62 hemorragicas,739
+internacoes,Norte,Masculino,65-79,I60-I62 hemorragicas,643
+internacoes,Norte,Masculino,0-49,I60-I62 hemorragicas,596
+internacoes,Norte,Feminino,0-49,I60-I62 hemorragicas,593
+internacoes,Norte,Feminino,65-79,I60-I62 hemorragicas,567
+internacoes,Norte,Masculino,80+,I64 AVC nao especificado,552
+internacoes,Norte,Masculino,65-79,I63 isquemico,550
+internacoes,Norte,Feminino,65-79,I63 isquemico,501
+internacoes,Norte,Masculino,50-64,I63 isquemico,436
+internacoes,Norte,Feminino,0-49,I64 AVC nao especificado,394
+internacoes,Norte,Masculino,0-49,I64 AVC nao especificado,320
+internacoes,Norte,Feminino,50-64,I63 isquemico,311
+internacoes,Norte,Feminino,65-79,I65-I69 outras/sequelas,290
+internacoes,Norte,Masculino,65-79,I65-I69 outras/sequelas,290
+internacoes,Norte,Feminino,80+,I63 isquemico,250
+internacoes,Norte,Masculino,50-64,I65-I69 outras/sequelas,247
+internacoes,Norte,Feminino,80+,I60-I62 hemorragicas,225
+internacoes,Norte,Feminino,50-64,I65-I69 outras/sequelas,218
+internacoes,Norte,Masculino,80+,I63 isquemico,181
+internacoes,Norte,Masculino,0-49,I63 isquemico,162
+internacoes,Norte,Masculino,80+,I60-I62 hemorragicas,161
+internacoes,Norte,Feminino,0-49,I63 isquemico,140
+internacoes,Norte,Feminino,0-49,I65-I69 outras/sequelas,116
+internacoes,Norte,Masculino,0-49,I65-I69 outras/sequelas,99
+internacoes,Norte,Masculino,80+,I65-I69 outras/sequelas,71
+internacoes,Norte,Feminino,80+,I65-I69 outras/sequelas,68
+internacoes,Serrana,Masculino,65-79,I65-I69 outras/sequelas,3589
+internacoes,Serrana,Masculino,65-79,I64 AVC nao especificado,3361
+internacoes,Serrana,Feminino,65-79,I65-I69 outras/sequelas,2865
+internacoes,Serrana,Masculino,50-64,I65-I69 outras/sequelas,2761
+internacoes,Serrana,Feminino,65-79,I64 AVC nao especificado,2717
+internacoes,Serrana,Masculino,50-64,I64 AVC nao especificado,2565
+internacoes,Serrana,Feminino,50-64,I64 AVC nao especificado,1787
+internacoes,Serrana,Feminino,80+,I65-I69 outras/sequelas,1782
+internacoes,Serrana,Feminino,80+,I64 AVC nao especificado,1706
+internacoes,Serrana,Masculino,80+,I64 AVC nao especificado,1295
+internacoes,Serrana,Feminino,50-64,I65-I69 outras/sequelas,1246
+internacoes,Serrana,Masculino,80+,I65-I69 outras/sequelas,1006
+internacoes,Serrana,Feminino,0-49,I64 AVC nao especificado,822
+internacoes,Serrana,Masculino,0-49,I64 AVC nao especificado,699
+internacoes,Serrana,Feminino,0-49,I65-I69 outras/sequelas,614
+internacoes,Serrana,Masculino,0-49,I65-I69 outras/sequelas,530
+internacoes,Serrana,Masculino,50-64,I60-I62 hemorragicas,412
+internacoes,Serrana,Feminino,50-64,I60-I62 hemorragicas,400
+internacoes,Serrana,Masculino,0-49,I60-I62 hemorragicas,388
+internacoes,Serrana,Masculino,65-79,I60-I62 hemorragicas,340
+internacoes,Serrana,Feminino,0-49,I60-I62 hemorragicas,336
+internacoes,Serrana,Feminino,65-79,I60-I62 hemorragicas,299
+internacoes,Serrana,Feminino,80+,I60-I62 hemorragicas,168
+internacoes,Serrana,Masculino,80+,I60-I62 hemorragicas,147
+internacoes,Serrana,Masculino,65-79,I63 isquemico,135
+internacoes,Serrana,Masculino,50-64,I63 isquemico,85
+internacoes,Serrana,Feminino,65-79,I63 isquemico,84
+internacoes,Serrana,Feminino,50-64,I63 isquemico,57
+internacoes,Serrana,Feminino,0-49,I63 isquemico,40
+internacoes,Serrana,Feminino,80+,I63 isquemico,40
+internacoes,Serrana,Masculino,0-49,I63 isquemico,36
+internacoes,Serrana,Masculino,80+,I63 isquemico,23
+obitos,Baia da Ilha Grande,Masculino,65-79,I65-I69 outras/sequelas,187
+obitos,Baia da Ilha Grande,Masculino,65-79,I64 AVC nao especificado,184
+obitos,Baia da Ilha Grande,Feminino,65-79,I64 AVC nao especificado,134
+obitos,Baia da Ilha Grande,Feminino,80+,I64 AVC nao especificado,120
+obitos,Baia da Ilha Grande,Feminino,80+,I65-I69 outras/sequelas,119
+obitos,Baia da Ilha Grande,Feminino,65-79,I65-I69 outras/sequelas,105
+obitos,Baia da Ilha Grande,Masculino,80+,I65-I69 outras/sequelas,96
+obitos,Baia da Ilha Grande,Masculino,80+,I64 AVC nao especificado,88
+obitos,Baia da Ilha Grande,Masculino,50-64,I64 AVC nao especificado,85
+obitos,Baia da Ilha Grande,Masculino,50-64,I60-I62 hemorragicas,81
+obitos,Baia da Ilha Grande,Masculino,50-64,I65-I69 outras/sequelas,72
+obitos,Baia da Ilha Grande,Feminino,65-79,I60-I62 hemorragicas,66
+obitos,Baia da Ilha Grande,Feminino,50-64,I60-I62 hemorragicas,59
+obitos,Baia da Ilha Grande,Feminino,50-64,I64 AVC nao especificado,53
+obitos,Baia da Ilha Grande,Masculino,65-79,I60-I62 hemorragicas,53
+obitos,Baia da Ilha Grande,Feminino,50-64,I65-I69 outras/sequelas,48
+obitos,Baia da Ilha Grande,Feminino,80+,I60-I62 hemorragicas,41
+obitos,Baia da Ilha Grande,Masculino,0-49,I60-I62 hemorragicas,39
+obitos,Baia da Ilha Grande,Feminino,0-49,I60-I62 hemorragicas,37
+obitos,Baia da Ilha Grande,Masculino,80+,I60-I62 hemorragicas,35
+obitos,Baia da Ilha Grande,Masculino,0-49,I65-I69 outras/sequelas,21
+obitos,Baia da Ilha Grande,Feminino,0-49,I65-I69 outras/sequelas,17
+obitos,Baia da Ilha Grande,Masculino,0-49,I64 AVC nao especificado,15
+obitos,Baia da Ilha Grande,Feminino,0-49,I64 AVC nao especificado,9
+obitos,Baia da Ilha Grande,Feminino,80+,I63 isquemico,3
+obitos,Baia da Ilha Grande,Feminino,65-79,I63 isquemico,2
+obitos,Baia da Ilha Grande,Masculino,50-64,I63 isquemico,1
+obitos,Baia da Ilha Grande,Masculino,65-79,I63 isquemico,1
+obitos,Baia da Ilha Grande,Masculino,,I64 AVC nao especificado,1
+obitos,Baixada Litoranea,Masculino,65-79,I65-I69 outras/sequelas,504
+obitos,Baixada Litoranea,Masculino,65-79,I64 AVC nao especificado,503
+obitos,Baixada Litoranea,Feminino,80+,I64 AVC nao especificado,415
+obitos,Baixada Litoranea,Feminino,80+,I65-I69 outras/sequelas,414
+obitos,Baixada Litoranea,Feminino,65-79,I65-I69 outras/sequelas,399
+obitos,Baixada Litoranea,Feminino,65-79,I64 AVC nao especificado,364
+obitos,Baixada Litoranea,Masculino,80+,I65-I69 outras/sequelas,304
+obitos,Baixada Litoranea,Masculino,80+,I64 AVC nao especificado,268
+obitos,Baixada Litoranea,Masculino,50-64,I60-I62 hemorragicas,264
+obitos,Baixada Litoranea,Masculino,65-79,I60-I62 hemorragicas,255
+obitos,Baixada Litoranea,Masculino,50-64,I65-I69 outras/sequelas,228
+obitos,Baixada Litoranea,Feminino,50-64,I60-I62 hemorragicas,221
+obitos,Baixada Litoranea,Masculino,50-64,I64 AVC nao especificado,207
+obitos,Baixada Litoranea,Feminino,65-79,I60-I62 hemorragicas,190
+obitos,Baixada Litoranea,Masculino,0-49,I60-I62 hemorragicas,159
+obitos,Baixada Litoranea,Feminino,50-64,I65-I69 outras/sequelas,154
+obitos,Baixada Litoranea,Feminino,80+,I60-I62 hemorragicas,144
+obitos,Baixada Litoranea,Feminino,50-64,I64 AVC nao especificado,130
+obitos,Baixada Litoranea,Feminino,0-49,I60-I62 hemorragicas,121
+obitos,Baixada Litoranea,Masculino,80+,I60-I62 hemorragicas,112
+obitos,Baixada Litoranea,Masculino,0-49,I64 AVC nao especificado,56
+obitos,Baixada Litoranea,Feminino,0-49,I65-I69 outras/sequelas,51
+obitos,Baixada Litoranea,Feminino,0-49,I64 AVC nao especificado,43
+obitos,Baixada Litoranea,Masculino,0-49,I65-I69 outras/sequelas,38
+obitos,Baixada Litoranea,Feminino,,I65-I69 outras/sequelas,10
+obitos,Baixada Litoranea,Masculino,50-64,I63 isquemico,10
+obitos,Baixada Litoranea,Feminino,65-79,I63 isquemico,8
+obitos,Baixada Litoranea,Feminino,50-64,I63 isquemico,6
+obitos,Baixada Litoranea,Masculino,65-79,I63 isquemico,6
+obitos,Baixada Litoranea,Feminino,,I60-I62 hemorragicas,5
+obitos,Baixada Litoranea,Masculino,80+,I63 isquemico,5
+obitos,Baixada Litoranea,Feminino,80+,I63 isquemico,4
+obitos,Baixada Litoranea,Masculino,,I65-I69 outras/sequelas,4
+obitos,Baixada Litoranea,Feminino,0-49,I63 isquemico,3
+obitos,Baixada Litoranea,Masculino,0-49,I63 isquemico,3
+obitos,Baixada Litoranea,Masculino,,I64 AVC nao especificado,2
+obitos,Baixada Litoranea,Feminino,,I64 AVC nao especificado,1
+obitos,Baixada Litoranea,Ignorado/ausente,50-64,I64 AVC nao especificado,1
+obitos,Baixada Litoranea,Ignorado/ausente,65-79,I65-I69 outras/sequelas,1
+obitos,Baixada Litoranea,Masculino,,I60-I62 hemorragicas,1
+obitos,Centro-Sul,Masculino,65-79,I64 AVC nao especificado,368
+obitos,Centro-Sul,Feminino,80+,I64 AVC nao especificado,324
+obitos,Centro-Sul,Feminino,65-79,I64 AVC nao especificado,266
+obitos,Centro-Sul,Masculino,65-79,I65-I69 outras/sequelas,261
+obitos,Centro-Sul,Feminino,80+,I65-I69 outras/sequelas,238
+obitos,Centro-Sul,Masculino,80+,I64 AVC nao especificado,204
+obitos,Centro-Sul,Feminino,65-79,I65-I69 outras/sequelas,195
+obitos,Centro-Sul,Masculino,80+,I65-I69 outras/sequelas,161
+obitos,Centro-Sul,Masculino,50-64,I64 AVC nao especificado,146
+obitos,Centro-Sul,Masculino,50-64,I60-I62 hemorragicas,131
+obitos,Centro-Sul,Masculino,65-79,I60-I62 hemorragicas,128
+obitos,Centro-Sul,Masculino,50-64,I65-I69 outras/sequelas,120
+obitos,Centro-Sul,Feminino,50-64,I64 AVC nao especificado,119
+obitos,Centro-Sul,Feminino,65-79,I60-I62 hemorragicas,109
+obitos,Centro-Sul,Feminino,50-64,I60-I62 hemorragicas,104
+obitos,Centro-Sul,Feminino,80+,I60-I62 hemorragicas,84
+obitos,Centro-Sul,Feminino,50-64,I65-I69 outras/sequelas,81
+obitos,Centro-Sul,Feminino,0-49,I60-I62 hemorragicas,70
+obitos,Centro-Sul,Masculino,0-49,I60-I62 hemorragicas,65
+obitos,Centro-Sul,Masculino,80+,I60-I62 hemorragicas,60
+obitos,Centro-Sul,Masculino,0-49,I64 AVC nao especificado,43
+obitos,Centro-Sul,Feminino,0-49,I64 AVC nao especificado,34
+obitos,Centro-Sul,Feminino,0-49,I65-I69 outras/sequelas,25
+obitos,Centro-Sul,Masculino,0-49,I65-I69 outras/sequelas,25
+obitos,Centro-Sul,Feminino,,I64 AVC nao especificado,8
+obitos,Centro-Sul,Masculino,65-79,I63 isquemico,7
+obitos,Centro-Sul,Feminino,65-79,I63 isquemico,6
+obitos,Centro-Sul,Feminino,,I65-I69 outras/sequelas,5
+obitos,Centro-Sul,Feminino,80+,I63 isquemico,4
+obitos,Centro-Sul,Feminino,0-49,I63 isquemico,3
+obitos,Centro-Sul,Masculino,50-64,I63 isquemico,3
+obitos,Centro-Sul,Masculino,80+,I63 isquemico,3
+obitos,Centro-Sul,Feminino,50-64,I63 isquemico,2
+obitos,Centro-Sul,Masculino,,I64 AVC nao especificado,2
+obitos,Centro-Sul,Masculino,,I65-I69 outras/sequelas,2
+obitos,Centro-Sul,Feminino,,I63 isquemico,1
+obitos,Medio Paraiba,Masculino,65-79,I65-I69 outras/sequelas,846
+obitos,Medio Paraiba,Feminino,80+,I65-I69 outras/sequelas,788
+obitos,Medio Paraiba,Feminino,65-79,I65-I69 outras/sequelas,694
+obitos,Medio Paraiba,Masculino,65-79,I64 AVC nao especificado,669
+obitos,Medio Paraiba,Feminino,80+,I64 AVC nao especificado,615
+obitos,Medio Paraiba,Feminino,65-79,I64 AVC nao especificado,533
+obitos,Medio Paraiba,Masculino,80+,I65-I69 outras/sequelas,506
+obitos,Medio Paraiba,Masculino,80+,I64 AVC nao especificado,429
+obitos,Medio Paraiba,Masculino,50-64,I65-I69 outras/sequelas,408
+obitos,Medio Paraiba,Masculino,65-79,I60-I62 hemorragicas,357
+obitos,Medio Paraiba,Feminino,65-79,I60-I62 hemorragicas,355
+obitos,Medio Paraiba,Masculino,50-64,I60-I62 hemorragicas,348
+obitos,Medio Paraiba,Masculino,50-64,I64 AVC nao especificado,322
+obitos,Medio Paraiba,Feminino,50-64,I60-I62 hemorragicas,280
+obitos,Medio Paraiba,Feminino,80+,I60-I62 hemorragicas,276
+obitos,Medio Paraiba,Feminino,50-64,I65-I69 outras/sequelas,266
+obitos,Medio Paraiba,Feminino,50-64,I64 AVC nao especificado,205
+obitos,Medio Paraiba,Masculino,80+,I60-I62 hemorragicas,189
+obitos,Medio Paraiba,Masculino,0-49,I60-I62 hemorragicas,167
+obitos,Medio Paraiba,Feminino,0-49,I60-I62 hemorragicas,157
+obitos,Medio Paraiba,Feminino,0-49,I64 AVC nao especificado,72
+obitos,Medio Paraiba,Masculino,0-49,I64 AVC nao especificado,67
+obitos,Medio Paraiba,Masculino,0-49,I65-I69 outras/sequelas,66
+obitos,Medio Paraiba,Feminino,0-49,I65-I69 outras/sequelas,64
+obitos,Medio Paraiba,Masculino,65-79,I63 isquemico,15
+obitos,Medio Paraiba,Feminino,65-79,I63 isquemico,11
+obitos,Medio Paraiba,Feminino,80+,I63 isquemico,11
+obitos,Medio Paraiba,Masculino,,I64 AVC nao especificado,11
+obitos,Medio Paraiba,Feminino,,I64 AVC nao especificado,10
+obitos,Medio Paraiba,Feminino,,I65-I69 outras/sequelas,8
+obitos,Medio Paraiba,Feminino,0-49,I63 isquemico,7
+obitos,Medio Paraiba,Masculino,,I65-I69 outras/sequelas,7
+obitos,Medio Paraiba,Masculino,0-49,I63 isquemico,6
+obitos,Medio Paraiba,Feminino,50-64,I63 isquemico,5
+obitos,Medio Paraiba,Masculino,80+,I63 isquemico,5
+obitos,Medio Paraiba,Masculino,50-64,I63 isquemico,3
+obitos,Medio Paraiba,Masculino,,I60-I62 hemorragicas,3
+obitos,Medio Paraiba,Feminino,,I60-I62 hemorragicas,2
+obitos,Metropolitana I,Feminino,80+,I64 AVC nao especificado,7810
+obitos,Metropolitana I,Masculino,65-79,I64 AVC nao especificado,7406
+obitos,Metropolitana I,Feminino,80+,I65-I69 outras/sequelas,7289
+obitos,Metropolitana I,Feminino,65-79,I64 AVC nao especificado,6872
+obitos,Metropolitana I,Masculino,65-79,I65-I69 outras/sequelas,6458
+obitos,Metropolitana I,Feminino,65-79,I65-I69 outras/sequelas,6018
+obitos,Metropolitana I,Masculino,80+,I64 AVC nao especificado,4254
+obitos,Metropolitana I,Masculino,50-64,I64 AVC nao especificado,3993
+obitos,Metropolitana I,Masculino,80+,I65-I69 outras/sequelas,3687
+obitos,Metropolitana I,Masculino,65-79,I60-I62 hemorragicas,3637
+obitos,Metropolitana I,Masculino,50-64,I60-I62 hemorragicas,3598
+obitos,Metropolitana I,Feminino,65-79,I60-I62 hemorragicas,3594
+obitos,Metropolitana I,Feminino,80+,I60-I62 hemorragicas,3228
+obitos,Metropolitana I,Feminino,50-64,I60-I62 hemorragicas,3118
+obitos,Metropolitana I,Masculino,50-64,I65-I69 outras/sequelas,3110
+obitos,Metropolitana I,Feminino,50-64,I64 AVC nao especificado,3014
+obitos,Metropolitana I,Feminino,50-64,I65-I69 outras/sequelas,2305
+obitos,Metropolitana I,Feminino,0-49,I60-I62 hemorragicas,2064
+obitos,Metropolitana I,Masculino,80+,I60-I62 hemorragicas,1941
+obitos,Metropolitana I,Masculino,0-49,I60-I62 hemorragicas,1836
+obitos,Metropolitana I,Masculino,0-49,I64 AVC nao especificado,831
+obitos,Metropolitana I,Feminino,0-49,I65-I69 outras/sequelas,774
+obitos,Metropolitana I,Feminino,0-49,I64 AVC nao especificado,773
+obitos,Metropolitana I,Masculino,0-49,I65-I69 outras/sequelas,626
+obitos,Metropolitana I,Feminino,,I64 AVC nao especificado,148
+obitos,Metropolitana I,Feminino,,I65-I69 outras/sequelas,110
+obitos,Metropolitana I,Feminino,80+,I63 isquemico,108
+obitos,Metropolitana I,Feminino,65-79,I63 isquemico,93
+obitos,Metropolitana I,Masculino,65-79,I63 isquemico,90
+obitos,Metropolitana I,Masculino,80+,I63 isquemico,68
+obitos,Metropolitana I,Masculino,50-64,I63 isquemico,63
+obitos,Metropolitana I,Feminino,50-64,I63 isquemico,42
+obitos,Metropolitana I,Masculino,,I64 AVC nao especificado,34
+obitos,Metropolitana I,Feminino,0-49,I63 isquemico,33
+obitos,Metropolitana I,Feminino,,I60-I62 hemorragicas,31
+obitos,Metropolitana I,Masculino,,I65-I69 outras/sequelas,29
+obitos,Metropolitana I,Masculino,0-49,I63 isquemico,24
+obitos,Metropolitana I,Masculino,,I60-I62 hemorragicas,20
+obitos,Metropolitana I,Ignorado/ausente,65-79,I60-I62 hemorragicas,3
+obitos,Metropolitana I,Feminino,,I63 isquemico,1
+obitos,Metropolitana I,Ignorado/ausente,65-79,I64 AVC nao especificado,1
+obitos,Metropolitana I,Ignorado/ausente,80+,I64 AVC nao especificado,1
+obitos,Metropolitana II,Masculino,65-79,I65-I69 outras/sequelas,1692
+obitos,Metropolitana II,Feminino,80+,I65-I69 outras/sequelas,1611
+obitos,Metropolitana II,Masculino,65-79,I64 AVC nao especificado,1396
+obitos,Metropolitana II,Feminino,65-79,I65-I69 outras/sequelas,1368
+obitos,Metropolitana II,Feminino,80+,I64 AVC nao especificado,1361
+obitos,Metropolitana II,Feminino,65-79,I64 AVC nao especificado,1084
+obitos,Metropolitana II,Masculino,80+,I65-I69 outras/sequelas,947
+obitos,Metropolitana II,Masculino,50-64,I65-I69 outras/sequelas,770
+obitos,Metropolitana II,Masculino,80+,I64 AVC nao especificado,746
+obitos,Metropolitana II,Feminino,65-79,I60-I62 hemorragicas,705
+obitos,Metropolitana II,Masculino,50-64,I60-I62 hemorragicas,698
+obitos,Metropolitana II,Masculino,65-79,I60-I62 hemorragicas,692
+obitos,Metropolitana II,Masculino,50-64,I64 AVC nao especificado,665
+obitos,Metropolitana II,Feminino,50-64,I60-I62 hemorragicas,608
+obitos,Metropolitana II,Feminino,80+,I60-I62 hemorragicas,590
+obitos,Metropolitana II,Feminino,50-64,I65-I69 outras/sequelas,503
+obitos,Metropolitana II,Feminino,50-64,I64 AVC nao especificado,472
+obitos,Metropolitana II,Masculino,80+,I60-I62 hemorragicas,380
+obitos,Metropolitana II,Feminino,0-49,I60-I62 hemorragicas,319
+obitos,Metropolitana II,Masculino,0-49,I60-I62 hemorragicas,318
+obitos,Metropolitana II,Masculino,0-49,I65-I69 outras/sequelas,126
+obitos,Metropolitana II,Masculino,0-49,I64 AVC nao especificado,122
+obitos,Metropolitana II,Feminino,0-49,I65-I69 outras/sequelas,120
+obitos,Metropolitana II,Feminino,0-49,I64 AVC nao especificado,99
+obitos,Metropolitana II,Feminino,65-79,I63 isquemico,98
+obitos,Metropolitana II,Masculino,65-79,I63 isquemico,96
+obitos,Metropolitana II,Masculino,50-64,I63 isquemico,77
+obitos,Metropolitana II,Feminino,80+,I63 isquemico,61
+obitos,Metropolitana II,Masculino,80+,I63 isquemico,52
+obitos,Metropolitana II,Feminino,50-64,I63 isquemico,46
+obitos,Metropolitana II,Feminino,,I65-I69 outras/sequelas,27
+obitos,Metropolitana II,Feminino,,I64 AVC nao especificado,18
+obitos,Metropolitana II,Masculino,0-49,I63 isquemico,16
+obitos,Metropolitana II,Feminino,0-49,I63 isquemico,15
+obitos,Metropolitana II,Masculino,,I64 AVC nao especificado,14
+obitos,Metropolitana II,Masculino,,I60-I62 hemorragicas,5
+obitos,Metropolitana II,Feminino,,I60-I62 hemorragicas,4
+obitos,Metropolitana II,Masculino,,I65-I69 outras/sequelas,4
+obitos,Metropolitana II,Feminino,,I63 isquemico,1
+obitos,Noroeste,Masculino,65-79,I65-I69 outras/sequelas,319
+obitos,Noroeste,Feminino,80+,I65-I69 outras/sequelas,269
+obitos,Noroeste,Masculino,80+,I65-I69 outras/sequelas,268
+obitos,Noroeste,Masculino,65-79,I64 AVC nao especificado,266
+obitos,Noroeste,Feminino,80+,I64 AVC nao especificado,241
+obitos,Noroeste,Feminino,65-79,I65-I69 outras/sequelas,221
+obitos,Noroeste,Masculino,80+,I64 AVC nao especificado,213
+obitos,Noroeste,Feminino,65-79,I64 AVC nao especificado,173
+obitos,Noroeste,Masculino,50-64,I65-I69 outras/sequelas,149
+obitos,Noroeste,Masculino,65-79,I60-I62 hemorragicas,148
+obitos,Noroeste,Masculino,50-64,I60-I62 hemorragicas,123
+obitos,Noroeste,Masculino,50-64,I64 AVC nao especificado,121
+obitos,Noroeste,Feminino,65-79,I60-I62 hemorragicas,118
+obitos,Noroeste,Feminino,50-64,I60-I62 hemorragicas,103
+obitos,Noroeste,Feminino,50-64,I65-I69 outras/sequelas,92
+obitos,Noroeste,Masculino,80+,I60-I62 hemorragicas,90
+obitos,Noroeste,Feminino,80+,I60-I62 hemorragicas,86
+obitos,Noroeste,Feminino,50-64,I64 AVC nao especificado,67
+obitos,Noroeste,Masculino,0-49,I60-I62 hemorragicas,66
+obitos,Noroeste,Feminino,0-49,I60-I62 hemorragicas,58
+obitos,Noroeste,Feminino,0-49,I65-I69 outras/sequelas,25
+obitos,Noroeste,Masculino,0-49,I65-I69 outras/sequelas,23
+obitos,Noroeste,Masculino,0-49,I64 AVC nao especificado,22
+obitos,Noroeste,Feminino,0-49,I64 AVC nao especificado,18
+obitos,Noroeste,Feminino,,I64 AVC nao especificado,11
+obitos,Noroeste,Feminino,65-79,I63 isquemico,6
+obitos,Noroeste,Masculino,65-79,I63 isquemico,6
+obitos,Noroeste,Feminino,,I60-I62 hemorragicas,4
+obitos,Noroeste,Masculino,80+,I63 isquemico,4
+obitos,Noroeste,Masculino,50-64,I63 isquemico,3
+obitos,Noroeste,Masculino,,I64 AVC nao especificado,3
+obitos,Noroeste,Feminino,50-64,I63 isquemico,2
+obitos,Noroeste,Feminino,,I65-I69 outras/sequelas,2
+obitos,Noroeste,Masculino,,I60-I62 hemorragicas,2
+obitos,Noroeste,Masculino,,I65-I69 outras/sequelas,2
+obitos,Noroeste,Feminino,0-49,I63 isquemico,1
+obitos,Noroeste,Feminino,80+,I63 isquemico,1
+obitos,Norte,Masculino,65-79,I65-I69 outras/sequelas,756
+obitos,Norte,Feminino,80+,I65-I69 outras/sequelas,693
+obitos,Norte,Feminino,65-79,I65-I69 outras/sequelas,605
+obitos,Norte,Masculino,65-79,I64 AVC nao especificado,583
+obitos,Norte,Masculino,80+,I65-I69 outras/sequelas,508
+obitos,Norte,Feminino,80+,I64 AVC nao especificado,454
+obitos,Norte,Feminino,65-79,I64 AVC nao especificado,430
+obitos,Norte,Masculino,50-64,I65-I69 outras/sequelas,379
+obitos,Norte,Masculino,80+,I64 AVC nao especificado,352
+obitos,Norte,Masculino,65-79,I60-I62 hemorragicas,331
+obitos,Norte,Masculino,50-64,I60-I62 hemorragicas,325
+obitos,Norte,Feminino,65-79,I60-I62 hemorragicas,293
+obitos,Norte,Masculino,50-64,I64 AVC nao especificado,280
+obitos,Norte,Feminino,50-64,I60-I62 hemorragicas,277
+obitos,Norte,Feminino,50-64,I65-I69 outras/sequelas,237
+obitos,Norte,Feminino,80+,I60-I62 hemorragicas,213
+obitos,Norte,Masculino,0-49,I60-I62 hemorragicas,190
+obitos,Norte,Feminino,0-49,I60-I62 hemorragicas,186
+obitos,Norte,Feminino,50-64,I64 AVC nao especificado,163
+obitos,Norte,Masculino,80+,I60-I62 hemorragicas,162
+obitos,Norte,Masculino,0-49,I65-I69 outras/sequelas,83
+obitos,Norte,Feminino,0-49,I65-I69 outras/sequelas,62
+obitos,Norte,Masculino,0-49,I64 AVC nao especificado,60
+obitos,Norte,Feminino,0-49,I64 AVC nao especificado,47
+obitos,Norte,Feminino,,I65-I69 outras/sequelas,15
+obitos,Norte,Feminino,,I64 AVC nao especificado,10
+obitos,Norte,Masculino,65-79,I63 isquemico,9
+obitos,Norte,Feminino,65-79,I63 isquemico,8
+obitos,Norte,Feminino,80+,I63 isquemico,6
+obitos,Norte,Masculino,50-64,I63 isquemico,5
+obitos,Norte,Masculino,80+,I63 isquemico,5
+obitos,Norte,Masculino,,I64 AVC nao especificado,5
+obitos,Norte,Feminino,0-49,I63 isquemico,4
+obitos,Norte,Masculino,,I65-I69 outras/sequelas,4
+obitos,Norte,Feminino,,I60-I62 hemorragicas,3
+obitos,Norte,Feminino,50-64,I63 isquemico,2
+obitos,Norte,Masculino,0-49,I63 isquemico,2
+obitos,Serrana,Feminino,80+,I65-I69 outras/sequelas,939
+obitos,Serrana,Masculino,65-79,I65-I69 outras/sequelas,894
+obitos,Serrana,Masculino,65-79,I64 AVC nao especificado,875
+obitos,Serrana,Feminino,80+,I64 AVC nao especificado,815
+obitos,Serrana,Feminino,65-79,I65-I69 outras/sequelas,639
+obitos,Serrana,Feminino,65-79,I64 AVC nao especificado,637
+obitos,Serrana,Masculino,80+,I65-I69 outras/sequelas,597
+obitos,Serrana,Masculino,80+,I64 AVC nao especificado,561
+obitos,Serrana,Masculino,50-64,I65-I69 outras/sequelas,398
+obitos,Serrana,Masculino,50-64,I64 AVC nao especificado,395
+obitos,Serrana,Masculino,50-64,I60-I62 hemorragicas,326
+obitos,Serrana,Masculino,65-79,I60-I62 hemorragicas,322
+obitos,Serrana,Feminino,65-79,I60-I62 hemorragicas,299
+obitos,Serrana,Feminino,80+,I60-I62 hemorragicas,266
+obitos,Serrana,Feminino,50-64,I60-I62 hemorragicas,265
+obitos,Serrana,Feminino,50-64,I64 AVC nao especificado,239
+obitos,Serrana,Feminino,50-64,I65-I69 outras/sequelas,218
+obitos,Serrana,Masculino,80+,I60-I62 hemorragicas,196
+obitos,Serrana,Masculino,0-49,I60-I62 hemorragicas,163
+obitos,Serrana,Feminino,0-49,I60-I62 hemorragicas,157
+obitos,Serrana,Masculino,0-49,I64 AVC nao especificado,76
+obitos,Serrana,Masculino,0-49,I65-I69 outras/sequelas,71
+obitos,Serrana,Feminino,0-49,I65-I69 outras/sequelas,70
+obitos,Serrana,Feminino,0-49,I64 AVC nao especificado,54
+obitos,Serrana,Feminino,,I65-I69 outras/sequelas,12
+obitos,Serrana,Feminino,65-79,I63 isquemico,11
+obitos,Serrana,Feminino,,I64 AVC nao especificado,10
+obitos,Serrana,Masculino,65-79,I63 isquemico,8
+obitos,Serrana,Feminino,80+,I63 isquemico,6
+obitos,Serrana,Masculino,50-64,I63 isquemico,6
+obitos,Serrana,Feminino,,I60-I62 hemorragicas,4
+obitos,Serrana,Masculino,80+,I63 isquemico,4
+obitos,Serrana,Feminino,0-49,I63 isquemico,3
+obitos,Serrana,Masculino,,I60-I62 hemorragicas,3
+obitos,Serrana,Masculino,,I64 AVC nao especificado,3
+obitos,Serrana,Masculino,,I65-I69 outras/sequelas,3
+obitos,Serrana,Masculino,0-49,I63 isquemico,2
+obitos,Serrana,Feminino,50-64,I63 isquemico,1
+obitos,Serrana,Ignorado/ausente,50-64,I65-I69 outras/sequelas,1
+obitos,,Masculino,,I64 AVC nao especificado,32
+obitos,,Masculino,,I60-I62 hemorragicas,30
+obitos,,Masculino,,I65-I69 outras/sequelas,25
+obitos,,Masculino,50-64,I60-I62 hemorragicas,19
+obitos,,Masculino,65-79,I65-I69 outras/sequelas,19
+obitos,,Masculino,50-64,I64 AVC nao especificado,18
+obitos,,Masculino,50-64,I65-I69 outras/sequelas,18
+obitos,,Masculino,0-49,I60-I62 hemorragicas,17
+obitos,,Feminino,,I65-I69 outras/sequelas,14
+obitos,,Feminino,,I64 AVC nao especificado,13
+obitos,,Masculino,65-79,I64 AVC nao especificado,11
+obitos,,Feminino,65-79,I65-I69 outras/sequelas,8
+obitos,,Feminino,,I60-I62 hemorragicas,8
+obitos,,Feminino,65-79,I64 AVC nao especificado,7
+obitos,,Masculino,80+,I65-I69 outras/sequelas,7
+obitos,,Masculino,0-49,I64 AVC nao especificado,6
+obitos,,Masculino,65-79,I60-I62 hemorragicas,6
+obitos,,Feminino,80+,I65-I69 outras/sequelas,5
+obitos,,Masculino,80+,I64 AVC nao especificado,5
+obitos,,Feminino,50-64,I64 AVC nao especificado,4
+obitos,,Feminino,65-79,I60-I62 hemorragicas,4
+obitos,,Feminino,0-49,I64 AVC nao especificado,2
+obitos,,Feminino,0-49,I65-I69 outras/sequelas,2
+obitos,,Feminino,50-64,I65-I69 outras/sequelas,2
+obitos,,Ignorado/ausente,,I60-I62 hemorragicas,2
+obitos,,Masculino,0-49,I65-I69 outras/sequelas,2
+obitos,,Masculino,50-64,I63 isquemico,2
+obitos,,Feminino,0-49,I60-I62 hemorragicas,1
+obitos,,Feminino,80+,I60-I62 hemorragicas,1
+obitos,,Ignorado/ausente,,I64 AVC nao especificado,1
+obitos,,Ignorado/ausente,,I65-I69 outras/sequelas,1
