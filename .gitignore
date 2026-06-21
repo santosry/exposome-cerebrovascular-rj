@@ -1,4 +1,4 @@
-# .gitignore - DLNM Cerebrovascular RJ Research Compendium
+# .gitignore — DLNM Cerebrovascular RJ Research Compendium
 # =============================================================================
 
 # R session files
@@ -7,11 +7,9 @@
 .Ruserdata
 .Rproj.user/
 *.Rproj
-*.RData
-*.rda
 *.tmp
 
-# renv library (but keep lockfile)
+# renv library (keep lockfile)
 renv/library/
 renv/local/
 renv/cellar/
@@ -19,8 +17,7 @@ renv/lock/
 renv/sandbox/
 renv/staging/
 
-# Raw fallback files for pipeline reproducibility (downloaded once, versioned as backup)
-# If public APIs fail, these local files serve as alternative data source.
+# Raw/interim/processed — allow pipeline fallback files
 data/raw/*
 data/interim/*
 data/processed/*
@@ -28,6 +25,7 @@ data/processed/*
 !data/raw/sih/
 !data/raw/sim/
 !data/raw/inmet/
+!data/raw/inmet_zip/
 !data/raw/pm25/
 !data/raw/sih/*.rds
 !data/raw/sim/*.rds
@@ -37,12 +35,12 @@ data/processed/*
 !data/raw/*.csv
 !data/interim/.gitkeep
 !data/processed/.gitkeep
-!data/processed/pm25/
-!data/processed/pm25/*.csv
+!data/processed/**/*.rds
+!data/processed/**/*.csv
 data/external/*
 !data/external/.gitkeep
 
-# Large binary/model objects are regenerated locally, not versioned
+# Binary files — allow in data/ only
 *.rds
 *.RDS
 *.RData
@@ -52,6 +50,12 @@ data/external/*
 *.dbf
 *.parquet
 *.qs
+!data/**/*.rds
+!data/**/*.RDS
+!data/**/*.zip
+!data/**/*.csv
+!data/**/*.json
+
 # Download caches
 cache/
 tmp/
@@ -60,46 +64,22 @@ temp/
 
 # R Markdown and LaTeX intermediates
 *.aux
-*.log
 *.out
 *.toc
 *.tex
 *.knit.md
-*_files/
-!**/.gitkeep
 
-# Output directories (regenerated)
-outputs/figures/*
-outputs/tables/*
-outputs/logs/*
-outputs/audits/*
-outputs/reports/*
-!outputs/**/.gitkeep
+# BSB manuscript — excluded from public compendium
 reports/manuscript/*
 reports/presentations/*
 !reports/manuscript/.gitkeep
 !reports/presentations/.gitkeep
 
-# Logs
-logs/*.log
-!logs/.gitkeep
-
-# Audit (except FAIR metadata)
-audit/*.csv
-audit/*.log
-!audit/.gitkeep
-
-# Legacy directories (kept for reference, not versioned)
-01_DLNMs_RJ_cerebrovascular/data_raw/
-01_DLNMs_RJ_cerebrovascular/data_interim/
-01_DLNMs_RJ_cerebrovascular/data_processed/
-01_DLNMs_RJ_cerebrovascular/outputs/
-02_MP25_RJ_exposicao/data_raw/
-02_MP25_RJ_exposicao/data_processed/
-03_RELATORIO_BSB2026/*_files/
-04_AUDITORIA/logs/
-04_AUDITORIA/benchmark/
-04_AUDITORIA/arquivos_centralizados/
+# Legacy directories (not in this repo)
+01_DLNMs_RJ_cerebrovascular/
+02_MP25_RJ_exposicao/
+03_RELATORIO_BSB2026/
+04_AUDITORIA/
 
 # OS files
 Thumbs.db
