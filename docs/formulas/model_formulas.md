@@ -14,7 +14,7 @@ log(E[Y_{r,t,o}]) =
   + holiday_{t}                                       -- Brazilian holidays (fixed + movable)
   + pandemic_{t}                                      -- COVID-19 indicator (2020-03 to 2022-12)
   + ns(Z_{r,t,e}, df=3)                               -- Complementary climate exposure
-  + pm25_{r,y}                                        -- PM2.5 annual by macroregion (INEA/MonitorAr)
+  + pm25_{r,m}                                        -- Optional monthly PM2.5 contextual covariate
   + ns(influenza_{t-7}, df=2)                          -- Influenza control (7-day lag)
 ```
 
@@ -24,6 +24,7 @@ Where:
 - $X_{r,t,e}$: climate exposure $e$ (temp_med or ur_med) in macroregion $r$ on day $t$
 - $Z_{r,t,e}$: complementary exposure (ur_med when X is temp_med, and vice-versa)
 - $cb(X, lag)$: cross-basis function combining exposure-response and lag-response
+- $pm25_{r,m}$: optional monthly derived PM2.5 covariate for macroregion $r$ and month $m$; it is linear and is not part of the DLNM cross-basis
 
 ## Cross-Basis Specification
 

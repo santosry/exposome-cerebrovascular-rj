@@ -295,51 +295,53 @@ process_inmet <- function() {
   climate_macro
 }
 
-# [F-005] Process PM2.5 air pollution data for confounding control.
+# [F-005] Process PM2.5 for optional sensitivity adjustment.
 # Data source: INEA/MonitorAr via Power BI dashboard, extracted to CSV.
-# Granularity: ANNUAL by macroregion (not daily).
-# Downscaling: national VIGIAR trend applied to municipal means.
-# 2025 is extrapolated. These limitations are documented in the article.
+# Granularity: MONTHLY by macroregion after downscaling.
+# Important: monthly values are derived from annual municipality means plus
+# a national seasonal profile. They are not observed daily PM2.5 measures.
 #' Process PM2.5 pollution data
 process_poluentes <- function() {
   pm25_path <- file.path(PROJECT_ROOT, "data", "processed", "pm25",
-                         "mp25_rj_anual_2010_2025.csv")
+                         "mp25_macroregiao_mensal_2010_2025.csv")
   if (!file.exists(pm25_path)) {
     log_msg("WARN", "PM2.5 data not found at ", pm25_path,
             "; air quality control disabled.")
     return(tibble::tibble(macro_regiao = character(), ano = integer(),
-                          pm25_anual = numeric()))
+                          mes = integer(), pm25_mensal = numeric()))
   }
   pm25_raw <- readr::read_delim(pm25_path, delim = ";",
                                 show_col_types = FALSE) |>
     janitor::clean_names() |>
     dplyr::mutate(
       pm25 = as.numeric(pm25),
-      ano = as.integer(ano)
+      ano = as.integer(ano),
+      mes = as.integer(mes),
+      macro_regiao = iconv(macroregiao, to = "ASCII//TRANSLIT")
     )
 
   pm25 <- pm25_raw |>
-    dplyr::group_by(macroregiao, ano) |>
-    dplyr::summarise(pm25_anual = mean(pm25, na.rm = TRUE), .groups = "drop") |>
-    dplyr::rename(macro_regiao = macroregiao)
+    dplyr::group_by(macro_regiao, ano, mes) |>
+    dplyr::summarise(pm25_mensal = mean(pm25, na.rm = TRUE), .groups = "drop")
 
   write_audit(tibble::tibble(
     exposicao = "PM2.5",
     fonte = "INEA/MonitorAr-VIGIAR via Power BI",
     unidade_espacial_origem = "municipio",
     unidade_espacial_modelo = "macrorregiao",
-    granularidade_temporal = "anual",
-    n_municipios = dplyr::n_distinct(pm25_raw$municipio),
+    granularidade_temporal = "mensal_derivada",
+    n_municipios = NA_integer_,
     n_macrorregioes = dplyr::n_distinct(pm25$macro_regiao),
+    n_meses = dplyr::n_distinct(pm25$mes),
     ano_min = min(pm25$ano, na.rm = TRUE),
     ano_max = max(pm25$ano, na.rm = TRUE),
-    uso_no_dlnm = "covariavel linear anual; nao entra como cross-basis diario",
-    limitacao = "granularidade temporal inferior a temperatura e umidade"
+    uso_no_dlnm = "covariavel linear mensal opcional; nao entra como cross-basis diario",
+    limitacao = "mensal derivado por downscaling; granularidade inferior a temperatura e umidade diarias"
   ), file.path(PROJECT_ROOT, "audit", "air_quality",
                "auditoria_granularidade_pm25.csv"))
 
   log_msg("INFO", "PM2.5 loaded: ", nrow(pm25), " rows, ",
-          sprintf("%.1f", mean(pm25$pm25_anual, na.rm = TRUE)),
+          sprintf("%.1f", mean(pm25$pm25_mensal, na.rm = TRUE)),
           " ug/m3 mean")
   pm25
 }
@@ -388,12 +390,12 @@ make_analytic_dataset <- function(outcomes, meteo, population = NULL) {
   holidays <- get_brazilian_holidays(YEARS)
   dat$feriado[dat$data %in% holidays] <- TRUE
 
-  # [F-005] Join PM2.5 air pollution data (annual by macroregion) when enabled
+  # [F-005] Join optional PM2.5 sensitivity data (monthly by macroregion)
   if (AIR_QUALITY_ENABLE) {
     pm25 <- process_poluentes()
-    dat <- dat |> dplyr::left_join(pm25, by = c("macro_regiao", "ano"))
+    dat <- dat |> dplyr::left_join(pm25, by = c("macro_regiao", "ano", "mes"))
   } else {
-    dat$pm25_anual <- NA_real_
+    dat$pm25_mensal <- NA_real_
   }
 
   save_rds(dat, file.path(PROJECT_ROOT, "data", "processed",

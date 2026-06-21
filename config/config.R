@@ -86,8 +86,8 @@ PANDEMIC_END   <- as.Date("2022-12-31")
 CASE_CROSSOVER_ENABLE <- FALSE
 MORAN_ENABLE <- TRUE
 # [F-005] Controle de PM2.5 opcional.
-# Dados: PM2.5 anual por macrorregiao em data/processed/pm25/.
-# Granularidade anual -- usar apenas como covariavel linear/sensibilidade,
+# Dados: PM2.5 mensal derivado por macrorregiao em data/processed/pm25/.
+# Granularidade mensal -- usar apenas como covariavel linear/sensibilidade,
 # nunca como exposicao principal em cross-basis diario.
 AIR_QUALITY_ENABLE <- tolower(
   Sys.getenv("DLNM_ENABLE_AIR_QUALITY", unset = "false")) %in%

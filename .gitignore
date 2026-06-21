@@ -32,7 +32,6 @@ data/external/*
 !data/external/.gitkeep
 
 # Large binary/model objects are regenerated locally, not versioned
-# EXCEPT data/raw/ which serves as pipeline fallback
 *.rds
 *.RDS
 *.RData
@@ -42,13 +41,6 @@ data/external/*
 *.dbf
 *.parquet
 *.qs
-!data/raw/**/*.rds
-!data/raw/**/*.RDS
-!data/raw/**/*.zip
-!data/raw/**/*.csv
-!data/raw/**/*.dbc
-!data/raw/**/*.dbf
-
 # Download caches
 cache/
 tmp/

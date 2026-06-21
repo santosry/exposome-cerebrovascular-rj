@@ -1,4 +1,4 @@
-# download.R — Data acquisition from DATASUS, INMET, IBGE/SIDRA, and geobr
+# download.R - Data acquisition from DATASUS, INMET, IBGE/SIDRA, and geobr
 # =============================================================================
 # Downloads: SIH-RD hospital admissions, SIM-DO mortality records,
 #            INMET weather station data, SIDRA population estimates,
@@ -38,9 +38,9 @@ download_microdatasus_monthly <- function(system, year, month, prefix, out_dir,
     if (!is.null(dat)) break
   }
   if (is.null(dat)) {
-    # Fallback: check if pre-downloaded files exist (e.g. from Git LFS clone)
+    # Fallback: check if local cache files exist.
     if (file.exists(out)) {
-      log_msg("INFO", "Using pre-downloaded RDS from repository: ", basename(out))
+      log_msg("INFO", "Using locally cached RDS: ", basename(out))
       return(out)
     }
     # Check if any RDS files exist at all (partial clone recovery)
@@ -48,12 +48,12 @@ download_microdatasus_monthly <- function(system, year, month, prefix, out_dir,
     if (length(existing) > 0) {
       log_msg("WARN", "Download failed but ", length(existing),
               " pre-existing RDS files found in ", out_dir,
-              " — continuing with available files")
+              " - continuing with available files")
       return(NA_character_)
     }
     stop("Download failed after ", max_tries, " attempts for ", system, " ",
          year, "-", sprintf("%02d", month),
-         ". Ensure Git LFS is enabled (git lfs pull) or download manually.",
+         ". Re-run with network access or download manually via microdatasus.",
          call. = FALSE)
   }
   save_rds(dat, out)
@@ -122,16 +122,15 @@ download_sim <- function() {
   write_audit(audit,
     file.path(PROJECT_ROOT, "audit", "auditoria_download_sim.csv"))
   if (!any(audit$status %in% c("baixado", "existente"))) {
-    # Fallback: check for pre-downloaded RDS files (e.g. from Git LFS)
+    # Fallback: check for local cache files.
     existing <- list.files(out_dir, "sim_do_rj_year_.*\\.rds$", full.names = TRUE)
     if (length(existing) > 0) {
       log_msg("INFO", "No DATASUS download succeeded, but ", length(existing),
-              " pre-existing annual SIM RDS files found (Git LFS) — using those")
+              " pre-existing annual SIM RDS files found locally - using those")
       return(invisible(TRUE))
     }
     stop("No SIM-DO year was downloaded or found locally.\n",
-         "  Ensure Git LFS is enabled: git lfs pull\n",
-         "  Or download manually from DATASUS via microdatasus package.",
+         "  Re-run with network access or download manually via microdatasus.",
          call. = FALSE)
   }
   invisible(TRUE)
@@ -158,7 +157,7 @@ get_municipios_rj <- function() {
   municipios
 }
 
-#' Manual lookup: municipality → health macroregion (9 regions)
+#' Manual lookup: municipality to health macroregion (9 regions)
 macro_lookup_manual <- function() {
   tibble::tribble(
     ~macro_regiao, ~mun_nome,
@@ -325,7 +324,7 @@ download_population_sidra <- function() {
 }
 
 #' Download all INMET station data for RJ
-#' Tries BrazilMet API first; falls back to pre-downloaded zip files
+#' Tries BrazilMet API first; falls back to local zip cache files
 #' if the INMET server is unavailable (common due to firewall/instability).
 download_inmet <- function() {
   inmet_dir <- file.path(PROJECT_ROOT, "data", "raw", "inmet")
@@ -345,7 +344,7 @@ download_inmet <- function() {
   stations <- readr::read_csv(stations_path, show_col_types = FALSE) |>
     janitor::clean_names()
 
-  # Check if pre-downloaded zip files are available for fallback
+  # Check if local zip files are available for fallback
   zip_files <- list.files(zip_dir, pattern = "^inmet_\\d{4}\\.zip$", full.names = TRUE)
   has_local_zips <- length(zip_files) > 0
   if (has_local_zips) {
@@ -365,7 +364,7 @@ download_inmet <- function() {
             " (", st$station_municipality, ")")
     yrs <- as.character(YEARS)
 
-    # ── Method 1: BrazilMet API ──
+    # Method 1: BrazilMet API
     raw <- NULL
     if (server_available) {
       raw <- safe_fetch(
@@ -379,10 +378,10 @@ download_inmet <- function() {
       )
     }
 
-    # ── Method 2: Fallback to local zip files ──
+    # Method 2: fallback to local zip files
     if (is.null(raw) && has_local_zips) {
       log_msg("WARN", "INMET API failed for ", st$station_code,
-              " — falling back to local zip files")
+              " - falling back to local zip files")
       server_available <- FALSE
       raw <- tryCatch(
         extract_inmet_from_zips(st$station_code, yrs, zip_dir, inmet_dir),
@@ -399,7 +398,7 @@ download_inmet <- function() {
       log_msg("INFO", "INMET station ", st$station_code, " saved to ", basename(out_rds))
     } else {
       log_msg("ERROR", "Could not obtain INMET data for station ", st$station_code,
-              " — both API and local zips failed")
+              " - both API and local zips failed")
     }
   }
 
@@ -409,7 +408,7 @@ download_inmet <- function() {
   invisible(TRUE)
 }
 
-#' Extract INMET data for a specific station from pre-downloaded yearly zip files
+#' Extract INMET data for a specific station from locally cached yearly zip files
 #' Used as fallback when the INMET API is unavailable.
 extract_inmet_from_zips <- function(station_code, years, zip_dir, inmet_dir) {
   all_data <- list()

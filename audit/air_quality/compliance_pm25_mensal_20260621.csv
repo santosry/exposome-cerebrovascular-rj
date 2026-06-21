@@ -1,12 +1,15 @@
-item;status;evidencia;observacao
-CHECKLIST_COMPLIANCE_PM25_MENSAL;---;---;---
-1_origem_dados;OK;Power_BI_INEA_MonitorAr_VIGIAR;"18 respostas API capturadas via Playwright; cache SHA256 verificado"
-2_cobertura_territorial;OK;92/92_municipios_RJ;74 monitorados direto + 18 vizinho mais proximo
-3_granularidade_temporal;MENSAL;17.664_registros_municipio_mes;"2010-01 a 2025-12; downscaling 2 etapas: anual + sazonal"
-4_downscaling_anual;OK;serie_nacional_2010_2024;"PM25_nac medio = 10.39 ug/m3; 2025 extrapolado via reg linear"
-5_downscaling_sazonal;OK;perfil_nacional_2024_12_meses;"Extraido do Power BI; pico setembro 2.59x, vale janeiro 0.64x"
-6_auditoria_integridade;OK;SHA256_benchmark;4 CSVs com hashes registrados em benchmark/data_processed/
-7_documentacao;OK;relatorio_auditoria_+.log;2 auditorias + 1 relatorio textual em audit/air_quality/
-8_reprodutibilidade;OK;script_python_idempotente;"extrair_mp25_rj.py com cache; FORCE_RAW_DOWNLOAD compatível"
-9_limitacoes;REGISTRADO;10_limitacoes_documentadas;"Ver relatorio_auditoria secao 10; principal: perfil sazonal unico para todos anos"
-10_publicacao_github;PENDENTE;commit_+_push;Arquivos sincronizados em data/processed/pm25/ e audit/air_quality/
+check,status,valor,criterio
+pm25_municipio_mes_rows,ok,17664,92 municipios x 16 anos x 12 meses
+pm25_macro_mes_rows,ok,1728,9 macrorregioes x 16 anos x 12 meses
+municipios_cobertos,ok,92,92 municipios do RJ
+macrorregioes_cobertas,ok,9,9 macrorregioes de saude
+anos_cobertos,ok,2010-2025,2010-2025
+meses_cobertos,ok,"1,2,3,4,5,6,7,8,9,10,11,12",1-12
+fonte_monitorada,ok,74,municipios com monitoramento direto
+fonte_vizinho_mais_proximo,ok,18,municipios preenchidos por vizinho mais proximo
+decisao_modelagem,ok,covariavel linear mensal opcional; desativada por padrao,nao usar PM2.5 como cross-basis diario
+data_raw_publicacao,ok,apenas .gitkeep apos limpeza final,apenas .gitkeep no pacote publico
+encoding_pm25_csv,ok,UTF-8 sem mojibake,sem marcadores de mojibake comuns
+git_lfs_ativos,ok,0,git lfs ls-files sem objetos ativos
+gitignore_raw,ok,data/raw/* e objetos binarios ignorados,brutos DATASUS/INMET/SIDRA/cache nao devem ser versionados
+pm25_processado_versionavel,ok,data/processed/pm25/*.csv liberado,somente tabelas finais leves de PM2.5

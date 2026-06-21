@@ -170,9 +170,9 @@ list(
   tar_target(
     benchmark_results,
     run_benchmark_validation()
-  ),
-  tar_target(
-    manuscript_rendered,
-    render_bsb_outputs()
-  )
+  # [BSB-REMOVED] Manuscript rendering excluded from public compendium
+  # tar_target(
+  #   manuscript_rendered,
+  #   render_bsb_outputs()
+  # )
 )

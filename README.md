@@ -330,7 +330,7 @@ R version 4.6.0 (2026-04-24). Full package inventory in `renv.lock` (151 package
 **📋 Detailed station coverage:** See [docs/data_sources/station_coverage.md](docs/data_sources/station_coverage.md)
 — complete catalog of 26 INMET stations (codes, coordinates, operation dates),
 74 PM2.5-monitored + 18 neighbor-attributed municipalities, imputation methods,
-and PM2.5 annual series per macroregion.
+and monthly derived PM2.5 series per macroregion.
 
 To reproduce the PM2.5 extraction:
 ```bash
@@ -345,7 +345,7 @@ python extrair_mp25_rj.py
 ## Limitations
 
 1. **Ecological design** — associations at macroregional level; no individual-level inference
-2. **PM2.5 granularity** — annual by macroregion; intra-annual variation not captured; 2025 extrapolated via linear regression from 2020–2024
+2. **PM2.5 granularity** — monthly derived by macroregion; not daily; generated from annual national trend plus 2024 national seasonal profile; 2025 extrapolated via linear regression from 2020-2024
 3. **SIM-DO 2025 unavailable** — mortality for 2025 uses SIH in-hospital deaths as proxy, which **undercounts out-of-hospital cerebrovascular fatalities** (common in stroke). This affects ~1/16 of the time series. A sensitivity analysis excluding 2025 is recommended for confirmation
 4. **SIM-DO 2014–2016 partial** — some monthly SIM files were unavailable; filled with SIH deaths where gaps exist
 5. **Noroeste macroregion** has only 1 INMET station (no spatial redundancy for imputation)

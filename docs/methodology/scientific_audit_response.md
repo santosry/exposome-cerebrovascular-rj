@@ -15,23 +15,23 @@ This document records the repository-level response to a critical scientific aud
 | PM2.5 delimiter mismatch risk | PM2.5 is now read with `read_delim(delim = ";")`, matching the generated CSV files. |
 | PM2.5 extraction script had non-portable paths | `python/extrair_mp25_rj.py` now derives paths from the repository root. |
 | PM2.5 coverage and granularity were insufficiently explicit | New audit CSVs are stored under `audit/air_quality/`. Monthly granularity explicitly documented. |
-| No benchmark/SHA256 integrity check | `audit/air_quality/benchmark_mp25_sha256.csv` records SHA256 hashes of all 4 PM2.5 output files. |
-| No compliance checklist | `audit/air_quality/compliance_pm25_mensal_20260621.csv` provides 10-item line-by-line audit. |
+| No benchmark/SHA256 integrity check | `audit/air_quality/benchmark_mp25_sha256.csv` records SHA256 hashes of the PM2.5 output files. |
+| No compliance checklist | `audit/air_quality/compliance_pm25_mensal_20260621.csv` provides a line-by-line audit. |
 
 ## PM2.5 Downscaling Methodology (2026-06-21 upgrade)
 
 Two-stage approach due to the Power BI source providing only a single mean PM2.5 value per municipality:
 
-1. **Annual downscaling:** `PM25(mun, year) = PM25_mean(mun) × PM25_national(year) / PM25_national_mean` using the VIGIAR national annual series (2010–2024).
-2. **Monthly downscaling:** `PM25(mun, year, month) = PM25(mun, year) × profile[month] / mean(profile)` using the 2024 national monthly profile extracted from the same Power BI dashboard (query `df_mensal.mes_nome`).
+1. **Annual downscaling:** `PM25(mun, year) = PM25_mean(mun) x PM25_national(year) / PM25_national_mean` using the VIGIAR national annual series (2010-2024).
+2. **Monthly downscaling:** `PM25(mun, year, month) = PM25(mun, year) x profile[month] / mean(profile)` using the 2024 national monthly profile extracted from the same Power BI dashboard (query `df_mensal.mes_nome`).
 
-2025 is extrapolated via linear regression on 2020–2024.
+2025 is extrapolated via linear regression on 2020-2024.
 
 ## Remaining Scientific Limitations
 
 1. The study remains ecological; results must not be interpreted at the individual level.
 2. PM2.5 remains **monthly** (not daily) and partially nearest-neighbor assigned; it is suitable as a seasonal covariate but not as a daily exposure-lag cross-basis.
-3. The same seasonal profile is applied uniformly to all years and all municipalities — interannual and spatial variability in seasonality is not captured.
+3. The same seasonal profile is applied uniformly to all years and all municipalities; interannual and spatial variability in seasonality is not captured.
 4. The Bayesian stage is a two-stage hierarchical stabilization of DLNM estimates, not a fully joint Bayesian DLNM.
 5. Residual confounding may persist because individual socioeconomic, behavioral, occupational and clinical covariates are not available in the aggregated DATASUS design.
 6. Spatial aggregation to health macroregions reduces noise but may obscure intraurban microclimate and exposure heterogeneity.
@@ -49,4 +49,4 @@ The repository should avoid claims that it:
 - estimates individual risk;
 - establishes causal effects;
 - forecasts future admissions or deaths;
-- models daily PM2.5 exposure-lag associations.
+- treats PM2.5 as a daily exposure-lag variable; PM2.5 is monthly derived and is limited to optional linear sensitivity adjustment.

@@ -129,13 +129,13 @@ Dos **92 municípios** do estado do Rio de Janeiro:
 
 | Etapa | Descrição |
 |---|---|
-| **Agregação municipal** | Média anual de MP2.5 para cada município com monitoramento |
+| **Agregação municipal** | Média municipal de referência, posteriormente distribuída em escala mensal derivada |
 | **Atribuição espacial** | 18 municípios sem monitoramento recebem o valor do vizinho mais próximo (distância de Haversine) |
 | **Mapeamento macrorregional** | Cada município é associado à sua macrorregião de saúde (9 regiões) via lookup table (`lookup_municipio_macrorregiao.csv`) |
-| **Downscaling temporal** | Valores anuais 2010-2025 são derivados da série nacional do VIGIAR, assumindo homogeneidade espacial da tendência temporal. O ano de 2025 é extrapolado via regressão linear (2020-2024) |
-| **Integração nos modelos** | O PM2.5 anual médio da macrorregião entra como **termo linear** (sem spline) em todos os modelos DLNM |
+| **Downscaling temporal** | A série de referência anual 2010-2025 foi distribuída por mês com perfil sazonal nacional de 2024. O ano de 2025 é extrapolado via regressão linear (2020-2024) |
+| **Integração nos modelos** | O PM2.5 mensal médio da macrorregião entra apenas como **termo linear opcional de sensibilidade**, desativado por padrão; não é usado como exposição diária com cross-basis |
 
-### 2.4 Série Temporal de PM2.5 por Macrorregião (μg/m³)
+### 2.4 Referência anual de PM2.5 usada no downscaling mensal por macrorregião (μg/m³)
 
 | Ano | Baía da Ilha Grande | Baixada Litorânea | Centro-Sul | Médio Paraíba | Metrop. I | Metrop. II | Noroeste | Norte | Serrana |
 |---|---|---|---|---|---|---|---|---|---|
@@ -156,7 +156,7 @@ Dos **92 municípios** do estado do Rio de Janeiro:
 | 2024 | 25.64 | 13.42 | 24.91 | 26.35 | 29.93 | 21.81 | 14.42 | 12.18 | 17.82 |
 | 2025* | 24.15 | 12.64 | 23.46 | 24.82 | 28.19 | 20.54 | 13.58 | 11.47 | 16.78 |
 
-> *2025: valor **extrapolado** via regressão linear sobre a tendência 2020-2024. Usar com cautela.
+> *2025: valor **extrapolado** via regressão linear sobre a tendência 2020-2024. A série mensal usada no pipeline é derivada dessa referência anual e do perfil sazonal nacional de 2024.
 
 ---
 
@@ -167,7 +167,7 @@ Dos **92 municípios** do estado do Rio de Janeiro:
 | **Noroeste — 1 estação INMET** | Apenas a estação A604 (Cambuci) cobre a macrorregião. Sem redundância espacial para validação cruzada ou imputação interna. |
 | **Centro-Sul — 41% dos dias imputados** | As estações A625 (Três Rios, 2016) e A637 (Paty do Alferes, 2022) iniciaram durante o período. Antes disso, ~41% dos dias usam dados de estações vizinhas. |
 | **Metropolitana II — 35% dos dias imputados** | As estações A659 (Silva Jardim, 2015) e A627 (Niterói, 2018) iniciaram durante o período. |
-| **PM2.5 — granularidade anual** | A série de PM2.5 é anual por macrorregião. A variação intra-anual (sazonalidade diária/semanal da poluição) **não é capturada** nos modelos. |
+| **PM2.5 - granularidade mensal derivada** | A série de PM2.5 é mensal por macrorregião. Ela não possui resolução diária observada e, por isso, não é usada como exposição-lag principal. |
 | **PM2.5 — 18 municípios sem medição** | Recebem o valor do vizinho mais próximo. A acurácia depende da distância e da homogeneidade espacial do PM2.5. |
 | **PM2.5 — 2025 extrapolado** | O valor de 2025 é extrapolação linear da tendência 2020-2024. Não reflete medições reais. |
 | **Agregação climática** | A temperatura e umidade de cada macrorregião é a **média simples** das estações disponíveis no dia — sem ponderação populacional ou por distância. |

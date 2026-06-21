@@ -11,7 +11,7 @@ O que este script faz:
   3. Atribui MP2.5 por vizinho mais próximo para 18 cidades sem monitoramento
   4. Mapeia cada município para sua Macrorregião de Saúde (9 regiões)
   5. Downscaling temporal (2010-2025): anual via série nacional VIGIAR
-  6. Downscaling sazonal: distribui PM2.5 anual em 12 meses usando perfil
+  6. Downscaling sazonal: distribui a referencia anual de PM2.5 em 12 meses usando perfil
      nacional mensal de 2024 (razão mês/média anual)
   7. Gera CSV final MENSAL: Municipio, Macroregiao, Ano, Mes, PM25, Fonte, Metodo
   8. Gera relatório de auditoria (log detalhado + metadados)

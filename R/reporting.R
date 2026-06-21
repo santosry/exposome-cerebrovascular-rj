@@ -2,55 +2,11 @@
 # =============================================================================
 
 #' Render BSB 2026 outputs: article PDF and presentation PDF
+#' [BSB-REMOVED] This function is disabled in the public compendium.
+#' The BSB 2026 manuscript source is excluded from this repository.
 render_bsb_outputs <- function() {
-  log_msg("INFO", "Rendering BSB 2026 outputs")
-
-  article_rmd <- file.path(PROJECT_ROOT, "reports", "manuscript",
-                           "artigo_bsb2026_sbc.Rmd")
-  presentation_rmd <- file.path(PROJECT_ROOT, "reports", "presentations",
-                                "apresentacao_BSB2026.Rmd")
-
-  # Ensure output directories
-  for (d in c(file.path(PROJECT_ROOT, "reports", "manuscript"),
-              file.path(PROJECT_ROOT, "reports", "presentations"))) {
-    dir.create(d, recursive = TRUE, showWarnings = FALSE)
-  }
-
-  # Copy Rmd files from original location if needed
-  original_article <- file.path(PROJECT_ROOT, "03_RELATORIO_BSB2026",
-                                "artigo_bsb2026_sbc.Rmd")
-  original_pres <- file.path(PROJECT_ROOT, "03_RELATORIO_BSB2026",
-                             "apresentacao_BSB2026.Rmd")
-
-  if (!file.exists(article_rmd) && file.exists(original_article)) {
-    file.copy(original_article, article_rmd, overwrite = TRUE)
-  }
-  if (!file.exists(presentation_rmd) && file.exists(original_pres)) {
-    file.copy(original_pres, presentation_rmd, overwrite = TRUE)
-  }
-
-  # Render article
-  if (file.exists(article_rmd)) {
-    safe_fetch(
-      rmarkdown::render(article_rmd,
-        output_dir = dirname(article_rmd),
-        quiet = FALSE),
-      "Article rendering"
-    )
-    log_msg("INFO", "Article rendered")
-  }
-
-  # Render presentation
-  if (file.exists(presentation_rmd)) {
-    safe_fetch(
-      rmarkdown::render(presentation_rmd,
-        output_dir = dirname(presentation_rmd),
-        quiet = FALSE),
-      "Presentation rendering"
-    )
-    log_msg("INFO", "Presentation rendered")
-  }
-
+  log_msg("INFO", "BSB manuscript rendering is disabled in the public compendium. " ,
+          "The manuscript source is excluded from this repository.")
   invisible(TRUE)
 }
 

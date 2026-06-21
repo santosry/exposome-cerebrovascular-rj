@@ -32,7 +32,8 @@ test_that("process_poluentes returns expected columns", {
   if (nrow(result) > 0) {
     expect_true("macro_regiao" %in% names(result))
     expect_true("ano" %in% names(result))
-    expect_true("pm25_anual" %in% names(result))
+    expect_true("mes" %in% names(result))
+    expect_true("pm25_mensal" %in% names(result))
   }
 })
 

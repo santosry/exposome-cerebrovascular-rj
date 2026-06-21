@@ -14,7 +14,7 @@ test_that("fit_one_dlnm returns valid structure with synthetic data", {
     feriado = FALSE, pandemia = FALSE,
     offset_log_populacao = log(100000),
     tempo = as.numeric(1:n) / 365.25,
-    pm25_anual = NA_real_,
+    pm25_mensal = NA_real_,
     influenza_lag7 = NA_real_
   )
 
@@ -44,7 +44,7 @@ test_that("summarise_pred produces valid RR summary", {
     feriado = FALSE, pandemia = FALSE,
     offset_log_populacao = log(100000),
     tempo = as.numeric(1:n) / 365.25,
-    pm25_anual = NA_real_,
+    pm25_mensal = NA_real_,
     influenza_lag7 = NA_real_
   )
 
@@ -78,7 +78,7 @@ test_that("diagnose_model returns diagnostics", {
     feriado = FALSE, pandemia = FALSE,
     offset_log_populacao = log(100000),
     tempo = as.numeric(1:n) / 365.25,
-    pm25_anual = NA_real_,
+    pm25_mensal = NA_real_,
     influenza_lag7 = NA_real_
   )
 

@@ -120,8 +120,9 @@ run_pipeline <- function() {
   centralize_audits()
   run_benchmark_validation()
 
-  # ── Stage 9: Render manuscript ──
-  render_bsb_outputs()
+  # [BSB-REMOVED] Manuscript rendering is not part of the public compendium.
+  # The BSB 2026 manuscript source is excluded from this repository.
+  # render_bsb_outputs()
 
   log_msg("INFO", "═══ Pipeline Complete ═══")
   log_msg("INFO", length(dlnm_results), " DLNM models fitted across 9 macroregions")

@@ -64,8 +64,8 @@
 | # | Item | Status | Notes |
 |---|------|--------|-------|
 | 20 | Funding | N/A | No funding declared at this stage |
-| 21 | Reproducibility | ✅ | Full compendium: Docker, renv, Makefile, Git LFS, audit trail |
-| 22 | Data availability | ✅ | All raw data in repository (Git LFS) or via public APIs |
+| 21 | Reproducibility | ✅ | Full compendium: Docker, renv, Makefile, audit trail |
+| 22 | Data availability | ✅ | Raw data are regenerated from public APIs; selected final outputs and audits are versioned |
 
 ---
 
