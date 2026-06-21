@@ -368,10 +368,10 @@ download_inmet <- function() {
     raw <- NULL
     if (server_available) {
       raw <- safe_fetch(
-        BrazilMet::download_brazil_met(
-          station_code = st$station_code,
-          year = yrs,
-          folder = zip_dir
+        BrazilMet::download_AWS_INMET_daily(
+          stations = st$station_code,
+          start_date = paste0(min(YEARS), "-01-01"),
+          end_date = paste0(max(YEARS), "-12-31")
         ),
         paste("INMET download", st$station_code),
         critical = FALSE
@@ -436,7 +436,9 @@ extract_inmet_from_zips <- function(station_code, years, zip_dir, inmet_dir) {
       csv_path <- file.path(tmp_dir, f)
       if (file.exists(csv_path)) {
         dat <- tryCatch(
-          BrazilMet::read_brazil_met(csv_path),
+          readr::read_delim(csv_path, delim = ";", 
+            locale = readr::locale(decimal_mark = ",", encoding = "Latin1"),
+            na = c("", "NA", "-9999"), show_col_types = FALSE),
           error = function(e) {
             log_msg("WARN", "Failed to parse ", basename(csv_path), ": ",
                     conditionMessage(e))

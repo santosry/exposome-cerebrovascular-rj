@@ -32,6 +32,7 @@ data/processed/*
 !data/raw/sih/*.rds
 !data/raw/sim/*.rds
 !data/raw/inmet/*.rds
+!data/raw/inmet_zip/*.zip
 !data/raw/pm25/*.json
 !data/raw/*.csv
 !data/interim/.gitkeep
