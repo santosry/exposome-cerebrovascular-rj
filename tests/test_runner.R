@@ -1,7 +1,10 @@
-# tests/test_runner.R -- Self-contained validation (zero dependencies)
+# tests/test_runner.R -- CI validation (sources real functions, no duplication)
 # =============================================================================
+# [FIX C6] This runner now sources the actual R/ modules instead of
+# reimplementing inline copies. This prevents silent divergence between
+# test code and production code.
 
-cat("Running self-contained validation checks...\n")
+cat("Running CI validation checks...\n")
 errors <- 0
 
 check <- function(label, expr) {
@@ -14,41 +17,13 @@ check <- function(label, expr) {
   }
 }
 
-# -- Inline function definitions (no external source needed) --
+# -- Source real production functions (no duplication) --
+# [FIX C6] Use the actual R/ modules tested by testthat
+source("config/config.R", local = TRUE)
+source("R/utils.R", local = TRUE)
+source("R/dlnm_models.R", local = TRUE)
 
-clean_text <- function(x) {
-  x <- as.character(x)
-  x <- iconv(x, from = "", to = "UTF-8", sub = "")
-  trimws(x)
-}
-
-clean_cid3 <- function(x) {
-  out <- as.character(x)
-  out <- toupper(out)
-  out <- gsub("[^A-Z0-9]", "", out)
-  out <- substr(out, 1, 3)
-  out[is.na(x)] <- NA_character_
-  out
-}
-
-haversine_km <- function(lon1, lat1, lon2, lat2) {
-  r <- 6371.0088
-  rad <- pi / 180
-  lon1 <- lon1 * rad; lat1 <- lat1 * rad
-  lon2 <- lon2 * rad; lat2 <- lat2 * rad
-  dlon <- lon2 - lon1; dlat <- lat2 - lat1
-  a <- sin(dlat / 2)^2 + cos(lat1) * cos(lat2) * sin(dlon / 2)^2
-  2 * r * asin(pmin(1, sqrt(a)))
-}
-
-trapezoid_auc <- function(x, y) {
-  y_excess <- pmax(y - 1, 0)
-  n <- length(x)
-  if (n < 2) return(0)
-  sum((x[2:n] - x[1:(n - 1)]) * (y_excess[2:n] + y_excess[1:(n - 1)])) / 2
-}
-
-# -- Tests --
+# -- Tests using production functions --
 
 check("clean_text strips whitespace",
   identical(clean_text("  Rio de Janeiro  "), "Rio de Janeiro"))
@@ -88,6 +63,10 @@ check("LICENSE exists",
   file.exists("LICENSE"))
 check("CITATION.cff exists",
   file.exists("CITATION.cff"))
+
+# -- Testthat suite exists and is loadable --
+check("testthat tests directory exists",
+  dir.exists("tests/testthat/") && length(list.files("tests/testthat/", pattern = "\\.R$")) >= 2)
 
 # -- Summary --
 if (errors > 0) {

@@ -149,10 +149,16 @@ run_bayesian_hierarchical_validation <- function(rr_tbl, auc_tbl,
 
 #' Run prior sensitivity analysis with sceptical, optimistic, and flat priors
 run_prior_sensitivity <- function(rr_tbl, auc_tbl, residual_tbl = NULL) {
+  # [FIX C8] Use same SE source as run_bayesian_hierarchical_validation (HAC when available)
   bayes_input <- rr_tbl |>
     dplyr::mutate(
       log_rr = log(rr_cumulativo),
-      se_log_rr = (log(rr_cumulativo_high) - log(rr_cumulativo_low)) / (2 * 1.96)
+      # Prefer HAC-based SE; fallback to CI-width approximation (same as main bayes pipeline)
+      se_log_rr = dplyr::if_else(
+        is.finite(se_log_rr_hac) & se_log_rr_hac > 0,
+        se_log_rr_hac,
+        (log(rr_cumulativo_high) - log(rr_cumulativo_low)) / (2 * 1.96)
+      )
     ) |>
     dplyr::filter(is.finite(log_rr), is.finite(se_log_rr), se_log_rr > 0)
 

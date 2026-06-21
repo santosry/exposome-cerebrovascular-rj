@@ -1,4 +1,4 @@
-# dlnm_models.R — Distributed Lag Non-linear Models
+# dlnm_models.R - Distributed Lag Non-linear Models
 # =============================================================================
 # Core DLNM fitting, cross-prediction, AUC computation, sensitivity analyses,
 # model diagnostics, and prioritization framework.
@@ -29,14 +29,14 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
   complementary <- if (exposure == "temp_med") "ur_med" else "temp_med"
   # [F-003] 7 df/year for temporal trend (upper bound per Bhaskaran et al. 2013)
   # Total df = 7 * N_years distributed across 16-year span
-  covars <- paste0("ns(tempo, df = ", 7 * length(unique(dat$ano)),
-    ") + dow + feriado + pandemia + ns(", complementary, ", df = 3)")
+  covars <- paste0("splines::ns(tempo, df = ", 7 * length(unique(dat$ano)),
+    ") + dow + feriado + pandemia + splines::ns(", complementary, ", df = 3)")
   if (!is.null(dat$influenza_lag7) && all(is.finite(dat$influenza_lag7))) {
-    covars <- paste0(covars, " + ns(influenza_lag7, df = 2)")
+    covars <- paste0(covars, " + splines::ns(influenza_lag7, df = 2)")
   }
-  # [F-005] Optional PM2.5 control (annual, linear sensitivity term -- no spline/cross-basis)
-  if (!is.null(dat$pm25_anual) && any(is.finite(dat$pm25_anual))) {
-    covars <- paste0(covars, " + pm25_anual")
+  # [F-005] Optional PM2.5 control (monthly derived, linear sensitivity term -- no spline/cross-basis)
+  if (!is.null(dat$pm25_mensal) && any(is.finite(dat$pm25_mensal))) {
+    covars <- paste0(covars, " + pm25_mensal")
   }
   form <- stats::as.formula(
     paste(outcome, "~ cb +", covars, "+ offset(offset_log_populacao)"))
@@ -80,6 +80,15 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
     }
   }
 
+  # [FIX C7] Compute HAC vcov BEFORE association test so Wald fallback can use it
+  nw_cov_early <- NULL
+  if (DLNM_NW_HAC_ENABLE && requireNamespace("sandwich", quietly = TRUE)) {
+    nw_cov_early <- tryCatch(
+      sandwich::NeweyWest(model, lag = DLNM_NW_LAGS, prewhite = FALSE),
+      error = function(e) NULL
+    )
+  }
+
   # Compute association p-value
   reduced <- tryCatch({
     if (identical(family_used, "negative_binomial")) {
@@ -103,7 +112,14 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
     p_association <- tryCatch({
       idx <- grep("^cb", names(stats::coef(model)))
       beta <- stats::coef(model)[idx]
-      vc <- stats::vcov(model)[idx, idx, drop = FALSE]
+      # [FIX C7] Prefer HAC vcov when available; fallback to model vcov
+      if (!is.null(nw_cov_early) && all(idx %in% seq_len(nrow(nw_cov_early)))) {
+        vc <- nw_cov_early[idx, idx, drop = FALSE]
+        p_method <- paste0(p_method, " + Wald HAC")
+      } else {
+        vc <- stats::vcov(model)[idx, idx, drop = FALSE]
+        p_method <- paste0(p_method, " + Wald (vcov)")
+      }
       stat <- drop(t(beta) %*% solve(vc) %*% beta)
       stats::pchisq(stat, df = length(idx), lower.tail = FALSE)
     }, error = function(e) NA_real_)
@@ -141,7 +157,8 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
   nw_se <- NULL; nw_cov <- NULL
   se_log_rr_hac <- NA_real_
   if (DLNM_NW_HAC_ENABLE && requireNamespace("sandwich", quietly = TRUE)) {
-    nw_cov <- tryCatch(
+    # [FIX C7] Reuse early HAC if already computed; otherwise compute now
+    nw_cov <- if (!is.null(nw_cov_early)) nw_cov_early else tryCatch(
       sandwich::NeweyWest(model, lag = DLNM_NW_LAGS, prewhite = FALSE),
       error = function(e) NULL
     )
@@ -335,6 +352,10 @@ run_dlnm <- function(dat_macro, extra_outcomes = character(),
   write_audit(dplyr::bind_rows(diagnostics),
     file.path(PROJECT_ROOT, "audit", "diagnosticos_autocorrelacao_dlnm.csv"))
 
+  # [FIX C4 + C11] Moran's I spatial test and model coverage audit
+  run_moran_spatial_test(results)
+  audit_model_coverage(dat_macro, results)
+
   results
 }
 
@@ -482,6 +503,191 @@ run_spline_df_sensitivity <- function(dat_macro, auc_tbl,
   sens_tbl
 }
 
+#' [FIX C4] Moran's I spatial autocorrelation test for DLNM residuals
+#' Tests whether residuals from models in neighboring macroregions are correlated.
+#' Builds a queen-contiguity spatial weights matrix from the 9 macroregions.
+run_moran_spatial_test <- function(dlnm_results) {
+  if (!requireNamespace("spdep", quietly = TRUE)) {
+    log_msg("WARN", "spdep not installed; skipping Moran's I spatial test")
+    return(invisible(NULL))
+  }
+
+  log_msg("INFO", "Running Moran's I spatial autocorrelation test on DLNM residuals")
+
+  # 1. Build adjacency matrix for the 9 health macroregions of RJ
+  macro_names <- c(
+    "Baía da Ilha Grande", "Baixada Litorânea", "Centro-Sul",
+    "Médio Paraíba", "Metropolitana I", "Metropolitana II",
+    "Noroeste", "Norte", "Serrana"
+  )
+
+  # Adjacency list: each macroregion's neighbors by geographic contiguity
+  adjacency <- list(
+    "Baía da Ilha Grande" = c("Metropolitana I", "Médio Paraíba"),
+    "Baixada Litorânea" = c("Metropolitana II", "Norte", "Serrana"),
+    "Centro-Sul" = c("Metropolitana I", "Médio Paraíba", "Serrana"),
+    "Médio Paraíba" = c("Baía da Ilha Grande", "Centro-Sul", "Metropolitana I", "Serrana"),
+    "Metropolitana I" = c("Baía da Ilha Grande", "Centro-Sul", "Médio Paraíba",
+                           "Metropolitana II", "Serrana"),
+    "Metropolitana II" = c("Baixada Litorânea", "Metropolitana I", "Norte", "Serrana"),
+    "Noroeste" = c("Norte", "Serrana"),
+    "Norte" = c("Baixada Litorânea", "Metropolitana II", "Noroeste", "Serrana"),
+    "Serrana" = c("Baixada Litorânea", "Centro-Sul", "Médio Paraíba",
+                   "Metropolitana I", "Metropolitana II", "Noroeste", "Norte")
+  )
+
+  n <- length(macro_names)
+  W <- matrix(0, n, n, dimnames = list(macro_names, macro_names))
+  for (i in seq_along(macro_names)) {
+    neighbors <- adjacency[[macro_names[i]]]
+    if (length(neighbors) > 0) {
+      W[i, neighbors] <- 1 / length(neighbors)
+    }
+  }
+  lw <- spdep::mat2listw(W, style = "W", zero.policy = TRUE)
+
+  # 2. For each outcome×exposure, compute Moran's I on mean deviance residuals
+  residual_summary <- dplyr::bind_rows(
+    purrr::map(names(dlnm_results), function(key) {
+      obj <- dlnm_results[[key]]
+      if (is.null(obj) || is.null(obj$model)) return(NULL)
+      res <- residuals(obj$model, type = "deviance")
+      tibble::tibble(
+        modelo_id = key,
+        macro_regiao = obj$macro_regiao,
+        outcome = obj$outcome,
+        exposure = obj$exposure,
+        residuo_medio = mean(res, na.rm = TRUE),
+        residuo_sd = sd(res, na.rm = TRUE),
+        n_obs = length(res)
+      )
+    })
+  )
+
+  if (nrow(residual_summary) == 0) {
+    log_msg("WARN", "Moran's I: no residuals available")
+    return(invisible(NULL))
+  }
+
+  # 3. Run Moran's I for each outcome×exposure pair with >=4 macroregions
+  moran_results <- purrr::map_dfr(
+    dplyr::group_split(residual_summary, outcome, exposure),
+    function(group) {
+      if (nrow(group) < 4) return(NULL)
+      res_vec <- rep(NA_real_, n)
+      names(res_vec) <- macro_names
+      for (i in seq_len(nrow(group))) {
+        if (group$macro_regiao[i] %in% macro_names) {
+          res_vec[group$macro_regiao[i]] <- group$residuo_medio[i]
+        }
+      }
+      valid_idx <- !is.na(res_vec)
+      if (sum(valid_idx) < 4) return(NULL)
+
+      # Subset weights matrix to valid regions
+      W_sub <- W[valid_idx, valid_idx, drop = FALSE]
+      lw_sub <- spdep::mat2listw(W_sub, style = "W", zero.policy = TRUE)
+
+      mi <- tryCatch(
+        spdep::moran.test(res_vec[valid_idx], lw_sub,
+                          zero.policy = TRUE, alternative = "two.sided"),
+        error = function(e) {
+          log_msg("WARN", "Moran's I failed: ", conditionMessage(e))
+          list(estimate = c("Moran I statistic" = NA_real_), p.value = NA_real_)
+        }
+      )
+
+      tibble::tibble(
+        outcome = group$outcome[1],
+        exposure = group$exposure[1],
+        n_macroregioes = sum(valid_idx),
+        moran_i = as.numeric(mi$estimate["Moran I statistic"]),
+        moran_i_expectation = -1 / (sum(valid_idx) - 1),
+        moran_p = as.numeric(mi$p.value),
+        interpretacao = dplyr::case_when(
+          is.na(moran_p) ~ "teste_nao_convergiu",
+          moran_p < 0.01 ~ "autocorrelacao_espacial_significativa",
+          moran_p < 0.05 ~ "autocorrelacao_espacial_moderada",
+          moran_p < 0.10 ~ "evidencia_fraca_autocorrelacao",
+          TRUE ~ "sem_evidencia_autocorrelacao_espacial"
+        )
+      )
+    }
+  )
+
+  if (nrow(moran_results) > 0) {
+    write_audit(moran_results,
+      file.path(PROJECT_ROOT, "audit", "diagnosticos_moran_espacial_dlnm.csv"))
+    n_sig <- sum(moran_results$moran_p < 0.05, na.rm = TRUE)
+    log_msg("INFO", "Moran's I complete: ", nrow(moran_results), " tests; ",
+            n_sig, " significant at p<0.05")
+  } else {
+    write_audit(
+      tibble::tibble(outcome=character(), exposure=character(),
+        n_macroregioes=integer(), moran_i=numeric(),
+        moran_i_expectation=numeric(), moran_p=numeric(),
+        interpretacao=character()),
+      file.path(PROJECT_ROOT, "audit", "diagnosticos_moran_espacial_dlnm.csv"))
+    log_msg("WARN", "Moran's I: no tests could be computed")
+  }
+
+  invisible(moran_results)
+}
+
+#' [FIX C11] Audit expected vs. obtained model combinations
+audit_model_coverage <- function(dat_macro, dlnm_results) {
+  log_msg("INFO", "Auditing model coverage: expected vs. obtained")
+
+  base_outcomes <- c("internacoes_i60_i69", "obitos_i60_i69",
+                     "internacoes_i60_i64", "obitos_i60_i64")
+  cid_outcomes <- c("internacoes_i60_i62", "obitos_i60_i62",
+                    "internacoes_i63", "obitos_i63")
+  available_cols <- names(dat_macro)
+  cid_outcomes <- intersect(cid_outcomes, available_cols)
+  outcomes <- c(base_outcomes, cid_outcomes)
+  exposures <- c("temp_med", "ur_med")
+
+  expected <- tidyr::crossing(
+    macro_regiao = sort(unique(dat_macro$macro_regiao)),
+    outcome = outcomes,
+    exposure = exposures
+  ) |>
+    dplyr::mutate(combinacao_id = paste(macro_regiao, outcome, exposure, sep = "__") |>
+                    janitor::make_clean_names())
+
+  obtained_keys <- names(dlnm_results)
+
+  coverage <- expected |>
+    dplyr::mutate(
+      modelo_ajustado = combinacao_id %in% obtained_keys,
+      status = dplyr::if_else(modelo_ajustado, "obtido", "ausente")
+    )
+
+  # Add event counts for diagnosing why models are missing
+  obs_counts <- dat_macro |>
+    dplyr::group_by(macro_regiao) |>
+    dplyr::summarise(
+      dias = dplyr::n(),
+      dplyr::across(dplyr::any_of(intersect(outcomes, names(dat_macro))),
+                    ~sum(.x, na.rm = TRUE), .names = "total_{.col}"),
+      .groups = "drop"
+    )
+
+  coverage <- coverage |>
+    dplyr::left_join(obs_counts, by = "macro_regiao")
+
+  write_audit(coverage,
+    file.path(PROJECT_ROOT, "audit", "auditoria_cobertura_modelos_esperado_vs_obtido.csv"))
+
+  n_ausentes <- sum(!coverage$modelo_ajustado)
+  n_total <- nrow(coverage)
+  log_msg("INFO", "Model coverage: ", n_total - n_ausentes, "/", n_total,
+          " (", round(100 * (n_total - n_ausentes) / n_total, 1), "%); ",
+          n_ausentes, " absent")
+
+  invisible(coverage)
+}
+
 #' Write DLNM model specification audit
 write_dlnm_model_audits <- function(results) {
   spec <- purrr::map_dfr(names(results), function(k) {
@@ -556,12 +762,12 @@ run_temporal_df_sensitivity <- function(dat_macro, df_grid = c(4, 5, 6)) {
                                         df = DLNM_FALLBACK$df_lag))
             )
             complementary <- if (exp == "temp_med") "ur_med" else "temp_med"
-            covars <- paste0("ns(tempo, df = ", df_year * length(unique(d$ano)),
-              ") + dow + feriado + pandemia + ns(", complementary, ", df = 3)")
-            if (!is.null(d$pm25_anual) && any(is.finite(d$pm25_anual)))
-              covars <- paste0(covars, " + pm25_anual")
+            covars <- paste0("splines::ns(tempo, df = ", df_year * length(unique(d$ano)),
+              ") + dow + feriado + pandemia + splines::ns(", complementary, ", df = 3)")
+            if (!is.null(d$pm25_mensal) && any(is.finite(d$pm25_mensal)))
+              covars <- paste0(covars, " + pm25_mensal")
             if (!is.null(d$influenza_lag7) && all(is.finite(d$influenza_lag7)))
-              covars <- paste0(covars, " + ns(influenza_lag7, df = 2)")
+              covars <- paste0(covars, " + splines::ns(influenza_lag7, df = 2)")
             form <- stats::as.formula(paste(outc, "~ cb +", covars,
               "+ offset(offset_log_populacao)"))
             glm(form, family = quasipoisson(link = "log"),

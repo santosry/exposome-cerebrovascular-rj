@@ -247,9 +247,9 @@ get_brazilian_holidays <- function(years) {
     ))
     # RJ state holidays
     dates <- c(dates, as.Date(sprintf("%d-04-23", yr)))  # Sao Jorge
-    if (yr <= 2023) {
-      dates <- c(dates, as.Date(sprintf("%d-11-20", yr))) # Consciencia Negra (RJ ate 2023)
-    }
+    # Consciencia Negra: feriado estadual RJ (ate 2023) -> nacional (Lei 14.759/2023, a partir de 2024)
+    # [FIX C12] Incluir para todos os anos (ja era feriado no RJ antes de 2024, tornou-se nacional depois)
+    dates <- c(dates, as.Date(sprintf("%d-11-20", yr)))
     dates
   }
   all_dates <- character()

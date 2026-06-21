@@ -347,13 +347,111 @@ audit_macro_climate <- function(climate_macro, station_daily, station_map) {
   invisible(list(coverage = coverage))
 }
 
-#' Validate climate imputation via cross-validation
+#' [FIX C9] Validate climate imputation via leave-one-station-out cross-validation
 validate_climate_imputation <- function(climate_macro, station_daily) {
-  audit <- tibble::tibble(
-    etapa = "validacao_cruzada_imputacao",
-    status = "nao_implementada_detalhadamente",
-    observacao = "Validacao cruzada da imputacao climatica requer implementacao com held-out stations"
-  )
+  if (is.null(station_daily) || nrow(station_daily) == 0) {
+    audit <- tibble::tibble(
+      etapa = "validacao_cruzada_imputacao",
+      status = "nao_executada_sem_dados_estacao",
+      observacao = "Sem dados de estacao disponiveis para validacao cruzada"
+    )
+    write_audit(audit,
+      file.path(PROJECT_ROOT, "audit", "validacao_cruzada_imputacao_climatica.csv"))
+    return(invisible(audit))
+  }
+
+  # For each macroregion, hold out one station at a time and compare
+  # predicted (mean of remaining stations) vs. observed (held-out station)
+  results <- list()
+
+  for (macro in sort(unique(station_daily$macro_regiao))) {
+    stations <- unique(station_daily$station_code[station_daily$macro_regiao == macro])
+    if (length(stations) < 2) next  # need at least 2 stations for LOO
+
+    for (held_out in stations) {
+      # Training: mean of all OTHER stations
+      train <- station_daily |>
+        dplyr::filter(macro_regiao == macro, station_code != held_out)
+      # Held-out: the excluded station
+      test <- station_daily |>
+        dplyr::filter(macro_regiao == macro, station_code == held_out)
+
+      if (nrow(train) == 0 || nrow(test) == 0) next
+
+      # Compute daily mean from training stations
+      daily_pred <- train |>
+        dplyr::group_by(data) |>
+        dplyr::summarise(
+          temp_pred = mean(temp_med, na.rm = TRUE),
+          ur_pred = mean(ur_med, na.rm = TRUE),
+          .groups = "drop"
+        )
+
+      # Merge with held-out observations
+      comp <- test |>
+        dplyr::select(data, temp_obs = temp_med, ur_obs = ur_med) |>
+        dplyr::inner_join(daily_pred, by = "data")
+
+      if (nrow(comp) < 30) next  # need sufficient overlap
+
+      # Compute error metrics
+      temp_mae <- mean(abs(comp$temp_pred - comp$temp_obs), na.rm = TRUE)
+      temp_rmse <- sqrt(mean((comp$temp_pred - comp$temp_obs)^2, na.rm = TRUE))
+      temp_cor <- tryCatch(
+        stats::cor(comp$temp_pred, comp$temp_obs, use = "complete.obs"),
+        error = function(e) NA_real_
+      )
+      ur_mae <- mean(abs(comp$ur_pred - comp$ur_obs), na.rm = TRUE)
+      ur_rmse <- sqrt(mean((comp$ur_pred - comp$ur_obs)^2, na.rm = TRUE))
+      ur_cor <- tryCatch(
+        stats::cor(comp$ur_pred, comp$ur_obs, use = "complete.obs"),
+        error = function(e) NA_real_
+      )
+
+      results[[paste(macro, held_out, sep = "__")]] <- tibble::tibble(
+        macro_regiao = macro,
+        estacao_excluida = held_out,
+        n_estacoes_treino = length(stations) - 1,
+        n_dias_validacao = nrow(comp),
+        temp_mae = round(temp_mae, 3),
+        temp_rmse = round(temp_rmse, 3),
+        temp_cor = round(temp_cor, 4),
+        ur_mae = round(ur_mae, 3),
+        ur_rmse = round(ur_rmse, 3),
+        ur_cor = round(ur_cor, 4)
+      )
+    }
+  }
+
+  audit <- dplyr::bind_rows(results)
+
+  if (nrow(audit) > 0) {
+    # Add summary row
+    summary <- tibble::tibble(
+      macro_regiao = "RESUMO_GERAL",
+      estacao_excluida = "TODAS",
+      n_estacoes_treino = NA_integer_,
+      n_dias_validacao = sum(audit$n_dias_validacao),
+      temp_mae = round(mean(audit$temp_mae, na.rm = TRUE), 3),
+      temp_rmse = round(mean(audit$temp_rmse, na.rm = TRUE), 3),
+      temp_cor = round(mean(audit$temp_cor, na.rm = TRUE), 4),
+      ur_mae = round(mean(audit$ur_mae, na.rm = TRUE), 3),
+      ur_rmse = round(mean(audit$ur_rmse, na.rm = TRUE), 3),
+      ur_cor = round(mean(audit$ur_cor, na.rm = TRUE), 4)
+    )
+    audit <- dplyr::bind_rows(audit, summary)
+    log_msg("INFO", "Climate imputation validation: ",
+            nrow(audit) - 1, " LOO folds; ",
+            "temp MAE=", summary$temp_mae, ", UR MAE=", summary$ur_mae)
+  } else {
+    audit <- tibble::tibble(
+      etapa = "validacao_cruzada_imputacao",
+      status = "sem_estacoes_suficientes_para_loo",
+      observacao = "Nenhuma macroregiao possui >=2 estacoes para leave-one-out"
+    )
+    log_msg("WARN", "Climate imputation validation: insufficient stations for LOO")
+  }
+
   write_audit(audit,
     file.path(PROJECT_ROOT, "audit", "validacao_cruzada_imputacao_climatica.csv"))
   invisible(audit)
