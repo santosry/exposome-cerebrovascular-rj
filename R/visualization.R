@@ -295,3 +295,126 @@ generate_cellpress_figures <- function() {
   log_msg("INFO", "CellPress figures complete")
   invisible(TRUE)
 }
+
+# [DIAG-PLOTS] Extended diagnostic residual plots for top FDR-significant models.
+# Generates ACF, PACF, QQ-normal, and residual-vs-fitted plots.
+#' Generate extended diagnostic residual plots
+plot_extended_diagnostics <- function(dlnm_results, auc_tbl, max_models = 12) {
+  if (!requireNamespace("ggplot2", quietly = TRUE) ||
+      !requireNamespace("patchwork", quietly = TRUE)) {
+    log_msg("WARN", "ggplot2/patchwork not available; skipping extended diagnostics")
+    return(invisible(NULL))
+  }
+
+  log_msg("INFO", "Generating extended diagnostic residual plots")
+
+  diag_dir <- file.path(PROJECT_ROOT, "outputs", "figures", "diagnosticos_residuos")
+  dir.create(diag_dir, recursive = TRUE, showWarnings = FALSE)
+
+  # Select top models: FDR-significant prioritized by RR magnitude
+  if (!is.null(auc_tbl) && "fdr_significant" %in% names(auc_tbl)) {
+    top_models <- auc_tbl |>
+      dplyr::filter(fdr_significant) |>
+      dplyr::arrange(dplyr::desc(rr_cumulativo_max)) |>
+      utils::head(max_models)
+  } else {
+    # Fallback: take first N models with valid residuals
+    top_models <- NULL
+  }
+
+  plotted <- 0
+
+  for (key in names(dlnm_results)) {
+    obj <- dlnm_results[[key]]
+    if (is.null(obj) || is.null(obj$model)) next
+
+    # Filter to top FDR models if available
+    if (!is.null(top_models)) {
+      model_match <- top_models |>
+        dplyr::filter(
+          macro_regiao == obj$macro_regiao,
+          outcome == obj$outcome,
+          exposure == obj$exposure
+        )
+      if (nrow(model_match) == 0) next
+    }
+
+    res <- residuals(obj$model, type = "deviance")
+    fitted_vals <- fitted(obj$model)
+    n <- length(res)
+    if (n < 50) next
+
+    safe_name <- janitor::make_clean_names(
+      paste(obj$macro_regiao, obj$outcome, obj$exposure, sep = "_"))
+
+    # ACF data
+    acf_data <- stats::acf(res, plot = FALSE, lag.max = 30, na.action = na.pass)
+    acf_df <- data.frame(lag = acf_data$lag[-1], acf = acf_data$acf[-1])
+    acf_ci <- 1.96 / sqrt(n)
+
+    # PACF data
+    pacf_data <- stats::pacf(res, plot = FALSE, lag.max = 30, na.action = na.pass)
+    pacf_df <- data.frame(lag = pacf_data$lag, pacf = pacf_data$acf)
+
+    # Build 4-panel diagnostic plot
+    p1 <- ggplot2::ggplot(data.frame(res = res, fitted = fitted_vals),
+      ggplot2::aes(x = fitted_vals, y = res)) +
+      ggplot2::geom_point(alpha = 0.3, size = 0.5) +
+      ggplot2::geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+      ggplot2::geom_smooth(method = "loess", se = TRUE, color = "blue", linewidth = 1) +
+      ggplot2::labs(x = "Fitted values", y = "Deviance residuals",
+                    title = "Residuals vs Fitted") +
+      ggplot2::theme_minimal()
+
+    p2 <- ggplot2::ggplot(data.frame(res = res),
+      ggplot2::aes(sample = res)) +
+      ggplot2::stat_qq(alpha = 0.3, size = 0.5) +
+      ggplot2::stat_qq_line(color = "red") +
+      ggplot2::labs(x = "Theoretical Quantiles", y = "Sample Quantiles",
+                    title = "Q-Q Plot (Deviance Residuals)") +
+      ggplot2::theme_minimal()
+
+    p3 <- ggplot2::ggplot(acf_df, ggplot2::aes(x = lag, y = acf)) +
+      ggplot2::geom_col(fill = "steelblue", width = 0.3) +
+      ggplot2::geom_hline(yintercept = c(-acf_ci, acf_ci),
+                          linetype = "dashed", color = "red") +
+      ggplot2::geom_hline(yintercept = 0) +
+      ggplot2::labs(x = "Lag (days)", y = "ACF",
+                    title = paste0("Autocorrelation (Ljung-Box p=",
+                      format(stats::Box.test(res, lag = 14, type = "Ljung-Box")$p.value,
+                             digits = 2), ")")) +
+      ggplot2::theme_minimal()
+
+    p4 <- ggplot2::ggplot(pacf_df, ggplot2::aes(x = lag, y = pacf)) +
+      ggplot2::geom_col(fill = "darkgreen", width = 0.3) +
+      ggplot2::geom_hline(yintercept = c(-acf_ci, acf_ci),
+                          linetype = "dashed", color = "red") +
+      ggplot2::geom_hline(yintercept = 0) +
+      ggplot2::labs(x = "Lag (days)", y = "PACF",
+                    title = "Partial Autocorrelation") +
+      ggplot2::theme_minimal()
+
+    combined <- p1 + p2 + p3 + p4 +
+      patchwork::plot_layout(ncol = 2, nrow = 2) +
+      patchwork::plot_annotation(
+        title = paste(obj$macro_regiao, "|", obj$outcome, "|", obj$exposure),
+        subtitle = paste0("Family: ", obj$family,
+          ", Dispersion: ", round(obj$dispersion, 2),
+          ", n = ", n),
+        theme = ggplot2::theme(plot.title = ggplot2::element_text(size = 11, face = "bold"))
+      )
+
+    ggplot2::ggsave(
+      file.path(diag_dir, paste0("diagnostic_", safe_name, ".png")),
+      combined, width = 12, height = 10, dpi = 150, bg = "white"
+    )
+
+    plotted <- plotted + 1
+    log_msg("INFO", "  Diagnostic plot: ", safe_name)
+
+    if (plotted >= max_models) break
+  }
+
+  log_msg("INFO", "Extended diagnostics complete: ", plotted, " plots generated")
+  invisible(plotted)
+}

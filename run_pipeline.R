@@ -111,6 +111,11 @@ run_pipeline <- function() {
   plot_monthly_admissions(dat_macro)
   plot_daily_climate_seasonality(dat_macro)
   generate_cellpress_figures()
+  # [DIAG-PLOTS] Extended diagnostic residuals for top FDR-significant models
+  auc_tbl <- readr::read_csv(
+    file.path(PROJECT_ROOT, "outputs", "tables", "tabela_auc_rr_dlnm_macrorregiao.csv"),
+    show_col_types = FALSE)
+  plot_extended_diagnostics(dlnm_results, auc_tbl)
 
   # ── Stage 8: Reports and Validation ──
   log_msg("INFO", "Generating reports and running validation")

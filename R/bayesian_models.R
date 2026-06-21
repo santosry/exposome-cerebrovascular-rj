@@ -118,12 +118,42 @@ run_bayesian_hierarchical_validation <- function(rr_tbl, auc_tbl,
         is.finite(se_log_rr_hac) & se_log_rr_hac > 0,
         se_log_rr_hac,
         (log(rr_cumulativo_high) - log(rr_cumulativo_low)) / (2 * 1.96)
+      ),
+      # [DELTA-METHOD] Flag whether HAC-based SE was used (vs CI-approximation)
+      se_source = dplyr::if_else(
+        is.finite(se_log_rr_hac) & se_log_rr_hac > 0,
+        "HAC_delta_method",
+        "CI_width_approximation"
       )
     ) |>
     dplyr::filter(is.finite(log_rr), is.finite(se_log_rr), se_log_rr > 0)
 
   # Run hierarchical model
   bayes_results <- bayes_normal_normal_group(bayes_input, rr_threshold)
+
+  # [DELTA-METHOD] Add inflation sensitivity: what if stage-1 SE is underestimated?
+  # Re-run with SE inflated by 20% to test robustness to unpropagated uncertainty
+  bayes_input_inflated <- bayes_input |>
+    dplyr::mutate(se_log_rr = se_log_rr * 1.20)
+  bayes_inflated <- bayes_normal_normal_group(bayes_input_inflated, rr_threshold)
+
+  # Merge: compare original vs inflated posterior probabilities
+  bayes_results <- bayes_results |>
+    dplyr::left_join(
+      bayes_inflated |>
+        dplyr::select(macro_regiao, outcome, exposure,
+                       prob_rr_gt_threshold_inflated = prob_rr_gt_threshold,
+                       posterior_mean_inflated = posterior_mean),
+      by = c("macro_regiao", "outcome", "exposure")
+    ) |>
+    dplyr::mutate(
+      # Sensitivity: does the finding survive 20% SE inflation?
+      robust_to_se_inflation = dplyr::if_else(
+        prob_rr_gt_threshold > 0.80 & prob_rr_gt_threshold_inflated > 0.80,
+        TRUE, FALSE
+      ),
+      prob_drop = round(prob_rr_gt_threshold - prob_rr_gt_threshold_inflated, 4)
+    )
 
   # Merge with AUC and diagnostic info
   if (!is.null(auc_tbl)) {
@@ -139,6 +169,12 @@ run_bayesian_hierarchical_validation <- function(rr_tbl, auc_tbl,
   write_audit(bayes_results,
     file.path(PROJECT_ROOT, "outputs", "tables",
               "ranking_modelos_rr_ic95_auc_residuos_bayes.csv"))
+
+  # [DELTA-METHOD] Report sensitivity to stage-1 uncertainty
+  n_robust <- sum(bayes_results$robust_to_se_inflation, na.rm = TRUE)
+  n_strong <- sum(bayes_results$prob_rr_gt_threshold > 0.80, na.rm = TRUE)
+  log_msg("INFO", "Delta-method sensitivity: ", n_robust, "/", n_strong,
+          " strong findings robust to 20% SE inflation")
 
   # Run prior sensitivity
   prior_sens <- run_prior_sensitivity(rr_tbl, auc_tbl, residual_tbl)
