@@ -798,3 +798,184 @@ run_temporal_df_sensitivity <- function(dat_macro, df_grid = c(4, 5, 6)) {
   }
   sens_tbl
 }
+
+# [S-015] Temporal holdout validation: train 2010-2022, test 2023-2025.
+# Fits DLNM on training period, predicts on held-out test period,
+# and computes calibration metrics (RMSE, MAE, correlation, coverage).
+#' Run temporal holdout validation
+run_temporal_holdout_validation <- function(dat_macro) {
+  log_msg("INFO", "Starting temporal holdout validation: 2010-2022 vs 2023-2025")
+
+  train_start <- as.Date("2010-01-01")
+  train_end <- as.Date("2022-12-31")
+  test_start <- as.Date("2023-01-01")
+  test_end <- as.Date("2025-12-31")
+
+  dat_train <- dat_macro |> dplyr::filter(data >= train_start, data <= train_end)
+  dat_test <- dat_macro |> dplyr::filter(data >= test_start, data <= test_end)
+
+  log_msg("INFO", "Training period: ", nrow(dat_train), " rows (",
+          train_start, " to ", train_end, ")")
+  log_msg("INFO", "Test period: ", nrow(dat_test), " rows (",
+          test_start, " to ", test_end, ")")
+
+  outcomes <- c("internacoes_i60_i69", "obitos_i60_i69")
+  exposures <- c("temp_med", "ur_med")
+
+  all_metrics <- list()
+
+  for (region in sort(unique(dat_macro$macro_regiao))) {
+    d_train <- dplyr::filter(dat_train, macro_regiao == region)
+    d_test <- dplyr::filter(dat_test, macro_regiao == region)
+
+    if (nrow(d_train) < 365 || nrow(d_test) < 90) next
+
+    for (outcome in outcomes) {
+      for (exposure in exposures) {
+        key <- paste(region, outcome, exposure, sep = "__")
+        log_msg("INFO", "Holdout: ", key)
+
+        obj <- safe_fetch({
+          # Build crossbasis on FULL training data to get basis functions
+          cb_train <- dlnm::crossbasis(
+            d_train[[exposure]], lag = DLNM_FALLBACK$lag_max,
+            argvar = list(fun = "ns", df = DLNM_FALLBACK$df_exp),
+            arglag = list(fun = "ns",
+              knots = dlnm::logknots(DLNM_FALLBACK$lag_max, df = DLNM_FALLBACK$df_lag))
+          )
+
+          # Fit model on training data
+          complementary <- if (exposure == "temp_med") "ur_med" else "temp_med"
+          covars <- paste0("splines::ns(tempo, df = ", 7 * length(unique(d_train$ano)),
+            ") + dow + feriado + pandemia + splines::ns(", complementary, ", df = 3)")
+          if (!is.null(d_train$influenza_lag7) && all(is.finite(d_train$influenza_lag7))) {
+            covars <- paste0(covars, " + splines::ns(influenza_lag7, df = 2)")
+          }
+          if (!is.null(d_train$pm25_mensal) && any(is.finite(d_train$pm25_mensal))) {
+            covars <- paste0(covars, " + pm25_mensal")
+          }
+          form <- stats::as.formula(
+            paste(outcome, "~ cb_train +", covars, "+ offset(offset_log_populacao)"))
+
+          m <- glm(form, family = quasipoisson(link = "log"),
+                   data = d_train, na.action = na.exclude)
+
+          # Predict on test data using crossbasis reconstructed with same basis
+          cb_test <- dlnm::crossbasis(
+            d_test[[exposure]], lag = DLNM_FALLBACK$lag_max,
+            argvar = list(fun = "ns", df = DLNM_FALLBACK$df_exp),
+            arglag = list(fun = "ns",
+              knots = dlnm::logknots(DLNM_FALLBACK$lag_max, df = DLNM_FALLBACK$df_lag))
+          )
+
+          pred_counts <- predict(m, newdata = d_test, type = "response")
+          obs_counts <- d_test[[outcome]]
+
+          list(
+            region = region, outcome = outcome, exposure = exposure,
+            pred = pred_counts, obs = obs_counts,
+            n_train = nrow(d_train), n_test = nrow(d_test)
+          )
+        }, paste("HOLDOUT", key), critical = FALSE)
+
+        if (is.null(obj)) next
+
+        # Compute metrics
+        valid_idx <- !is.na(obj$pred) & !is.na(obj$obs) & is.finite(obj$pred) & is.finite(obj$obs)
+        pred_v <- obj$pred[valid_idx]
+        obs_v <- obj$obs[valid_idx]
+
+        if (length(pred_v) < 30) next
+
+        rmse <- sqrt(mean((pred_v - obs_v)^2))
+        mae <- mean(abs(pred_v - obs_v))
+        spearman_cor <- tryCatch(
+          stats::cor(pred_v, obs_v, method = "spearman"),
+          error = function(e) NA_real_
+        )
+        pearson_cor <- tryCatch(
+          stats::cor(pred_v, obs_v, method = "pearson"),
+          error = function(e) NA_real_
+        )
+
+        # Prediction interval coverage (approximate, Poisson-based)
+        se_pred <- sqrt(pred_v)  # Poisson SE approximation
+        ci_lower <- pmax(0, pred_v - 1.96 * se_pred)
+        ci_upper <- pred_v + 1.96 * se_pred
+        coverage_95 <- mean(obs_v >= ci_lower & obs_v <= ci_upper, na.rm = TRUE)
+
+        # Relative metrics
+        mean_obs <- mean(obs_v)
+        cv_rmse <- if (mean_obs > 0) rmse / mean_obs else NA_real_
+
+        all_metrics[[key]] <- tibble::tibble(
+          macro_regiao = region,
+          outcome = outcome,
+          exposure = exposure,
+          train_start = train_start,
+          train_end = train_end,
+          test_start = test_start,
+          test_end = test_end,
+          n_train_days = obj$n_train,
+          n_test_days = obj$n_test,
+          n_valid_pairs = length(pred_v),
+          mean_obs = round(mean_obs, 4),
+          mean_pred = round(mean(pred_v), 4),
+          rmse = round(rmse, 4),
+          mae = round(mae, 4),
+          cv_rmse = round(cv_rmse, 4),
+          spearman_cor = round(spearman_cor, 4),
+          pearson_cor = round(pearson_cor, 4),
+          coverage_95 = round(coverage_95, 4),
+          total_obs_events = sum(obs_v),
+          total_pred_events = round(sum(pred_v), 1)
+        )
+      }
+    }
+  }
+
+  results <- dplyr::bind_rows(all_metrics)
+
+  if (nrow(results) > 0) {
+    # Add summary row
+    summary <- tibble::tibble(
+      macro_regiao = "RESUMO_GERAL",
+      outcome = "TODOS",
+      exposure = "TODAS",
+      train_start = train_start, train_end = train_end,
+      test_start = test_start, test_end = test_end,
+      n_train_days = NA_integer_, n_test_days = NA_integer_,
+      n_valid_pairs = sum(results$n_valid_pairs),
+      mean_obs = NA_real_, mean_pred = NA_real_,
+      rmse = round(mean(results$rmse, na.rm = TRUE), 4),
+      mae = round(mean(results$mae, na.rm = TRUE), 4),
+      cv_rmse = round(mean(results$cv_rmse, na.rm = TRUE), 4),
+      spearman_cor = round(mean(results$spearman_cor, na.rm = TRUE), 4),
+      pearson_cor = round(mean(results$pearson_cor, na.rm = TRUE), 4),
+      coverage_95 = round(mean(results$coverage_95, na.rm = TRUE), 4),
+      total_obs_events = sum(results$total_obs_events),
+      total_pred_events = sum(results$total_pred_events)
+    )
+    results <- dplyr::bind_rows(results, summary)
+
+    write_audit(results,
+      file.path(PROJECT_ROOT, "audit", "validacao_temporal_holdout_2010_2022_vs_2023_2025.csv"))
+
+    log_msg("INFO", "Temporal holdout complete: ",
+            nrow(results) - 1, " model combinations tested")
+    log_msg("INFO", "  Mean RMSE: ", round(summary$rmse, 3),
+            ", Mean Spearman rho: ", round(summary$spearman_cor, 3),
+            ", Mean coverage 95%: ", round(summary$coverage_95 * 100, 1), "%")
+  } else {
+    write_audit(
+      tibble::tibble(
+        macro_regiao = character(), outcome = character(), exposure = character(),
+        rmse = numeric(), mae = numeric(), spearman_cor = numeric()
+      ),
+      file.path(PROJECT_ROOT, "audit", "validacao_temporal_holdout_2010_2022_vs_2023_2025.csv")
+    )
+    log_msg("WARN", "Temporal holdout: no models could be validated")
+  }
+
+  invisible(results)
+}

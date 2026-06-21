@@ -120,6 +120,9 @@ run_pipeline <- function() {
   centralize_audits()
   run_benchmark_validation()
 
+  # [S-015] Temporal holdout validation: train 2010-2022, test 2023-2025
+  run_temporal_holdout_validation(dat_macro)
+
   # [BSB-REMOVED] Manuscript rendering is not part of the public compendium.
   # The BSB 2026 manuscript source is excluded from this repository.
   # render_bsb_outputs()

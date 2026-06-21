@@ -353,6 +353,7 @@ python extrair_mp25_rj.py
 7. **Two-stage Bayesian** — uncertainty from DLNM stage not fully propagated to posterior intervals (when using plug-in RR point estimates)
 8. **Intercensal population estimates** for 2023–2025 based on post-Census 2022 projections (IBGE/SIDRA table 6579)
 9. **Multiple comparisons** — FDR correction applied; prioritization examines multiple dimensions (exploratory nature documented)
+10. **No external temporal validation** — models are fitted and evaluated on the full 2010-2025 period without out-of-sample holdout. A temporal holdout validation (train 2010-2022 vs. test 2023-2025) is implemented in `run_temporal_holdout_validation()` and results are recorded in `audit/validacao_temporal_holdout_2010_2022_vs_2023_2025.csv`
 
 ---
 
