@@ -6,19 +6,23 @@ authors:
   - family-names: "Santos"
     given-names: "Ryan de Paulo"
     email: "ryan.paulo@gsuite.iff.edu.br"
-    orcid: "0000-0000-0000-0000"  # TODO: preencher ORCID real
+    orcid: "https://orcid.org/0009-0005-6770-2001"
+    affiliation: "Instituto Federal de Educação, Ciência e Tecnologia Fluminense Campus Campos Guarus, Campos dos Goytacazes, Rio de Janeiro, Brasil"
   - family-names: "Nunes"
     given-names: "Camila Henriques"
     email: "camila.n@gsuite.iff.edu.br"
-    orcid: "0000-0000-0000-0000"  # TODO: preencher ORCID real
+    orcid: "https://orcid.org/0000-0002-1663-9445"
+    affiliation: "Instituto Federal de Educação, Ciência e Tecnologia Fluminense Campus Campos Guarus, Campos dos Goytacazes, Rio de Janeiro, Brasil"
   - family-names: "Ribeiro"
     given-names: "Karla Rangel"
     email: "karla.ribeiro@gsuite.iff.edu.br"
-    orcid: "0000-0000-0000-0000"  # TODO: preencher ORCID real
+    orcid: "https://orcid.org/0000-0002-3975-6193"
+    affiliation: "Instituto Federal de Educação, Ciência e Tecnologia Fluminense Campus Campos Guarus, Campos dos Goytacazes, Rio de Janeiro, Brasil"
   - family-names: "Medina-Acosta"
     given-names: "Enrique"
     email: "quique@uenf.br"
-    orcid: "0000-0000-0000-0000"  # TODO: preencher ORCID real
+    orcid: "https://orcid.org/0000-0002-2529-0548"
+    affiliation: "Universidade Estadual do Norte Fluminense Darcy Ribeiro, Campos dos Goytacazes, Rio de Janeiro, Brasil"
 keywords:
   - "DLNM"
   - "environmental epidemiology"
