@@ -91,15 +91,12 @@ implemented before this second audit, which explains the score improvement:
 
 | Action | Status |
 |---|---|
-| OSF pre-registration template | Created at `docs/methodology/osf_preregistration_template.md` |
-| Ecological bias discussion expanded | This document now explicitly addresses the aggregation caveat |
-| Priority framework documented as exploratory | README and pre-registration clarify five criteria are exploratory, not a formal decision rule |
+| Priority framework documented as exploratory | README clarifies five criteria are exploratory, not a formal decision rule |
 | Language audit: no "effect", "causal", or inappropriate "risk" found in README | Confirmed — language is strictly associational |
 
 ### Recommended Next Steps for Journal Submission
 
-1. **Complete OSF registration** using the template at `docs/methodology/osf_preregistration_template.md`
-2. **Fill ORCID identifiers** in `CITATION.cff` (currently placeholders)
+1. **Fill ORCID identifiers** in `CITATION.cff` (currently placeholders)
 3. **Add CRediT author contribution statement** per ICMJE criteria
 4. **Consider external validation** (temporal holdout 2010-2022 vs. 2023-2025) for robustness
 5. **Target journals:** *Environmental Health Perspectives* (40-55% acceptance probability estimated) or *Scientific Reports* (60%+) for initial submission
