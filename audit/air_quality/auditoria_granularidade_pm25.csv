@@ -1,0 +1,2 @@
+exposicao,fonte,unidade_espacial_origem,unidade_espacial_modelo,granularidade_temporal,n_municipios,n_macrorregioes,n_meses,ano_min,ano_max,uso_no_dlnm,limitacao
+PM2.5,INEA/MonitorAr-VIGIAR via Power BI,municipio,macrorregiao,mensal_derivada,,9,12,2010,2025,covariavel linear mensal opcional; nao entra como cross-basis diario,mensal derivado por downscaling; granularidade inferior a temperatura e umidade diarias

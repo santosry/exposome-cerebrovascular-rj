@@ -1,0 +1,4 @@
+categoria,n_municipios,observacao
+Monitorado,74,municipios com valor de referencia obtido diretamente
+Vizinho mais proximo,18,municipios sem monitoramento direto preenchidos pelo municipio monitorado mais proximo
+Total,92,cobertura municipal no arquivo de referencia
