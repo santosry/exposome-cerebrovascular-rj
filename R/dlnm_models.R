@@ -161,7 +161,10 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
   # For feasibility, bootstrap is attempted only when enabled and when
   # model converged without alerts. Otherwise uses standard MMT plug-in.
   mmt_boot_ci <- NULL
-  if (use_mmt && DLNM_MMT_ENABLE && !alerta_convergencia) {
+  conv_ok <- isTRUE(model$converged) &&
+    !any(grepl("converg|alternation|iteration|limite|limit",
+               tolower(model_warnings)))
+  if (use_mmt && DLNM_MMT_ENABLE && conv_ok) {
     mmt_boot <- tryCatch({
       .bootstrap_mmt(dat[[exposure]], dat[[outcome]], model, pred_at, B = 200L)
     }, error = function(e) {
