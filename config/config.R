@@ -62,6 +62,7 @@ DLNM_FALLBACK <- list(df_exp = 4, df_lag = 3, lag_max = 14)
 DLNM_DF_EXP_GRID <- c(3, 4, 5, 6)
 DLNM_DF_LAG_GRID <- c(3, 4, 5)
 DLNM_MMT_ENABLE <- TRUE
+DLNM_MMT_BOOTSTRAP_B <- 200L  # Bootstrap resamples for MMT uncertainty
 DLNM_NW_HAC_ENABLE <- TRUE
 DLNM_NW_LAGS <- 21
 

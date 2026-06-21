@@ -157,6 +157,35 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
   pred <- dlnm::crosspred(cb, model, at = pred_at, cen = cen,
                             bylag = 1, cumul = TRUE)
 
+  # [MMT-BOOTSTRAP] Bootstrap MMT uncertainty (Tobias et al. 2017)
+  # For feasibility, bootstrap is attempted only when enabled and when
+  # model converged without alerts. Otherwise uses standard MMT plug-in.
+  mmt_boot_ci <- NULL
+  if (use_mmt && DLNM_MMT_ENABLE && !alerta_convergencia) {
+    mmt_boot <- tryCatch({
+      .bootstrap_mmt(dat[[exposure]], dat[[outcome]], model, pred_at, B = 200L)
+    }, error = function(e) {
+      log_msg("WARN", "MMT bootstrap failed for ", exposure, "/", outcome,
+              ": ", conditionMessage(e))
+      NULL
+    })
+    if (!is.null(mmt_boot) && mmt_boot$n_valid >= 50) {
+      cen_boot <- mmt_boot$mmt_mean
+      pred_boot <- dlnm::crosspred(cb, model, at = pred_at, cen = cen_boot,
+                                    bylag = 1, cumul = TRUE)
+      mmt_boot_ci <- list(
+        mmt_point = cen,
+        mmt_boot_mean = mmt_boot$mmt_mean,
+        mmt_boot_ci_low = mmt_boot$mmt_ci_low,
+        mmt_boot_ci_high = mmt_boot$mmt_ci_high,
+        mmt_boot_sd = mmt_boot$mmt_sd,
+        n_valid = mmt_boot$n_valid,
+        rr_original = pred$allRRfit[length(pred$allRRfit)],
+        rr_boot_centered = pred_boot$allRRfit[length(pred_boot$allRRfit)]
+      )
+    }
+  }
+
   # [S-008] Newey-West HAC standard errors with delta-method propagation
   # to cumulative RR. The SE from crosspred uses model vcov, not HAC.
   nw_se <- NULL; nw_cov <- NULL
@@ -196,6 +225,7 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
     cen_percentil_mmt = cen_percentil_mmt,
     nw_se = nw_se, nw_cov = nw_cov,
     se_log_rr_hac = se_log_rr_hac,
+    mmt_boot_ci = mmt_boot_ci,
     alerta_convergencia = alerta_convergencia,
     model_warnings = model_warnings,
     exposure = exposure, outcome = outcome,
@@ -833,6 +863,34 @@ write_dlnm_model_audits <- function(results) {
     )
   write_audit(quality,
     file.path(PROJECT_ROOT, "audit", "resumo_qualidade_modelos_dlnm.csv"))
+
+  # [MMT-BOOTSTRAP] Audit MMT bootstrap results
+  mmt_audit <- purrr::map_dfr(names(results), function(k) {
+    obj <- results[[k]]
+    if (is.null(obj$mmt_boot_ci)) return(NULL)
+    tibble::tibble(
+      modelo_id = k,
+      macro_regiao = obj$macro_regiao,
+      outcome = obj$outcome,
+      exposure = obj$exposure,
+      mmt_point = obj$mmt_boot_ci$mmt_point,
+      mmt_boot_mean = obj$mmt_boot_ci$mmt_boot_mean,
+      mmt_boot_ci_low = obj$mmt_boot_ci$mmt_boot_ci_low,
+      mmt_boot_ci_high = obj$mmt_boot_ci$mmt_boot_ci_high,
+      mmt_boot_sd = obj$mmt_boot_ci$mmt_boot_sd,
+      n_boot = obj$mmt_boot_ci$n_valid,
+      rr_original = obj$mmt_boot_ci$rr_original,
+      rr_boot_centered = obj$mmt_boot_ci$rr_boot_centered,
+      rr_shift = obj$mmt_boot_ci$rr_boot_centered - obj$mmt_boot_ci$rr_original
+    )
+  })
+  if (nrow(mmt_audit) > 0) {
+    write_audit(mmt_audit,
+      file.path(PROJECT_ROOT, "audit", "bootstrap_mmt_dlnm.csv"))
+    log_msg("INFO", "MMT bootstrap audit: ", nrow(mmt_audit),
+            " models with bootstrap MMT")
+  }
+
   invisible(spec)
 }
 
@@ -1096,4 +1154,69 @@ run_temporal_holdout_validation <- function(dat_macro) {
   }
 
   invisible(results)
+}
+
+# [MMT-BOOTSTRAP] Bootstrap worker for MMT uncertainty estimation.
+# Resamples residuals to generate B bootstrap MMT estimates.
+# Based on Tobias et al. (2017, Environmental Epidemiology).
+.bootstrap_mmt <- function(x, y, model, pred_at, B = 200L) {
+  # x = exposure vector, y = outcome vector
+  # model = fitted GLM, pred_at = prediction grid
+
+  n <- length(x)
+  if (n < 100) return(NULL)  # too few obs for meaningful bootstrap
+
+  fitted_vals <- fitted(model)
+  res <- residuals(model, type = "deviance")
+
+  mmt_bootstrap <- numeric(B)
+  n_valid <- 0L
+
+  for (b in seq_len(B)) {
+    # Residual bootstrap: resample residuals, add to fitted values
+    idx <- sample.int(n, replace = TRUE)
+    y_star <- fitted_vals + res[idx]
+
+    # Re-fit model on bootstrap sample
+    m_star <- tryCatch({
+      glm(y_star ~ ., data = as.data.frame(model$model[, -1, drop = FALSE]),
+          family = model$family, start = stats::coef(model))
+    }, error = function(e) NULL)
+
+    if (is.null(m_star)) next
+
+    # Re-estimate MMT on this bootstrap sample
+    # Use the exposure from the model to reconstruct the crossbasis
+    cb_star <- dlnm::crossbasis(
+      x, lag = model$lag_max %||% 14L,
+      argvar = list(fun = "ns", df = model$df_exp %||% 4L),
+      arglag = list(fun = "ns",
+        knots = dlnm::logknots(model$lag_max %||% 14L,
+                                df = model$df_lag %||% 3L))
+    )
+
+    cp_star <- tryCatch({
+      cp <- dlnm::crosspred(cb_star, m_star, at = pred_at,
+        cen = stats::median(x, na.rm = TRUE), bylag = 1, cumul = TRUE)
+      # MMT = exposure value that minimizes RR
+      pred_at[which.min(cp$allRRfit)]
+    }, error = function(e) NA_real_)
+
+    if (!is.na(cp_star) && is.finite(cp_star)) {
+      n_valid <- n_valid + 1L
+      mmt_bootstrap[n_valid] <- cp_star
+    }
+  }
+
+  if (n_valid < 30) return(list(n_valid = n_valid))
+
+  mmt_boot <- mmt_bootstrap[1:n_valid]
+  list(
+    mmt_mean = mean(mmt_boot),
+    mmt_sd = sd(mmt_boot),
+    mmt_ci_low = stats::quantile(mmt_boot, 0.025, names = FALSE),
+    mmt_ci_high = stats::quantile(mmt_boot, 0.975, names = FALSE),
+    mmt_median = stats::median(mmt_boot),
+    n_valid = n_valid
+  )
 }
