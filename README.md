@@ -6,13 +6,28 @@
 
 ## Abstract
 
-This repository investigates non-linear and delayed associations between temperature, relative humidity, PM2.5 air pollution, and hospital admissions/deaths from cerebrovascular diseases (ICD-10 I60-I69) across the nine health macroregions of Rio de Janeiro state, Brazil, from 2010 to 2025.
+This repository investigates non-linear and delayed associations between daily temperature, daily relative humidity, and hospital admissions/deaths from cerebrovascular diseases (ICD-10 I60-I69) across the nine health macroregions of Rio de Janeiro state, Brazil, from 2010 to 2025. PM2.5 is handled separately as a monthly contextual covariate/sensitivity component because its available product does not have the same daily temporal resolution as the INMET climate series.
 
 **Study design:** Ecological daily time series
-**Methods:** Distributed Lag Non-linear Models (DLNMs) with natural spline cross-bases, Quasi-Poisson/Negative Binomial regression, PM2.5 air pollution adjustment, hierarchical Bayesian stabilization, Newey-West HAC standard errors with delta-method propagation, and FDR-corrected prioritization
+**Methods:** Distributed Lag Non-linear Models (DLNMs) with natural spline cross-bases, Quasi-Poisson/Negative Binomial regression, optional monthly PM2.5 sensitivity adjustment, hierarchical Bayesian stabilization, Newey-West HAC standard errors with delta-method propagation, and FDR-corrected prioritization
 **Data:** DATASUS (SIH-RD, SIM-DO), INMET (BrazilMet), INEA/MonitorAr (PM2.5), SIDRA/IBGE population denominators
 
-> Note: This is an ecological study. Associations are at the macroregional level. No individual-level inferences are made.
+> Note: This is an ecological, associational study. Associations are estimated at the macroregional level. No individual-level, causal, or forecasting claims are made.
+
+---
+
+## Scientific Scope and Testable Hypotheses
+
+**H0:** daily temperature and relative humidity are not associated with short-term variation in cerebrovascular admissions or deaths after adjustment for seasonality, long-term trend, calendar structure, population offset and complementary climate exposure.
+
+**H1:** daily temperature and/or relative humidity show non-linear and delayed associations with cerebrovascular admissions or deaths, with heterogeneous magnitude across health macroregions.
+
+PM2.5 is not treated as a daily exposure-lag hypothesis in the current version because its available product is monthly (upgraded from annual on 2026-06-21). It can be used as a contextual covariate or sensitivity analysis with intra-annual seasonal control.
+
+See also:
+
+- `docs/methodology/pm25_granularity_note.md`;
+- `docs/methodology/scientific_audit_response.md`.
 
 ---
 
@@ -27,12 +42,8 @@ This repository investigates non-linear and delayed associations between tempera
 ### Option 1: Docker (recommended — zero setup, any OS)
 
 ```bash
-# IMPORTANT: This repository uses Git LFS for large data files.
-# Clone with LFS enabled to get all data:
-git lfs install
 git clone https://github.com/santosry/exposome-cerebrovascular-rj.git
 cd exposome-cerebrovascular-rj
-git lfs pull               # Ensure all data files are downloaded
 make docker-build           # Single command: R, Python, Playwright, all packages
 make docker-run             # Runs full pipeline end-to-end
 ```
@@ -61,8 +72,7 @@ make reports         # Figures, tables, manuscript
 
 ## How to Run — Full Guide
 
-All data files (SIH, SIM, INMET, PM2.5) are already included in the repository via Git LFS.  
-If the public APIs are unavailable, the pipeline falls back to the pre-downloaded files automatically.
+Raw SIH, SIM and INMET files are regenerated locally by the pipeline. PM2.5 monthly tables (17,664 rows) are included in `data/processed/pm25/` to document the air-quality sensitivity component and its granularity.
 
 ### A) One-liner (Rscript)
 
@@ -70,15 +80,15 @@ If the public APIs are unavailable, the pipeline falls back to the pre-downloade
 Rscript run_pipeline.R
 ```
 
-Runs the full pipeline end-to-end. Uses renv for package management and falls back to local data when APIs fail.
+Runs the full pipeline end-to-end. Uses renv for package management and regenerates raw/processed data locally.
 
 ### B) Makefile (granular control)
 
 | Command | What it does |
 |---------|-------------|
 | `make setup` | First-time: installs renv packages + Python deps + Playwright browser |
-| `make download-pm25` | Extracts PM2.5 from INEA/MonitorAr Power BI dashboard (Python + Playwright) |
-| `make download` | Downloads SIH-RD, SIM-DO, INMET (or uses local fallback) |
+| `make download-pm25` | Optional: extracts monthly PM2.5 tables from INEA/MonitorAr Power BI dashboard (Python + Playwright) |
+| `make download` | Downloads SIH-RD, SIM-DO and INMET data |
 | `make process` | Builds analytic dataset (daily counts per macroregion × exposure) |
 | `make models` | Fits all DLNM models (9 macroregions × 2 exposures × 2 outcomes × grid) |
 | `make validate` | Bayesian hierarchical validation + prior sensitivity |
@@ -138,16 +148,7 @@ outcomes <- process_outcomes()
 
 ### What to do if downloads fail
 
-The pipeline automatically falls back to pre-downloaded files stored in the repository (Git LFS):
-- `data/raw/sih/` — 192 monthly hospital admission files
-- `data/raw/sim/` — 15 annual mortality files
-- `data/raw/inmet_zip/` — 16 yearly INMET zip archives
-- `data/processed/pm25/` — Pre-computed PM2.5 tables
-
-If Git LFS files weren't pulled during clone:
-```bash
-git lfs pull
-```
+The pipeline is designed to regenerate raw files from public sources. If an API is temporarily unavailable, rerun the corresponding download step later or provide local files under the same expected folder structure. PM2.5 monthly tables in `data/processed/pm25/` are derived files used for the optional monthly sensitivity component.
 
 ---
 
@@ -191,16 +192,18 @@ git lfs pull
 
 ## What This Compendium Implements
 
-### Air Pollution Control (PM2.5)
-PM2.5 data from INEA/MonitorAr (VIGIAR program) is included as a linear covariate in all DLNM models. The extraction pipeline:
+### Optional Air-Quality Sensitivity (PM2.5)
+PM2.5 data from INEA/MonitorAr (VIGIAR program) is included as an optional sensitivity covariate, not as a primary DLNM exposure. This distinction is important because temperature and relative humidity are available as daily macroregional series, whereas the current PM2.5 product is **monthly** (upgraded from annual on 2026-06-21).
 
-1. **Capture:** Python script (`python/extrair_mp25_rj.py`) uses Playwright to scrape the public Power BI dashboard
-2. **Spatial assignment:** 74 monitored municipalities receive their measured mean; 18 unmonitored municipalities receive the value of the nearest monitored neighbor (Haversine distance)
-3. **Macroregion mapping:** each municipality is assigned to its health macroregion (9 regions)
-4. **Temporal downscaling:** annual values (2010-2025) are derived using the national VIGIAR series trend, assuming spatial homogeneity. 2025 is extrapolated
-5. **Model integration:** annual macroregional mean PM2.5 is included as a linear term in all DLNM formulas
+The extraction pipeline:
 
-Python dependencies: Playwright, Pandas, NumPy (`python/requirements.txt`). Full extraction audit log is generated by the script.
+1. **Capture:** Python script (`python/extrair_mp25_rj.py`) uses Playwright to query the public Power BI dashboard;
+2. **Spatial assignment:** 74 municipalities have direct PM2.5 values and 18 municipalities receive the nearest monitored neighbor value;
+3. **Macroregion mapping:** all 92 municipalities are assigned to the nine health macroregions;
+4. **Two-stage downscaling:** (a) annual distribution via VIGIAR national series 2010–2024, (b) monthly distribution via 2024 national seasonal profile (peak September 2.59×, valley January 0.64×); 2025 is extrapolated;
+5. **Model integration:** PM2.5 may be included as a monthly linear covariate by setting `DLNM_ENABLE_AIR_QUALITY=true`. It is not used in a daily exposure-lag cross-basis.
+
+Audits are provided in `audit/air_quality/`, especially `auditoria_granularidade_exposicoes_clima_pm25.csv` and `auditoria_mp25_cobertura_municipal.csv`.
 
 ### Robust Standard Errors
 Newey-West HAC standard errors (21 lags) are computed for all models and propagated to cumulative RR via the delta method. Both model-based and HAC-corrected confidence intervals are reported. The Bayesian stage uses the HAC-corrected standard error when available.
@@ -225,7 +228,7 @@ The holiday indicator includes both fixed national holidays and movable dates (C
 - **Cross-basis:** Natural spline for exposure (df=4) x natural spline for lags (df=3, log-knots, max lag=14d)
 - **Model family:** Quasi-Poisson with Negative Binomial fallback (dispersion > 3)
 - **Time control:** Natural spline (7 df/year) + day-of-week + Brazilian holidays + pandemic indicator
-- **Confounders:** Complementary exposure (ns, df=3) + PM2.5 annual (linear) + influenza lag 7d
+- **Covariates:** Complementary climate exposure (ns, df=3) + influenza lag 7d when available + optional monthly PM2.5 linear term for sensitivity only
 - **Offset:** log(population) from SIDRA/IBGE
 - **Centering:** Minimum Morbidity/Mortality Temperature (MMT)
 - **Standard errors:** Newey-West HAC (21 lags) propagated via delta method
@@ -294,7 +297,7 @@ R version 4.6.0 (2026-04-24). Full package inventory in `renv.lock` (151 package
 > **Cross-platform guarantee:** All R packages in `renv.lock` are CRAN-hosted (no platform-specific binaries).  
 > The single OS-dependent line (`download.file.method`) auto-detects Windows vs Unix in `config/config.R`.  
 > Python dependencies (`playwright`, `pandas`, `numpy`) are pure Python — identical behavior on all platforms.  
-> Git LFS is used for large data files (INMET zips, SIH/SIM RDS) — works identically on Windows, Linux, and macOS.
+> Large raw data files are not versioned; they are regenerated by the acquisition scripts.
 
 ---
 

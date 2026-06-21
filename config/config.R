@@ -85,11 +85,12 @@ PANDEMIC_END   <- as.Date("2022-12-31")
 # ── Feature flags ──
 CASE_CROSSOVER_ENABLE <- FALSE
 MORAN_ENABLE <- TRUE
-# [F-005] Controle de poluicao do ar ATIVO por padrao.
-# Dados: PM2.5 anual por macrorregiao (02_MP25_RJ_exposicao/data_processed/)
-# Granularidade anual -- usado como termo linear (sem spline).
+# [F-005] Controle de PM2.5 opcional.
+# Dados: PM2.5 anual por macrorregiao em data/processed/pm25/.
+# Granularidade anual -- usar apenas como covariavel linear/sensibilidade,
+# nunca como exposicao principal em cross-basis diario.
 AIR_QUALITY_ENABLE <- tolower(
-  Sys.getenv("DLNM_ENABLE_AIR_QUALITY", unset = "true")) %in%
+  Sys.getenv("DLNM_ENABLE_AIR_QUALITY", unset = "false")) %in%
   c("1", "true", "sim", "yes")
 FORCE_RAW_DOWNLOAD <- tolower(
   Sys.getenv("DLNM_FORCE_RAW_DOWNLOAD", unset = "false")) %in%

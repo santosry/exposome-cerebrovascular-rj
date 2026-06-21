@@ -34,7 +34,7 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
   if (!is.null(dat$influenza_lag7) && all(is.finite(dat$influenza_lag7))) {
     covars <- paste0(covars, " + ns(influenza_lag7, df = 2)")
   }
-  # [F-005] PM2.5 air pollution control (annual, linear term -- no spline)
+  # [F-005] Optional PM2.5 control (annual, linear sensitivity term -- no spline/cross-basis)
   if (!is.null(dat$pm25_anual) && any(is.finite(dat$pm25_anual))) {
     covars <- paste0(covars, " + pm25_anual")
   }
