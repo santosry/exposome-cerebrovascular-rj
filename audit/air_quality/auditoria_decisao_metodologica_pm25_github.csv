@@ -1,0 +1,8 @@
+"decisao","status","justificativa"
+"publicar_pm25","sim_com_limitacao","o arquivo cobre 92/92 municipios, mas mistura monitoramento direto e vizinho mais proximo"
+"uso_no_modelo","covariavel_linear_mensal","a escala MENSAL (atualizacao 2026-06-21) permite controle sazonal intra-anual no DLNM, embora ainda inferior a diaria"
+"nao_usar_como_dlnm_principal","sim","DLNM principal exige exposicao diaria ou pelo menos temporalmente compativel com os lags; PM2.5 mensal serve como covariavel de ajuste"
+"granularidade_mensal_implementada","sim","em 2026-06-21 foi implementado downscaling em 2 etapas: anual (serie nacional 2010-2024) + sazonal (perfil mensal nacional 2024); 17.664 registros municipio-mes gerados"
+"auditar_cobertura_municipal","concluido","74 municipios monitorados diretamente e 18 atribuidos por vizinho"
+"comparar_com_clima","concluido","temperatura/umidade tem 52596 linhas diarias por macro; PM2.5 tem 1728 linhas mensais por macro"
+"perfil_sazonal_origem","INEA/VIGIAR 2024","perfil extraido do Power BI (query df_mensal.mes_nome); 12 meses com pico em setembro (2.59x media anual) e vale em janeiro (0.64x)"

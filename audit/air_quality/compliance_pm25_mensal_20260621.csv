@@ -1,0 +1,12 @@
+item;status;evidencia;observacao
+CHECKLIST_COMPLIANCE_PM25_MENSAL;---;---;---
+1_origem_dados;OK;Power_BI_INEA_MonitorAr_VIGIAR;"18 respostas API capturadas via Playwright; cache SHA256 verificado"
+2_cobertura_territorial;OK;92/92_municipios_RJ;74 monitorados direto + 18 vizinho mais proximo
+3_granularidade_temporal;MENSAL;17.664_registros_municipio_mes;"2010-01 a 2025-12; downscaling 2 etapas: anual + sazonal"
+4_downscaling_anual;OK;serie_nacional_2010_2024;"PM25_nac medio = 10.39 ug/m3; 2025 extrapolado via reg linear"
+5_downscaling_sazonal;OK;perfil_nacional_2024_12_meses;"Extraido do Power BI; pico setembro 2.59x, vale janeiro 0.64x"
+6_auditoria_integridade;OK;SHA256_benchmark;4 CSVs com hashes registrados em benchmark/data_processed/
+7_documentacao;OK;relatorio_auditoria_+.log;2 auditorias + 1 relatorio textual em audit/air_quality/
+8_reprodutibilidade;OK;script_python_idempotente;"extrair_mp25_rj.py com cache; FORCE_RAW_DOWNLOAD compatível"
+9_limitacoes;REGISTRADO;10_limitacoes_documentadas;"Ver relatorio_auditoria secao 10; principal: perfil sazonal unico para todos anos"
+10_publicacao_github;PENDENTE;commit_+_push;Arquivos sincronizados em data/processed/pm25/ e audit/air_quality/

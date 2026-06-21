@@ -1,0 +1,105 @@
+2026-06-21 11:39:55,337 [INFO] ============================================================
+2026-06-21 11:39:55,337 [INFO] EXTRAÇÃO MP2.5 — MUNICÍPIOS DO RJ (2010-2025) — GRANULARIDADE MENSAL
+2026-06-21 11:39:55,338 [INFO] Projeto: DLNM - Exposome Cerebrovascular RJ | Início: 2026-06-21 11:39:55.338088
+2026-06-21 11:39:55,338 [INFO] ============================================================
+2026-06-21 11:39:55,338 [INFO] Carregando cache: C:\Users\oorie\OneDrive\Documentos\TRABALHOS\DLNM\02_MP25_RJ_exposicao\data_raw\powerbi_api_cache.json
+2026-06-21 11:39:55,404 [INFO] Cache carregado: 18 respostas
+2026-06-21 11:39:55,405 [INFO] Passo 1 OK: 18 respostas capturadas
+2026-06-21 11:39:55,405 [INFO] Extraindo PM2.5 por município...
+2026-06-21 11:39:55,405 [INFO]   Consulta df_mensal encontrada: 7 colunas
+2026-06-21 11:39:55,413 [INFO]   Total de registros extraídos: 5570
+2026-06-21 11:39:55,413 [INFO]   Municípios com UF='RJ': 74
+2026-06-21 11:39:55,416 [INFO]   DataFrame final: 74 municípios do RJ com dados
+2026-06-21 11:39:55,420 [INFO]   PM25 medio: 15.52 ug/m3
+2026-06-21 11:39:55,421 [INFO]   PM25 min: 6.86, max: 24.48
+2026-06-21 11:39:55,422 [INFO] Passo 2 OK: 74 municípios
+2026-06-21 11:39:55,422 [INFO] Atribuindo PM2.5 por vizinho mais próximo...
+2026-06-21 11:39:55,422 [INFO]   Municípios monitorados: 74
+2026-06-21 11:39:55,422 [INFO]   Municípios faltantes: 18
+2026-06-21 11:39:55,424 [INFO]   Cabo Frio <- São Pedro da Aldeia (dist: 0.087 deg)
+2026-06-21 11:39:55,426 [INFO]   Cantagalo <- Aperibé (dist: 0.162 deg)
+2026-06-21 11:39:55,427 [INFO]   Duque de Caxias <- São João de Meriti (dist: 0.071 deg)
+2026-06-21 11:39:55,428 [INFO]   Iguaba Grande <- Araruama (dist: 0.107 deg)
+2026-06-21 11:39:55,430 [INFO]   Mesquita <- Belford Roxo (dist: 0.035 deg)
+2026-06-21 11:39:55,431 [INFO]   Miguel Pereira <- Paty do Alferes (dist: 0.047 deg)
+2026-06-21 11:39:55,432 [INFO]   Miracema <- Santo Antônio de Pádua (dist: 0.130 deg)
+2026-06-21 11:39:55,434 [INFO]   Nilópolis <- São João de Meriti (dist: 0.041 deg)
+2026-06-21 11:39:55,435 [INFO]   Nova Iguaçu <- Belford Roxo (dist: 0.050 deg)
+2026-06-21 11:39:55,439 [INFO]   Petrópolis <- Guapimirim (dist: 0.191 deg)
+2026-06-21 11:39:55,440 [INFO]   Pinheiral <- Volta Redonda (dist: 0.103 deg)
+2026-06-21 11:39:55,441 [INFO]   Resende <- Itatiaia (dist: 0.123 deg)
+2026-06-21 11:39:55,443 [INFO]   Rio Bonito <- Tanguá (dist: 0.100 deg)
+2026-06-21 11:39:55,444 [INFO]   Rio das Ostras <- Macaé (dist: 0.220 deg)
+2026-06-21 11:39:55,446 [INFO]   Rio de Janeiro <- Niterói (dist: 0.073 deg)
+2026-06-21 11:39:55,447 [INFO]   Seropédica <- Japeri (dist: 0.111 deg)
+2026-06-21 11:39:55,448 [INFO]   Sumidouro <- Carmo (dist: 0.138 deg)
+2026-06-21 11:39:55,450 [INFO]   Teresópolis <- Guapimirim (dist: 0.125 deg)
+2026-06-21 11:39:55,454 [INFO]   Total após atribuição: 92 municípios
+2026-06-21 11:39:55,454 [INFO] Passo 3 OK: 92 municípios (após vizinho)
+2026-06-21 11:39:55,454 [INFO] Extraindo série temporal nacional ANUAL de PM2.5...
+2026-06-21 11:39:55,454 [INFO]   Série anual encontrada: ['df_mensal.ano', 'Sum(df_mensal.pm25)', 'medidas.min', 'medidas.max', 'medidas.boa', 'medidas.moderada', 'medidas.muitoruim', 'medidas.ruim']
+2026-06-21 11:39:55,455 [INFO]   Série nacional anual: 15 anos (2010-2024)
+2026-06-21 11:39:55,455 [INFO]   PM25 nacional medio: 10.39 ug/m3
+2026-06-21 11:39:55,455 [INFO] Passo 4a OK: 15 anos na série anual
+2026-06-21 11:39:55,455 [INFO] Extraindo perfil sazonal mensal nacional de PM2.5...
+2026-06-21 11:39:55,455 [INFO]   Perfil mensal encontrado: ['Sum(df_mensal.pm25)', 'df_mensal.mes_nome', 'df_mensal.ano']
+2026-06-21 11:39:55,455 [WARNING] Perfil mensal incompleto: 1 meses encontrados. Usando perfil sintético embarcado.
+2026-06-21 11:39:55,456 [INFO]   Usando perfil sintético embarcado (12 meses)
+2026-06-21 11:39:55,456 [INFO] Passo 4b OK: 12 meses no perfil sazonal
+2026-06-21 11:39:55,456 [INFO] Downscaling temporal MENSAL: 2010-2025...
+2026-06-21 11:39:55,456 [INFO]   PM25 nacional medio (2010-2024): 10.39
+2026-06-21 11:39:55,460 [INFO]   PM25 nacional 2025 (extrapolado): 12.50
+2026-06-21 11:39:55,460 [INFO]   Média do perfil mensal: 1.09 ug/m3
+2026-06-21 11:39:55,460 [INFO]   Razões mensais (média=1.0):
+2026-06-21 11:39:55,460 [INFO]     Mês 01: ratio = 0.9160
+2026-06-21 11:39:55,460 [INFO]     Mês 02: ratio = 0.9160
+2026-06-21 11:39:55,460 [INFO]     Mês 03: ratio = 0.9160
+2026-06-21 11:39:55,460 [INFO]     Mês 04: ratio = 0.8702
+2026-06-21 11:39:55,460 [INFO]     Mês 05: ratio = 0.8244
+2026-06-21 11:39:55,461 [INFO]     Mês 06: ratio = 0.7786
+2026-06-21 11:39:55,461 [INFO]     Mês 07: ratio = 0.7328
+2026-06-21 11:39:55,461 [INFO]     Mês 08: ratio = 1.1908
+2026-06-21 11:39:55,461 [INFO]     Mês 09: ratio = 1.6489
+2026-06-21 11:39:55,461 [INFO]     Mês 10: ratio = 1.2824
+2026-06-21 11:39:55,461 [INFO]     Mês 11: ratio = 1.0076
+2026-06-21 11:39:55,461 [INFO]     Mês 12: ratio = 0.9160
+2026-06-21 11:39:55,586 [INFO]   Registros mensais gerados: 17664 (92 mun x 16 anos x 12 meses)
+2026-06-21 11:39:55,587 [INFO]   PM25 medio global: 16.22 ug/m3
+2026-06-21 11:39:55,587 [INFO]   PM25 min: 4.17, max: 51.56
+2026-06-21 11:39:55,588 [INFO] Passo 5 OK: 17664 registros mensais
+2026-06-21 11:39:55,598 [INFO]   Macrorregioes na base: 9
+2026-06-21 11:39:55,607 [INFO]     Baixada Litorânea: 9 municipios, PM25 medio = 10.64
+2026-06-21 11:39:55,612 [INFO]     Baía da Ilha Grande: 3 municipios, PM25 medio = 20.33
+2026-06-21 11:39:55,618 [INFO]     Centro-Sul: 12 municipios, PM25 medio = 19.75
+2026-06-21 11:39:55,624 [INFO]     Metropolitana I: 12 municipios, PM25 medio = 23.73
+2026-06-21 11:39:55,629 [INFO]     Metropolitana II: 7 municipios, PM25 medio = 17.29
+2026-06-21 11:39:55,633 [INFO]     Médio Paraíba: 11 municipios, PM25 medio = 20.89
+2026-06-21 11:39:55,636 [INFO]     Noroeste: 14 municipios, PM25 medio = 11.43
+2026-06-21 11:39:55,639 [INFO]     Norte: 8 municipios, PM25 medio = 9.65
+2026-06-21 11:39:55,641 [INFO]     Serrana: 16 municipios, PM25 medio = 14.13
+2026-06-21 11:39:55,643 [INFO]   Macrorregioes na base: 9
+2026-06-21 11:39:55,645 [INFO]     Baixada Litorânea: 9 municipios, PM25 medio = 10.50
+2026-06-21 11:39:55,645 [INFO]     Baía da Ilha Grande: 3 municipios, PM25 medio = 20.07
+2026-06-21 11:39:55,646 [INFO]     Centro-Sul: 12 municipios, PM25 medio = 19.50
+2026-06-21 11:39:55,647 [INFO]     Metropolitana I: 12 municipios, PM25 medio = 23.43
+2026-06-21 11:39:55,647 [INFO]     Metropolitana II: 7 municipios, PM25 medio = 17.07
+2026-06-21 11:39:55,648 [INFO]     Médio Paraíba: 11 municipios, PM25 medio = 20.63
+2026-06-21 11:39:55,648 [INFO]     Noroeste: 14 municipios, PM25 medio = 11.29
+2026-06-21 11:39:55,649 [INFO]     Norte: 8 municipios, PM25 medio = 9.53
+2026-06-21 11:39:55,650 [INFO]     Serrana: 16 municipios, PM25 medio = 13.95
+2026-06-21 11:39:55,650 [INFO] Passo 6 OK: macroregiões adicionadas
+2026-06-21 11:39:55,650 [INFO] Agregando PM25 mensal por macroregião...
+2026-06-21 11:39:55,669 [INFO]   CSV macroregião mensal: C:\Users\oorie\OneDrive\Documentos\TRABALHOS\DLNM\02_MP25_RJ_exposicao\data_processed\mp25_macroregiao_mensal_2010_2025.csv (1728 registros)
+2026-06-21 11:39:55,669 [INFO] Passo 7 OK: 1728 registros macroregionais mensais
+2026-06-21 11:39:55,669 [INFO] Salvando resultados...
+2026-06-21 11:39:55,710 [INFO]   CSV mensal: C:\Users\oorie\OneDrive\Documentos\TRABALHOS\DLNM\02_MP25_RJ_exposicao\data_processed\mp25_rj_mensal_2010_2025.csv
+2026-06-21 11:39:55,711 [INFO]   CSV médias municipais: C:\Users\oorie\OneDrive\Documentos\TRABALHOS\DLNM\02_MP25_RJ_exposicao\data_processed\mp25_rj_media_municipal.csv
+2026-06-21 11:39:55,720 [INFO]   CSV estatísticas: C:\Users\oorie\OneDrive\Documentos\TRABALHOS\DLNM\02_MP25_RJ_exposicao\data_processed\mp25_rj_estatisticas_macroregiao.csv
+2026-06-21 11:39:55,767 [INFO]   Relatório de auditoria: C:\Users\oorie\OneDrive\Documentos\TRABALHOS\DLNM\02_MP25_RJ_exposicao\outputs\auditoria\relatorio_auditoria_20260621_113955.txt
+2026-06-21 11:39:55,767 [INFO] Passo 8 OK: resultados salvos
+2026-06-21 11:39:55,767 [INFO] ============================================================
+2026-06-21 11:39:55,767 [INFO] PROCESSO CONCLUÍDO COM SUCESSO!
+2026-06-21 11:39:55,767 [INFO] Granularidade: MENSAL (17664 registros)
+2026-06-21 11:39:55,767 [INFO] Outputs: C:\Users\oorie\OneDrive\Documentos\TRABALHOS\DLNM\02_MP25_RJ_exposicao\outputs
+2026-06-21 11:39:55,767 [INFO] Auditoria: C:\Users\oorie\OneDrive\Documentos\TRABALHOS\DLNM\02_MP25_RJ_exposicao\outputs\auditoria
+2026-06-21 11:39:55,767 [INFO] ============================================================

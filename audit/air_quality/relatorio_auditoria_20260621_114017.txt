@@ -1,0 +1,100 @@
+======================================================================
+RELATÓRIO DE AUDITORIA — DADOS MP2.5 MUNICÍPIOS DO RJ
+Projeto: DLNM - Exposome Cerebrovascular RJ
+Gerado em: 2026-06-21 11:40:17
+GRANULARIDADE: MENSAL (atualizado em 2026-06-21)
+======================================================================
+
+1. ORIGEM DOS DADOS
+   Fonte: Power BI INEA/MonitorAr (Programa VIGIAR)
+   URL: https://app.powerbi.com/view?r=eyJrIjoiNmRhODQwNzItNThlOS00ZmQ4LWJjZmItZDYxOTNhOTRmYmFhIiwidCI6IjlhNTU0YWQzLWI1MmItNDg2Mi1hMzZmLTg0ZDg5MWU1YzcwNSJ9
+   Método: Playwright + interceptação de API REST
+   Cache: C:\Users\oorie\OneDrive\Documentos\TRABALHOS\DLNM\02_MP25_RJ_exposicao\data_raw\powerbi_api_cache.json
+
+2. MUNICÍPIOS
+   Total de municípios do RJ: 92
+   Com monitoramento: 74
+   Atribuídos por vizinho mais próximo: 18
+
+3. ATRIBUIÇÃO POR VIZINHO MAIS PRÓXIMO
+   Cabo Frio <- São Pedro da Aldeia (dist: 0.0874 deg)
+   Cantagalo <- Aperibé (dist: 0.1616 deg)
+   Duque de Caxias <- São João de Meriti (dist: 0.0709 deg)
+   Iguaba Grande <- Araruama (dist: 0.1073 deg)
+   Mesquita <- Belford Roxo (dist: 0.0351 deg)
+   Miguel Pereira <- Paty do Alferes (dist: 0.0466 deg)
+   Miracema <- Santo Antônio de Pádua (dist: 0.1301 deg)
+   Nilópolis <- São João de Meriti (dist: 0.0409 deg)
+   Nova Iguaçu <- Belford Roxo (dist: 0.0498 deg)
+   Petrópolis <- Guapimirim (dist: 0.1914 deg)
+   Pinheiral <- Volta Redonda (dist: 0.1031 deg)
+   Resende <- Itatiaia (dist: 0.1226 deg)
+   Rio Bonito <- Tanguá (dist: 0.1003 deg)
+   Rio das Ostras <- Macaé (dist: 0.2199 deg)
+   Rio de Janeiro <- Niterói (dist: 0.0734 deg)
+   Seropédica <- Japeri (dist: 0.1111 deg)
+   Sumidouro <- Carmo (dist: 0.1380 deg)
+   Teresópolis <- Guapimirim (dist: 0.1248 deg)
+
+4. DOWNSCALING TEMPORAL (DUAS ETAPAS)
+   ETAPA 1 — ANUAL:
+     PM25(mun, ano) = PM25_medio(mun) × PM25_nac(ano) / PM25_medio_nac
+   ETAPA 2 — MENSAL (distribuição sazonal):
+     PM25(mun, ano, mês) = PM25(mun, ano) × perfil_mensal[mês] / média(perfil_mensal)
+   Período: 2010-2025
+   2025: Extrapolação por regressão linear (2020-2024)
+
+5. PERFIL SAZONAL MENSAL NACIONAL (2024)
+   Mês 01: 8.49 ug/m3 (ratio = 0.6399)
+   Mês 02: 9.04 ug/m3 (ratio = 0.6812)
+   Mês 03: 9.37 ug/m3 (ratio = 0.7062)
+   Mês 04: 9.27 ug/m3 (ratio = 0.6981)
+   Mês 05: 9.11 ug/m3 (ratio = 0.6862)
+   Mês 06: 10.21 ug/m3 (ratio = 0.7692)
+   Mês 07: 11.06 ug/m3 (ratio = 0.8333)
+   Mês 08: 20.67 ug/m3 (ratio = 1.5572)
+   Mês 09: 34.32 ug/m3 (ratio = 2.5860)
+   Mês 10: 17.06 ug/m3 (ratio = 1.2853)
+   Mês 11: 10.81 ug/m3 (ratio = 0.8146)
+   Mês 12: 9.86 ug/m3 (ratio = 0.7427)
+
+6. MACRORREGIÕES DE SAÚDE
+   Baixada Litorânea: 9 municípios
+   Baía da Ilha Grande: 3 municípios
+   Centro-Sul: 12 municípios
+   Metropolitana I: 12 municípios
+   Metropolitana II: 7 municípios
+   Médio Paraíba: 11 municípios
+   Noroeste: 14 municípios
+   Norte: 8 municípios
+   Serrana: 16 municípios
+
+7. ESTATÍSTICAS GERAIS (ESCALA MENSAL)
+   Total de registros: 17664
+   PM25 medio: 16.22 ug/m3
+   PM25 min: 3.64 ug/m3
+   PM25 max: 80.87 ug/m3
+   Desvio padrão: 11.05
+
+8. AGREGAÇÃO POR MACRORREGIÃO (MENSAL)
+   Baixada Litorânea: 192 registros, PM25 medio = 10.64
+   Baía da Ilha Grande: 192 registros, PM25 medio = 20.33
+   Centro-Sul: 192 registros, PM25 medio = 19.75
+   Metropolitana I: 192 registros, PM25 medio = 23.73
+   Metropolitana II: 192 registros, PM25 medio = 17.29
+   Médio Paraíba: 192 registros, PM25 medio = 20.89
+   Noroeste: 192 registros, PM25 medio = 11.43
+   Norte: 192 registros, PM25 medio = 9.65
+   Serrana: 192 registros, PM25 medio = 14.13
+
+9. HASH DE INTEGRIDADE
+   SHA256 do CSV final: 123cdbe639d9d028af590d79a78c4e1b6bca96e7b8dc4cf7841e68c7269e14ab
+
+10. LIMITAÇÕES
+   - Dados originais: média do período por município (sem granularidade temporal)
+   - Downscaling anual: assume variação temporal homogênea entre municípios
+   - Perfil sazonal: usa padrão nacional de 2024 (apenas 1 ano de referência)
+   - O mesmo perfil sazonal é aplicado a todos os municípios e anos
+   - 2025 é extrapolado (não observado)
+   - Vizinho mais próximo usa distância euclidiana (não considera relevo)
+   - A variabilidade mensal é exclusivamente sazonal (não captura anomalias)

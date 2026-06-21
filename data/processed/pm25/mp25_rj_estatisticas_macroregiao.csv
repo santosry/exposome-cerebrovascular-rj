@@ -1,10 +1,10 @@
-Macroregiao;PM25_medio;PM25_min;PM25_max;N_municipios
-Baixada Litorânea;10.64;7.68;15.23;9
-Baía da Ilha Grande;20.33;12.92;30.42;3
-Centro-Sul;19.75;12.39;30.22;12
-Metropolitana I;23.73;16.59;31.27;12
-Metropolitana II;17.29;10.1;27.0;7
-Médio Paraíba;20.89;5.69;31.19;11
-Noroeste;11.43;8.5;15.35;14
-Norte;9.65;7.28;13.39;8
-Serrana;14.13;8.18;23.41;16
+Macroregiao;PM25_medio;PM25_min;PM25_max;PM25_std;N_municipios;N_registros
+Baixada Litorânea;10.6367;4.913;39.3815;6.0805;9;1728
+Baía da Ilha Grande;20.3275;8.2675;78.6723;12.1048;3;576
+Centro-Sul;19.7506;7.9312;78.1466;11.5839;12;2304
+Metropolitana I;23.7303;10.6158;80.8687;13.4308;12;2304
+Metropolitana II;17.2911;6.4639;69.8122;10.2454;7;1344
+Médio Paraíba;20.8896;3.643;80.6595;12.9334;11;2112
+Noroeste;11.4296;5.4386;39.7036;6.4565;14;2688
+Norte;9.6535;4.6572;34.6254;5.4681;8;1536
+Serrana;14.1271;5.2324;60.5366;8.4659;16;3072

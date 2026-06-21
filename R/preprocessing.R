@@ -302,19 +302,42 @@ process_inmet <- function() {
 # 2025 is extrapolated. These limitations are documented in the article.
 #' Process PM2.5 pollution data
 process_poluentes <- function() {
-  pm25_path <- file.path(PROJECT_ROOT, "..", "02_MP25_RJ_exposicao",
-                         "data_processed", "mp25_rj_anual_2010_2025.csv")
+  pm25_path <- file.path(PROJECT_ROOT, "data", "processed", "pm25",
+                         "mp25_rj_anual_2010_2025.csv")
   if (!file.exists(pm25_path)) {
     log_msg("WARN", "PM2.5 data not found at ", pm25_path,
             "; air quality control disabled.")
     return(tibble::tibble(macro_regiao = character(), ano = integer(),
                           pm25_anual = numeric()))
   }
-  pm25 <- readr::read_csv(pm25_path, show_col_types = FALSE) |>
+  pm25_raw <- readr::read_delim(pm25_path, delim = ";",
+                                show_col_types = FALSE) |>
     janitor::clean_names() |>
+    dplyr::mutate(
+      pm25 = as.numeric(pm25),
+      ano = as.integer(ano)
+    )
+
+  pm25 <- pm25_raw |>
     dplyr::group_by(macroregiao, ano) |>
     dplyr::summarise(pm25_anual = mean(pm25, na.rm = TRUE), .groups = "drop") |>
     dplyr::rename(macro_regiao = macroregiao)
+
+  write_audit(tibble::tibble(
+    exposicao = "PM2.5",
+    fonte = "INEA/MonitorAr-VIGIAR via Power BI",
+    unidade_espacial_origem = "municipio",
+    unidade_espacial_modelo = "macrorregiao",
+    granularidade_temporal = "anual",
+    n_municipios = dplyr::n_distinct(pm25_raw$municipio),
+    n_macrorregioes = dplyr::n_distinct(pm25$macro_regiao),
+    ano_min = min(pm25$ano, na.rm = TRUE),
+    ano_max = max(pm25$ano, na.rm = TRUE),
+    uso_no_dlnm = "covariavel linear anual; nao entra como cross-basis diario",
+    limitacao = "granularidade temporal inferior a temperatura e umidade"
+  ), file.path(PROJECT_ROOT, "audit", "air_quality",
+               "auditoria_granularidade_pm25.csv"))
+
   log_msg("INFO", "PM2.5 loaded: ", nrow(pm25), " rows, ",
           sprintf("%.1f", mean(pm25$pm25_anual, na.rm = TRUE)),
           " ug/m3 mean")

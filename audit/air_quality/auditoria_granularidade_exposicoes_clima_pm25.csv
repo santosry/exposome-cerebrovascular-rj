@@ -1,0 +1,4 @@
+"variavel","fonte","unidade_espacial_origem","unidade_espacial_modelo","granularidade_temporal_final","linhas","unidades_espaciais","inicio","fim","uso_recomendado_no_pipeline","limitacao"
+"temperatura_media","INMET/BrazilMet","estacao meteorologica","macrorregiao","diaria",52596,9,"2010-01-01","2025-12-31","exposicao principal em crossbasis DLNM","depende de estacoes e preenchimento por macroregiao"
+"umidade_relativa","INMET/BrazilMet","estacao meteorologica","macrorregiao","diaria",52596,9,"2010-01-01","2025-12-31","exposicao principal/complementar em crossbasis DLNM","depende de estacoes e preenchimento por macroregiao"
+"MP2.5","INEA MonitorAr/VIGIAR via Power BI","municipio","macrorregiao","mensal",1728,9,"2010-01","2025-12","covariavel linear mensal ou analise de sensibilidade com sazonalidade intra-anual","18 municipios por vizinho; downscaling anual + sazonal com perfil nacional 2024; 2025 extrapolado; variabilidade mensal exclusivamente sazonal"
