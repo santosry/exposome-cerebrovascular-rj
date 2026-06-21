@@ -372,4 +372,15 @@ Full declaration: [docs/AI_DECLARATION.md](docs/AI_DECLARATION.md)
 
 ---
 
+## Author Contributions (CRediT)
+
+| Role | Authors |
+|---|---|
+| **Conceptualization** | Ryan de Paulo Santos, Camila Henriques Nunes, Enrique Medina-Acosta |
+| **Data curation, analysis, and interpretation** | Ryan de Paulo Santos, Enrique Medina-Acosta |
+| **Writing — original draft and critical revision** | Ryan de Paulo Santos, Enrique Medina-Acosta |
+| **Final approval of the version to be published** | Ryan de Paulo Santos, Camila Henriques Nunes, Karla Rangel Ribeiro, Enrique Medina-Acosta |
+
+---
+
 Languages: R, Python, HTML
