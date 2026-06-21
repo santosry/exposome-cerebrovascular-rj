@@ -80,7 +80,7 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
     }
   }
 
-  # [FIX C7] Compute HAC vcov BEFORE association test so Wald fallback can use it
+  # [FIX C7] Compute HAC vcov BEFORE association test
   nw_cov_early <- NULL
   if (DLNM_NW_HAC_ENABLE && requireNamespace("sandwich", quietly = TRUE)) {
     nw_cov_early <- tryCatch(
@@ -89,40 +89,45 @@ fit_one_dlnm <- function(dat, outcome, exposure, df_exp, df_lag, lag_max,
     )
   }
 
-  # Compute association p-value
-  reduced <- tryCatch({
-    if (identical(family_used, "negative_binomial")) {
-      capture_model_warnings(
-        MASS::glm.nb(form_reduced, data = dat, na.action = na.exclude))
-    } else {
-      capture_model_warnings(
-        glm(form_reduced, family = quasipoisson(link = "log"),
-            data = dat, na.action = na.exclude))
-    }
-  }, error = function(e) NULL)
+  # [AUDIT-FIX] Use Wald HAC as PRIMARY test; ANOVA/LRT only as fallback
+  p_association <- NA_real_
+  p_method <- "Wald HAC (primary)"
 
-  if (!is.null(reduced)) {
-    p_association <- tryCatch({
-      test <- if (identical(family_used, "negative_binomial")) "Chisq" else "F"
-      tab <- anova(reduced, model, test = test)
-      as.numeric(tail(tab[[grep("^Pr", names(tab), value = TRUE)[1]]], 1))
-    }, error = function(e) NA_real_)
-  }
+  # Primary: Wald test with HAC vcov on crossbasis coefficients
+  p_association <- tryCatch({
+    idx <- grep("^cb", names(stats::coef(model)))
+    beta <- stats::coef(model)[idx]
+    if (!is.null(nw_cov_early) && all(idx %in% seq_len(nrow(nw_cov_early)))) {
+      vc <- nw_cov_early[idx, idx, drop = FALSE]
+    } else {
+      vc <- stats::vcov(model)[idx, idx, drop = FALSE]
+      p_method <- paste0(p_method, " (model vcov, HAC unavailable)")
+    }
+    stat <- drop(t(beta) %*% solve(vc) %*% beta)
+    stats::pchisq(stat, df = length(idx), lower.tail = FALSE)
+  }, error = function(e) NA_real_)
+
+  # Fallback: ANOVA/LRT if Wald fails
   if (!is.finite(p_association)) {
-    p_association <- tryCatch({
-      idx <- grep("^cb", names(stats::coef(model)))
-      beta <- stats::coef(model)[idx]
-      # [FIX C7] Prefer HAC vcov when available; fallback to model vcov
-      if (!is.null(nw_cov_early) && all(idx %in% seq_len(nrow(nw_cov_early)))) {
-        vc <- nw_cov_early[idx, idx, drop = FALSE]
-        p_method <- paste0(p_method, " + Wald HAC")
+    reduced <- tryCatch({
+      if (identical(family_used, "negative_binomial")) {
+        capture_model_warnings(
+          MASS::glm.nb(form_reduced, data = dat, na.action = na.exclude))
       } else {
-        vc <- stats::vcov(model)[idx, idx, drop = FALSE]
-        p_method <- paste0(p_method, " + Wald (vcov)")
+        capture_model_warnings(
+          glm(form_reduced, family = quasipoisson(link = "log"),
+              data = dat, na.action = na.exclude))
       }
-      stat <- drop(t(beta) %*% solve(vc) %*% beta)
-      stats::pchisq(stat, df = length(idx), lower.tail = FALSE)
-    }, error = function(e) NA_real_)
+    }, error = function(e) NULL)
+
+    if (!is.null(reduced)) {
+      p_association <- tryCatch({
+        test <- if (identical(family_used, "negative_binomial")) "Chisq" else "F"
+        tab <- anova(reduced, model, test = test)
+        p_method <- paste0("ANOVA/LRT (fallback, HAC Wald failed)")
+        as.numeric(tail(tab[[grep("^Pr", names(tab), value = TRUE)[1]]], 1))
+      }, error = function(e) NA_real_)
+    }
   }
 
   # Cross-prediction
@@ -377,6 +382,119 @@ add_fdr_and_evidence_flags <- function(auc_tbl) {
         TRUE ~ "insufficient"
       )
     )
+}
+
+# [NW-SENS] Newey-West HAC lag sensitivity: tests 14, 21, 28, 35 lags
+# to verify that the chosen truncation (21) is sufficient.
+#' Run Newey-West lag sensitivity analysis
+run_nw_lag_sensitivity <- function(dlnm_results, auc_tbl, nw_lags = c(14, 21, 28, 35)) {
+  if (!requireNamespace("sandwich", quietly = TRUE)) {
+    log_msg("WARN", "sandwich not available; skipping NW lag sensitivity")
+    return(invisible(NULL))
+  }
+
+  log_msg("INFO", "Running Newey-West lag sensitivity: ",
+          paste(nw_lags, collapse = ", "))
+
+  # Focus on FDR-significant models
+  if (!is.null(auc_tbl) && "fdr_significant" %in% names(auc_tbl)) {
+    target_models <- auc_tbl |>
+      dplyr::filter(fdr_significant) |>
+      dplyr::select(macro_regiao, outcome = desfecho, exposure = exposicao)
+  } else {
+    # Fallback: test all models
+    target_models <- NULL
+  }
+
+  all_results <- list()
+
+  for (key in names(dlnm_results)) {
+    obj <- dlnm_results[[key]]
+    if (is.null(obj) || is.null(obj$model)) next
+
+    # Filter to target models if specified
+    if (!is.null(target_models)) {
+      match <- target_models |>
+        dplyr::filter(macro_regiao == obj$macro_regiao,
+                       outcome == obj$outcome,
+                       exposure == obj$exposure)
+      if (nrow(match) == 0) next
+    }
+
+    for (nw_lag in nw_lags) {
+      nw <- tryCatch(
+        sandwich::NeweyWest(obj$model, lag = nw_lag, prewhite = FALSE),
+        error = function(e) NULL
+      )
+      if (is.null(nw)) next
+
+      idx <- grep("^cb", names(stats::coef(obj$model)))
+      if (length(idx) == 0) next
+
+      beta <- stats::coef(obj$model)[idx]
+      vc <- nw[idx, idx, drop = FALSE]
+
+      # Wald test with this NW lag
+      wald_stat <- tryCatch(
+        drop(t(beta) %*% solve(vc) %*% beta),
+        error = function(e) NA_real_
+      )
+      wald_p <- if (is.finite(wald_stat)) {
+        stats::pchisq(wald_stat, df = length(idx), lower.tail = FALSE)
+      } else NA_real_
+
+      # SE of cumulative log(RR) with this NW lag
+      se_hac <- tryCatch(sqrt(t(rep(1/length(idx), length(idx))) %*%
+                               vc %*% rep(1/length(idx), length(idx))),
+                         error = function(e) NA_real_)
+
+      all_results[[paste(key, nw_lag, sep = "__")]] <- tibble::tibble(
+        macro_regiao = obj$macro_regiao,
+        outcome = obj$outcome,
+        exposure = obj$exposure,
+        nw_lag = nw_lag,
+        wald_statistic = as.numeric(wald_stat),
+        wald_p_value = wald_p,
+        se_log_rr_hac = as.numeric(se_hac)
+      )
+    }
+  }
+
+  nw_tbl <- dplyr::bind_rows(all_results)
+
+  if (nrow(nw_tbl) > 0) {
+    # Stability assessment
+    stability <- nw_tbl |>
+      dplyr::group_by(macro_regiao, outcome, exposure) |>
+      dplyr::summarise(
+        n_lags_tested = dplyr::n(),
+        se_min = min(se_log_rr_hac, na.rm = TRUE),
+        se_max = max(se_log_rr_hac, na.rm = TRUE),
+        se_range = se_max - se_min,
+        se_cv = sd(se_log_rr_hac, na.rm = TRUE) / mean(se_log_rr_hac, na.rm = TRUE),
+        p_min = min(wald_p_value, na.rm = TRUE),
+        p_max = max(wald_p_value, na.rm = TRUE),
+        stable_p = dplyr::if_else(
+          (p_min < 0.05 & p_max < 0.05) | (p_min >= 0.05 & p_max >= 0.05),
+          TRUE, FALSE
+        ),
+        .groups = "drop"
+      )
+
+    write_audit(nw_tbl,
+      file.path(PROJECT_ROOT, "outputs", "tables",
+                "sensibilidade_newey_west_lags.csv"))
+    write_audit(stability,
+      file.path(PROJECT_ROOT, "outputs", "tables",
+                "estabilidade_newey_west_lags.csv"))
+
+    n_stable <- sum(stability$stable_p, na.rm = TRUE)
+    log_msg("INFO", "NW lag sensitivity complete: ",
+            n_stable, "/", nrow(stability),
+            " models stable across lag choices")
+  }
+
+  invisible(nw_tbl)
 }
 
 #' Run lag sensitivity analysis

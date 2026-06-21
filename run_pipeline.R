@@ -88,6 +88,8 @@ run_pipeline <- function() {
   # ── Stage 5: Sensitivity Analyses ──
   log_msg("INFO", "Running sensitivity analyses")
   lag_sens <- run_lag_sensitivity(dat_macro)
+  # [NW-SENS] Newey-West HAC lag sensitivity (14, 21, 28, 35)
+  run_nw_lag_sensitivity(dlnm_results, auc_tbl)
   pandemic_sens <- run_pandemic_exclusion_sensitivity(dat_macro)
 
   # ── Stage 6: Bayesian Validation ──
