@@ -1,10 +1,10 @@
-macro_regiao,dias,municipios,internacoes_i60_i69,obitos_i60_i69,obitos_sih_i60_i69
-Baia da Ilha Grande,5844,3,4906,1850,839
-Baixada Litoranea,5844,9,9209,5789,1977
-Centro-Sul,5844,11,11117,3508,1888
-Medio Paraiba,5844,12,27386,9053,3740
-Metropolitana I,5844,12,137856,91298,32741
-Metropolitana II,5844,7,39357,18474,7609
-Noroeste,5844,14,10756,3387,1266
-Norte,5844,8,15473,7915,2531
-Serrana,5844,16,32335,9743,3599
+macro_regiao,dias,municipios,internacoes_i60_i69,obitos_i60_i69
+Baia da Ilha Grande,5844,3,4906,1850
+Baixada Litoranea,5844,9,9209,5789
+Centro-Sul,5844,11,11117,3508
+Medio Paraiba,5844,12,27386,9053
+Metropolitana I,5844,12,137856,91298
+Metropolitana II,5844,7,39357,18474
+Noroeste,5844,14,10756,3387
+Norte,5844,8,15473,7915
+Serrana,5844,16,32335,9743
