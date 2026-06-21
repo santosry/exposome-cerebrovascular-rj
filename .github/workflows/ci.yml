@@ -21,6 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run self-contained validation
         run: |
+          Rscript -e "install.packages(c('stringr','stringi'), repos='https://cloud.r-project.org', quiet=TRUE)"
           Rscript tests/test_runner.R
 
   # -- Repository Size Check --

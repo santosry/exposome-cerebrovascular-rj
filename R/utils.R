@@ -96,7 +96,7 @@ parse_numeric_audited <- function(x, context) {
   raw <- trimws(as.character(x))
   out <- rep(NA_real_, length(raw))
   valid <- !is.na(raw) & raw != ""
-  comma <- valid & stringr::str_detect(raw, ",")
+  comma <- valid & grepl(",", raw)
   dot <- valid & !comma
   if (any(comma)) {
     out[comma] <- readr::parse_number(raw[comma],
@@ -173,11 +173,8 @@ parse_datasus_date <- function(x) {
 #' Clean CID-10 codes to 3-character format
 clean_cid3 <- function(x) {
   n_input <- length(x)
-  out <- x |>
-    as.character() |>
-    stringr::str_to_upper() |>
-    stringr::str_replace_all("[^A-Z0-9]", "") |>
-    stringr::str_sub(1, 3)
+  x <- as.character(x)
+  out <- substr(gsub("[^A-Z0-9]", "", toupper(x)), 1, 3)
   n_na_output <- sum(is.na(out) | out == "")
   if (n_na_output > 0) {
     log_msg("WARN", "clean_cid3: ", n_na_output, " of ", n_input,
@@ -188,12 +185,11 @@ clean_cid3 <- function(x) {
 
 #' Normalize municipality name for matching
 normalize_municipio_key <- function(x) {
-  x |>
-    clean_text() |>
-    stringi::stri_trans_general("Latin-ASCII") |>
-    stringr::str_to_upper() |>
-    stringr::str_replace_all("[^A-Z0-9 ]", " ") |>
-    stringr::str_squish()
+  x <- clean_text(x)
+  x <- stringi::stri_trans_general(x, "Latin-ASCII")
+  x <- toupper(x)
+  x <- gsub("[^A-Z0-9 ]", " ", x)
+  trimws(gsub("\\s+", " ", x))
 }
 
 #' Find the first matching column name from candidates
